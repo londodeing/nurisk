@@ -2,6 +2,7 @@ const { spawn } = require('child_process');
 const fs = require('fs').promises;
 const path = require('path');
 const EventEmitter = require('events');
+const DatabaseTaskHandler = require('./database-task-handler');
 
 class AiderAgent extends EventEmitter {
   constructor(config) {
@@ -23,6 +24,9 @@ class AiderAgent extends EventEmitter {
     // Create workspace directory
     this.workspaceDir = path.join(__dirname, 'workspace');
     await this.ensureDirectory(this.workspaceDir);
+    
+    // Initialize database task handler
+    this.databaseTaskHandler = new DatabaseTaskHandler(this.config);
     
     // Initialize session tracking
     this.sessionId = this.generateSessionId();
@@ -52,7 +56,16 @@ class AiderAgent extends EventEmitter {
     try {
       console.log(`[AiderAgent] Executing task: ${task.type}`);
       
-      const result = await this.runAiderCommand(task);
+      let result;
+      
+      // Handle database-specific tasks
+      if (this.isDatabaseTask(task)) {
+        result = await this.databaseTaskHandler.handleDatabaseTask(task);
+      } else {
+        // Handle regular aider tasks
+        result = await this.runAiderCommand(task);
+      }
+      
       this.tokenCount += this.estimateTokenUsage(task, result);
       
       // Log task completion
@@ -78,6 +91,18 @@ class AiderAgent extends EventEmitter {
       
       throw error;
     }
+  }
+
+  isDatabaseTask(task) {
+    const databaseTaskTypes = [
+      'schema_analysis',
+      'migration_planning', 
+      'schema_modification',
+      'seed_data_creation',
+      'query_optimization'
+    ];
+    
+    return databaseTaskTypes.includes(task.type);
   }
 
   async runAiderCommand(task) {
