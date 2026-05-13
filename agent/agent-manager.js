@@ -230,21 +230,64 @@ class AgentManager extends EventEmitter {
       throw new Error(`Active agent ${this.activeAgent} not found`);
     }
 
+    // Ensure task has required properties
+    task.id = task.id || this.generateTaskId();
+    task.timestamp = task.timestamp || new Date().toISOString();
+    task.retryCount = task.retryCount || 0;
+
+    console.log(`[AgentManager] Executing task ${task.id} with agent ${this.activeAgent}`);
+
     try {
-      return await agentData.instance.executeTask(task);
+      const result = await agentData.instance.executeTask(task);
+      
+      this.emit('taskCompleted', {
+        taskId: task.id,
+        agent: this.activeAgent,
+        result: result,
+        timestamp: new Date().toISOString()
+      });
+
+      return result;
     } catch (error) {
       console.error(`[AgentManager] Task execution failed on ${this.activeAgent}:`, error);
+      
+      this.emit('taskFailed', {
+        taskId: task.id,
+        agent: this.activeAgent,
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
       
       // Try rotation and retry
       await this.rotateAgent('task_failure');
       
-      if (this.activeAgent) {
+      if (this.activeAgent && task.retryCount < 2) {
+        task.retryCount++;
         const newAgentData = this.agents.get(this.activeAgent);
         return await newAgentData.instance.executeTask(task);
       }
       
       throw error;
     }
+  }
+
+  generateTaskId() {
+    return `task-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+  }
+
+  async queueTask(task) {
+    task.id = task.id || this.generateTaskId();
+    task.queuedAt = new Date().toISOString();
+    
+    console.log(`[AgentManager] Queuing task ${task.id}`);
+    
+    this.emit('taskQueued', {
+      taskId: task.id,
+      type: task.type,
+      timestamp: task.queuedAt
+    });
+
+    return await this.executeTask(task);
   }
 
   getSystemStatus() {

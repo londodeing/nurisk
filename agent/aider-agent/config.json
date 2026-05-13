@@ -9,8 +9,31 @@
     "refactoring",
     "documentation",
     "testing",
-    "debugging"
+    "debugging",
+    "file_creation",
+    "file_modification",
+    "architecture_analysis",
+    "migration_tasks",
+    "database_schema_work",
+    "api_development"
   ],
+  "workspace": {
+    "base_path": "../../",
+    "allowed_directories": [
+      "apps/backend",
+      "agent",
+      "epics",
+      "backend"
+    ],
+    "file_patterns": [
+      "*.js",
+      "*.ts",
+      "*.json",
+      "*.md",
+      "*.sql",
+      "*.prisma"
+    ]
+  },
   "token_management": {
     "max_tokens_per_session": 100000,
     "warning_threshold": 80000,
@@ -26,7 +49,8 @@
     "api_endpoints": [
       "/api/agents/aider/status",
       "/api/agents/aider/execute",
-      "/api/agents/aider/rotate"
+      "/api/agents/aider/rotate",
+      "/api/agents/aider/workspace"
     ],
     "notification_channels": ["socket.io", "webhook"],
     "priority_level": "high"
@@ -36,6 +60,8 @@
     "session_timeout": 3600,
     "max_concurrent_tasks": 5,
     "error_retry_count": 3,
-    "backup_on_rotation": true
+    "backup_on_rotation": true,
+    "auto_commit": false,
+    "git_integration": true
   }
 }

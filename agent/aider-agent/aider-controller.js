@@ -107,29 +107,40 @@ class AiderAgent extends EventEmitter {
 
   async runAiderCommand(task) {
     return new Promise((resolve, reject) => {
+      const workingDir = this.getWorkingDirectory(task);
       const aiderArgs = this.buildAiderArgs(task);
       
       console.log(`[AiderAgent] Running: aider ${aiderArgs.join(' ')}`);
+      console.log(`[AiderAgent] Working directory: ${workingDir}`);
       
       const aiderProcess = spawn('aider', aiderArgs, {
-        cwd: this.workspaceDir,
-        stdio: ['pipe', 'pipe', 'pipe']
+        cwd: workingDir,
+        stdio: ['pipe', 'pipe', 'pipe'],
+        env: { ...process.env, AIDER_NO_GIT: this.config.operational_parameters.auto_commit ? '0' : '1' }
       });
 
       let stdout = '';
       let stderr = '';
 
       aiderProcess.stdout.on('data', (data) => {
-        stdout += data.toString();
+        const output = data.toString();
+        stdout += output;
+        console.log(`[AiderAgent] STDOUT: ${output.trim()}`);
       });
 
       aiderProcess.stderr.on('data', (data) => {
-        stderr += data.toString();
+        const output = data.toString();
+        stderr += output;
+        console.log(`[AiderAgent] STDERR: ${output.trim()}`);
       });
 
       // Send task input to aider
       if (task.input) {
         aiderProcess.stdin.write(task.input + '\n');
+      }
+      
+      if (task.prompt) {
+        aiderProcess.stdin.write(task.prompt + '\n');
       }
       
       aiderProcess.stdin.end();
@@ -139,7 +150,9 @@ class AiderAgent extends EventEmitter {
           resolve({
             success: true,
             output: stdout,
+            stderr: stderr,
             code: code,
+            workingDir: workingDir,
             timestamp: new Date().toISOString()
           });
         } else {
@@ -155,44 +168,102 @@ class AiderAgent extends EventEmitter {
     });
   }
 
+  getWorkingDirectory(task) {
+    if (task.workingDir) {
+      return path.resolve(task.workingDir);
+    }
+    
+    // Use project root as default working directory
+    const projectRoot = path.resolve(__dirname, this.config.workspace.base_path);
+    
+    // If task specifies a specific directory context
+    if (task.context && task.context.directory) {
+      const contextDir = path.join(projectRoot, task.context.directory);
+      return contextDir;
+    }
+    
+    return projectRoot;
+  }
+
   buildAiderArgs(task) {
     const args = [];
     
     // Basic aider configuration
-    args.push('--no-git');
+    if (!this.config.operational_parameters.git_integration) {
+      args.push('--no-git');
+    }
     args.push('--yes');
+    
+    // Model selection if specified
+    if (task.model) {
+      args.push('--model', task.model);
+    }
     
     // Task-specific arguments
     switch (task.type) {
       case 'code_generation':
         args.push('--message', task.prompt);
-        if (task.files) {
+        if (task.files && task.files.length > 0) {
           args.push(...task.files);
         }
         break;
         
       case 'code_review':
-        args.push('--review');
-        args.push('--message', `Review: ${task.prompt}`);
-        if (task.files) {
+        args.push('--message', `Review the following code: ${task.prompt}`);
+        if (task.files && task.files.length > 0) {
           args.push(...task.files);
         }
         break;
         
       case 'refactoring':
         args.push('--message', `Refactor: ${task.prompt}`);
-        if (task.files) {
+        if (task.files && task.files.length > 0) {
           args.push(...task.files);
         }
         break;
         
       case 'documentation':
-        args.push('--message', `Document: ${task.prompt}`);
-        args.push('--doc');
+        args.push('--message', `Add documentation: ${task.prompt}`);
+        if (task.files && task.files.length > 0) {
+          args.push(...task.files);
+        }
+        break;
+
+      case 'file_creation':
+        args.push('--message', `Create new file: ${task.prompt}`);
+        break;
+
+      case 'file_modification':
+        args.push('--message', `Modify files: ${task.prompt}`);
+        if (task.files && task.files.length > 0) {
+          args.push(...task.files);
+        }
+        break;
+
+      case 'migration_tasks':
+        args.push('--message', `Migration task: ${task.prompt}`);
+        if (task.files && task.files.length > 0) {
+          args.push(...task.files);
+        }
+        break;
+
+      case 'api_development':
+        args.push('--message', `API development: ${task.prompt}`);
+        if (task.files && task.files.length > 0) {
+          args.push(...task.files);
+        }
         break;
         
       default:
-        args.push('--message', task.prompt);
+        args.push('--message', task.prompt || 'Execute task');
+        if (task.files && task.files.length > 0) {
+          args.push(...task.files);
+        }
+    }
+    
+    // Add additional flags if specified
+    if (task.flags) {
+      args.push(...task.flags);
     }
     
     return args;
