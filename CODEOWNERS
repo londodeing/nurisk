@@ -1,0 +1,22 @@
+# Package-level ownership rules
+/packages/shared-types/ @nurisk/architecture-team
+/packages/shared/ @nurisk/shared-team
+/packages/sdk/ @nurisk/frontend-team
+/packages/validation/ @nurisk/backend-team
+
+# Application ownership
+/backend/ @nurisk/backend-team
+/frontend-web/ @nurisk/frontend-team
+
+# Architecture documentation
+/docs/architecture/ @nurisk/architecture-team
+/docs/architecture/tasks/ @nurisk/architecture-team
+
+# Documentation ownership
+/docs/ @nurisk/docs-team
+
+# Infrastructure ownership
+/infrastructure/ @nurisk/infra-team
+
+# Prisma schema ownership
+/backend/prisma/ @nurisk/backend-team

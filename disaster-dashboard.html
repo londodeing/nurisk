@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NURisk - Pusdatin NU Peduli Jateng</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --red: #DC2626;
+  --red-light: #FEE2E2;
+  --orange: #F97316;
+  --orange-light: #FFEDD5;
+  --blue: #3B82F6;
+  --blue-light: #DBEAFE;
+  --green: #16A34A;
+  --green-light: #DCFCE7;
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-700: #374151;
+  --gray-900: #111827;
+  --radius: 14px;
+  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--gray-100);
+  color: var(--gray-900);
+  max-width: 420px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+.header {
+  background: var(--gray-900);
+  color: white;
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-brand { display: flex; align-items: center; gap: 10px; }
+.logo { font-size: 28px; }
+.header h1 { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
+.header-subtitle { font-size: 11px; opacity: 0.8; }
+.header-status {
+  background: var(--green);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.section {
+  padding: 16px 12px 8px;
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--gray-700);
+  margin-bottom: 10px;
+  padding: 0 4px;
+}
+
+.card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+}
+
+.stats-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.stat-card {
+  background: white;
+  border-radius: var(--radius);
+  padding: 14px 10px;
+  text-align: center;
+  box-shadow: var(--shadow);
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--red);
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--gray-700);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+/* Weather Scroll */
+.weather-scroll {
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  padding: 0 4px;
+  scrollbar-width: none;
+}
+.weather-scroll::-webkit-scrollbar { display: none; }
+.weather-item, .weather-day {
+  min-width: 70px;
+  text-align: center;
+  background: white;
+  padding: 10px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-size: 12px;
+}
+.weather-item .time, .weather-day .day {
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+/* Alert */
+.alert-card {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px;
+}
+.alert-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.alert-icon.danger { background: var(--red-light); }
+.alert-icon.warning { background: var(--orange-light); }
+.alert-icon.info { background: var(--blue-light); }
+.alert-content h4 {
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.alert-content p {
+  font-size: 13px;
+  color: var(--gray-700);
+  line-height: 1.4;
+}
+
+/* Status Badge */
+.status-badge {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.status-badge.reported { background: var(--gray-200); color: var(--gray-700); }
+.status-badge.verified { background: var(--blue-light); color: var(--blue); }
+.status-badge.assess { background: var(--orange-light); color: var(--orange); }
+.status-badge.command { background: #E9D5FF; color: #7E22CE; }
+.status-badge.action { background: var(--green-light); color: var(--green); }
+.status-badge.complete { background: var(--gray-200); color: var(--gray-700); }
+
+/* Disaster Card */
+.disaster-card { padding: 14px; }
+.status-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.disaster-card h4 { font-size: 14px; font-weight: 700; }
+.map-small {
+  height: 150px;
+  background: var(--gray-100);
+  border-radius: 10px;
+  margin: 8px 0;
+  position: relative;
+  overflow: hidden;
+}
+.map-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #E0F2FE 0%, #DBEAFE 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  position: relative;
+}
+.map-marker {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
+  background: var(--red);
+}
+.map-icon { font-size: 24px; }
+.map-label { font-size: 11px; color: var(--gray-700); font-weight: 600; }
+.impact {
+  font-size: 13px;
+  color: var(--gray-700);
+  margin: 6px 0;
+}
+.summary {
+  font-size: 13px;
+  line-height: 1.4;
+  margin-bottom: 6px;
+}
+.reporter {
+  font-size: 12px;
+  color: var(--blue);
+  font-weight: 600;
+}
+
+/* Trend Chart */
+.trend-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  height: 150px;
+  padding: 0 4px;
+}
+.chart-bar {
+  flex: 1;
+  background: var(--red);
+  border-radius: 4px 4px 0 0;
+  min-width: 20px;
+  position: relative;
+}
+.chart-value {
+  position: absolute;
+  top: -18px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 10px;
+  font-weight: 600;
+}
+.chart-label {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: 10px;
+  color: var(--gray-700);
+}
+
+/* Probability Card */
+.prob-card { padding: 14px; margin-bottom: 10px; }
+.prob-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+.prob-title { font-size: 14px; font-weight: 700; }
+.prob-level {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-weight: 600;
+}
+.prob-level.tinggi { background: var(--red-light); color: var(--red); }
+.prob-level.sedang { background: var(--orange-light); color: var(--orange); }
+.prob-level.rendah { background: var(--green-light); color: var(--green); }
+.prob-bar {
+  height: 8px;
+  background: var(--gray-200);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.prob-fill { height: 100%; border-radius: 4px; }
+
+/* Gap Analysis */
+.gap-item { margin-bottom: 12px; }
+.gap-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.gap-bar {
+  height: 10px;
+  background: var(--gray-200);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.gap-fill {
+  height: 100%;
+  background: var(--blue);
+  border-radius: 5px;
+}
+
+/* Donation */
+.donation-card { text-align: center; padding: 20px; }
+.donation-title {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.donation-text {
+  font-size: 13px;
+  color: var(--gray-700);
+  margin-bottom: 12px;
+}
+.donate-btn {
+  background: var(--red);
+  color: white;
+  border: none;
+  padding: 10px 24px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.qr-placeholder {
+  width: 120px;
+  height: 120px;
+  background: var(--gray-200);
+  border-radius: 8px;
+  margin: 12px auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  color: var(--gray-700);
+}
+
+/* Bottom Bar */
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border-top: 1px solid var(--gray-200);
+  display: flex;
+  justify-content: space-around;
+  padding: 10px 0;
+  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+}
+
+.bottom-bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--gray-700);
+}
+
+.bottom-bar-icon { font-size: 20px; }
+.bottom-bar-item.active { color: var(--blue); }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header">
+  <div class="header-brand">
+    <div class="logo">🛡️</div>
+    <div>
+      <h1>NURisk</h1>
+      <div class="header-subtitle">Pusdatin NU Peduli Jateng</div>
+    </div>
+  </div>
+  <span class="header-status">Active</span>
+</div>
+
+<!-- KPI Cards -->
+<div class="section">
+  <div class="section-title">KPI Utama</div>
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">12</div>
+      <div class="stat-label">Kejadian</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Misi Aktif</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">8</div>
+      <div class="stat-label">Respon Aksi</div>
+    </div>
+  </div>
+</div>
+
+<!-- Ramalan Cuaca -->
+<div class="section">
+  <div class="section-title">Ramalan Cuaca</div>
+  <div class="weather-scroll">
+    <div class="weather-item">
+      <div class="time">08:00</div>
+      🌧️ 24°
+    </div>
+    <div class="weather-item">
+      <div class="time">09:00</div>
+      🌧️ 25°
+    </div>
+    <div class="weather-item">
+      <div class="time">10:00</div>
+      ⛅ 26°
+    </div>
+    <div class="weather-item">
+      <div class="time">11:00</div>
+      ☀️ 27°
+    </div>
+    <div class="weather-item">
+      <div class="time">12:00</div>
+      ☀️ 28°
+    </div>
+    <div class="weather-item">
+      <div class="time">13:00</div>
+      ⛅ 27°
+    </div>
+    <div class="weather-day">
+      <div class="day">Besok</div>
+      ⛅ 26°
+    </div>
+    <div class="weather-day">
+      <div class="day">Lusa</div>
+      ☀️ 28°
+    </div>
+    <div class="weather-day">
+      <div class="day">3 Hari Lagi</div>
+      🌧️ 25°
+    </div>
+    <div class="weather-day">
+      <div class="day">4 Hari Lagi</div>
+      ⛅ 27°
+    </div>
+  </div>
+</div>
+
+<!-- Peringatan -->
+<div class="section">
+  <div class="section-title">Peringatan</div>
+  <div class="card alert-card">
+    <div class="alert-icon danger">⛈️</div>
+    <div class="alert-content">
+      <h4>Peringatan Cuaca Ekstrem</h4>
+      <p>Hujan lebat disertai angin kencang wilayah Semarang Raya hingga 2 hari ke depan.</p>
+    </div>
+  </div>
+  <div class="card alert-card">
+    <div class="alert-icon warning">🌍</div>
+    <div class="alert-content">
+      <h4>Peringatan Seismik</h4>
+      <p>Aktivitas gempa mikro terdeteksi di wilayah Ungaran, waspada potensi gempa darat.</p>
+    </div>
+  </div>
+  <div class="card alert-card">
+    <div class="alert-icon info">🌋</div>
+    <div class="alert-content">
+      <h4>Peringatan Vulkanik</h4>
+      <p>Status Gunung Merapi Level II (Waspada), hindari radius 3 km dari puncak.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Bencana Terkini Terverifikasi -->
+<div class="section">
+  <div class="section-title">Bencana Terkini Terverifikasi</div>
+  <div class="card disaster-card">
+    <div class="status-row">
+      <h4>Banjir Bandang Semarang</h4>
+      <span class="status-badge verified">Verified</span>
+    </div>
+    <div class="map-small">
+      <div class="map-placeholder">
+        <div class="map-marker" style="top:40%; left:45%;"></div>
+        <div class="map-icon">🗺️</div>
+        <div class="map-label">Lokasi Bencana</div>
+      </div>
+    </div>
+    <div class="impact">Dampak: 120 KK, 3 Rumah Rusak Berat, 2 Rumah Rusak Ringan</div>
+    <div class="summary">Ringkasan: Hujan deras sejak pagi menyebabkan sungai meluap, membanjiri pemukiman warga di Kecamatan Semarang Utara.</div>
+    <div class="reporter">Pelapor: Tim TRC NU Peduli Jateng (0812-3456-7890)</div>
+  </div>
+  <div class="card disaster-card">
+    <div class="status-row">
+      <h4>Tanah Longsor Salatiga</h4>
+      <span class="status-badge assess">Assess</span>
+    </div>
+    <div class="map-small">
+      <div class="map-placeholder">
+        <div class="map-marker" style="top:30%; left:50%;"></div>
+        <div class="map-icon">🗺️</div>
+        <div class="map-label">Lokasi Bencana</div>
+      </div>
+    </div>
+    <div class="impact">Dampak: 5 KK, 1 Rumah Tertimbun Material</div>
+    <div class="summary">Ringkasan: Longsor terjadi akibat hujan deras merusak struktur tanah di perbukitan Salatiga.</div>
+    <div class="reporter">Tim Assess: Tim TRC NU Peduli Jateng (0812-3456-7890)</div>
+  </div>
+  <div class="card disaster-card">
+    <div class="status-row">
+      <h4>Kebakaran Pasar Demak</h4>
+      <span class="status-badge action">Action</span>
+    </div>
+    <div class="map-small">
+      <div class="map-placeholder">
+        <div class="map-marker" style="top:50%; left:40%;"></div>
+        <div class="map-icon">🗺️</div>
+        <div class="map-label">Lokasi Bencana</div>
+      </div>
+    </div>
+    <div class="impact">Dampak: 10 Kios Terbakar, Tidak Ada Korban Jiwa</div>
+    <div class="summary">Ringkasan: Kebakaran terjadi akibat korsleting listrik di Pasar Demak, pemadaman sedang dilakukan.</div>
+  </div>
+</div>
+
+<!-- Trend Bencana -->
+<div class="section">
+  <div class="section-title">Trend Bencana</div>
+  <div class="card">
+    <div class="trend-chart">
+      <div class="chart-bar" style="height: 60%;">
+        <div class="chart-value">8</div>
+        <div class="chart-label">Jan</div>
+      </div>
+      <div class="chart-bar" style="height: 40%;">
+        <div class="chart-value">5</div>
+        <div class="chart-label">Feb</div>
+      </div>
+      <div class="chart-bar" style="height: 70%;">
+        <div class="chart-value">10</div>
+        <div class="chart-label">Mar</div>
+      </div>
+      <div class="chart-bar" style="height: 50%;">
+        <div class="chart-value">7</div>
+        <div class="chart-label">Apr</div>
+      </div>
+      <div class="chart-bar" style="height: 80%;">
+        <div class="chart-value">12</div>
+        <div class="chart-label">Mei</div>
+      </div>
+      <div class="chart-bar" style="height: 60%;">
+        <div class="chart-value">9</div>
+        <div class="chart-label">Jun</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Probabilitas Bencana -->
+<div class="section">
+  <div class="section-title">Probabilitas Bencana</div>
+  <div class="prob-card">
+    <div class="prob-header">
+      <div class="prob-title">Banjir</div>
+      <span class="prob-level tinggi">Tinggi</span>
+    </div>
+    <div class="prob-bar">
+      <div class="prob-fill" style="width: 80%; background: var(--red);"></div>
+    </div>
+  </div>
+  <div class="prob-card">
+    <div class="prob-header">
+      <div class="prob-title">Kekeringan</div>
+      <span class="prob-level sedang">Sedang</span>
+    </div>
+    <div class="prob-bar">
+      <div class="prob-fill" style="width: 50%; background: var(--orange);"></div>
+    </div>
+  </div>
+  <div class="prob-card">
+    <div class="prob-header">
+      <div class="prob-title">Tanah Longsor</div>
+      <span class="prob-level tinggi">Tinggi</span>
+    </div>
+    <div class="prob-bar">
+      <div class="prob-fill" style="width: 75%; background: var(--red);"></div>
+    </div>
+  </div>
+  <div class="prob-card">
+    <div class="prob-header">
+      <div class="prob-title">Kebakaran Hutan</div>
+      <span class="prob-level rendah">Rendah</span>
+    </div>
+    <div class="prob-bar">
+      <div class="prob-fill" style="width: 20%; background: var(--green);"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Gap Analisis Kebutuhan -->
+<div class="section">
+  <div class="section-title">Gap Analisis Kebutuhan</div>
+  <div class="card">
+    <div class="gap-item">
+      <div class="gap-header">
+        <span>Makanan Siap Saji</span>
+        <span>500/1200</span>
+      </div>
+      <div class="gap-bar">
+        <div class="gap-fill" style="width: 41.6%;"></div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-header">
+        <span>Pakaian Layak Pakai</span>
+        <span>300/800</span>
+      </div>
+      <div class="gap-bar">
+        <div class="gap-fill" style="width: 37.5%;"></div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-header">
+        <span>Obat-obatan</span>
+        <span>200/500</span>
+      </div>
+      <div class="gap-bar">
+        <div class="gap-fill" style="width: 40%;"></div>
+      </div>
+    </div>
+    <div class="gap-item">
+      <div class="gap-header">
+        <span>Tenda Darurat</span>
+        <span>150/300</span>
+      </div>
+      <div class="gap-bar">
+        <div class="gap-fill" style="width: 50%;"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Donasi -->
+<div class="section">
+  <div class="section-title">Donasi</div>
+  <div class="card donation-card">
+    <div class="donation-title">Bantu Korban Bencana</div>
+    <div class="donation-text">Donasi Anda akan disalurkan langsung kepada korban bencana melalui NU Peduli Jateng.</div>
+    <div class="qr-placeholder">QR Code</div>
+    <button class="donate-btn">Donasi Sekarang</button>
+    <div style="font-size:12px; color:var(--gray-700); margin-top:8px;">Transfer: BNI 1234567890 a.n. NU Peduli Jateng</div>
+  </div>
+</div>
+
+<!-- Bottom Navigation -->
+<div class="bottom-bar">
+  <div class="bottom-bar-item active">
+    <div class="bottom-bar-icon">🏠</div>
+    Home
+  </div>
+  <div class="bottom-bar-item">
+    <div class="bottom-bar-icon">🗺️</div>
+    Map
+  </div>
+  <div class="bottom-bar-item">
+    <div class="bottom-bar-icon">📝</div>
+    Lapor
+  </div>
+  <div class="bottom-bar-item">
+    <div class="bottom-bar-icon">📦</div>
+    Resource
+  </div>
+  <div class="bottom-bar-item">
+    <div class="bottom-bar-icon">👤</div>
+    Akun
+  </div>
+</div>
+
+</body>
+</html>

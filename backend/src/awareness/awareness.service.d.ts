@@ -1,0 +1,105 @@
+import { PrismaService } from '../prisma/prisma.service';
+export declare class AwarenessService {
+    private readonly prisma;
+    constructor(prisma: PrismaService);
+    createRoute(data: any): Promise<any>;
+    listRoutes(filter: any): Promise<{
+        name: string | null;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        description: string | null;
+        status: import("@prisma/client").$Enums.EvacuationRouteStatus | null;
+        origin: string | null;
+        incidentId: string | null;
+        originId: string | null;
+        destinationId: string | null;
+        destination: string | null;
+        distance: number | null;
+        estimatedTime: number | null;
+    }[]>;
+    getRouteById(id: string): Promise<{
+        name: string | null;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        description: string | null;
+        status: import("@prisma/client").$Enums.EvacuationRouteStatus | null;
+        origin: string | null;
+        incidentId: string | null;
+        originId: string | null;
+        destinationId: string | null;
+        destination: string | null;
+        distance: number | null;
+        estimatedTime: number | null;
+    }>;
+    createZone(data: any): Promise<any>;
+    listZones(filter: any): Promise<{
+        name: string;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        description: string | null;
+        incidentId: string | null;
+        radius: number | null;
+        restrictionType: import("@prisma/client").$Enums.ExclusionZoneType;
+        level: import("@prisma/client").$Enums.ExclusionZoneLevel;
+        restrictions: string[];
+        effectiveFrom: Date;
+        effectiveTo: Date | null;
+        hazardZoneId: string | null;
+        regionId: string | null;
+    }[]>;
+    getZoneById(id: string): Promise<{
+        name: string;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        description: string | null;
+        incidentId: string | null;
+        radius: number | null;
+        restrictionType: import("@prisma/client").$Enums.ExclusionZoneType;
+        level: import("@prisma/client").$Enums.ExclusionZoneLevel;
+        restrictions: string[];
+        effectiveFrom: Date;
+        effectiveTo: Date | null;
+        hazardZoneId: string | null;
+        regionId: string | null;
+    }>;
+    updateZone(id: string, data: any): Promise<{
+        name: string;
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        description: string | null;
+        incidentId: string | null;
+        radius: number | null;
+        restrictionType: import("@prisma/client").$Enums.ExclusionZoneType;
+        level: import("@prisma/client").$Enums.ExclusionZoneLevel;
+        restrictions: string[];
+        effectiveFrom: Date;
+        effectiveTo: Date | null;
+        hazardZoneId: string | null;
+        regionId: string | null;
+    }>;
+    getTactical(incidentId: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        description: string | null;
+        createdBy: string | null;
+        metadata: import("@prisma/client/runtime/library").JsonValue | null;
+        incidentId: string;
+        regionId: string | null;
+        priority: import("@prisma/client").$Enums.TacticalPriority;
+        deployedUnits: number;
+        sheltersOccupied: number;
+        resourcesDeployed: number;
+    }>;
+}
+//# sourceMappingURL=awareness.service.d.ts.map

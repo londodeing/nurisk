@@ -1,0 +1,33 @@
+◇ injected env (0) from .env // tip: ⌁ auth for agents [www.vestauth.com]
+[SCHEDULER] Starting all schedulers...
+[SCHEDULER] Earthquake: every 1 min (* * * * *)
+[SCHEDULER] Volcano: No collection (status: NORMAL)
+[SCHEDULER] News RSS: every 60 min (0 */1 * * *)
+[SCHEDULER] CEVADIS: every 30 min (*/30 * * * *)
+Warning: Route /api/volunteers could not be loaded.
+[ROUTES] Loading analytics routes...
+[ROUTES] Analytics routes loaded successfully
+Warning: Route /api/playbooks could not be loaded.
+Warning: Route /api/playbooks could not be loaded.
+Warning: Route /api/rules could not be loaded.
+
+    ==================================================
+     PUSDATIN ENGINE STARTED ON PORT 7860
+    ==================================================
+    
+[MIGRATION] Rules tables: role "Admin" does not exist
+❌ MIGRATION ERROR: role "Admin" does not exist
+[MIGRATION] Playbook tables: role "Admin" does not exist
+[MIGRATION] Playbook execution tables: role "Admin" does not exist
+[SCHEDULER] Running earthquake scraper...
+[AI-SEISMIC] Scraping BMKG Earthquake Data (Central Java only)...
+[BMKG] Latest: OK (0 processed)
+[BMKG] M5+: OK (0 processed)
+[BMKG] Felt: OK (0 processed)
+✅ [AI-SEISMIC] Total Central Java earthquakes: 0
+[SCHEDULER] Running earthquake scraper...
+[AI-SEISMIC] Scraping BMKG Earthquake Data (Central Java only)...
+[BMKG] Latest: OK (0 processed)
+[BMKG] M5+: OK (0 processed)
+[BMKG] Felt: OK (0 processed)
+✅ [AI-SEISMIC] Total Central Java earthquakes: 0

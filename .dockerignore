@@ -1,0 +1,16 @@
+.git
+.gitignore
+node_modules
+dist
+.turbo
+*.log
+.env
+.env.*
+coverage
+*.tsbuildinfo
+.eslintcache
+.pnpm-store
+__pycache__
+*.pyc
+*.pyo
+*.map

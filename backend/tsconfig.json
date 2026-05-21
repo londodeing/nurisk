@@ -1,0 +1,34 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "ignoreDeprecations": "6.0",
+    "types": [
+      "node",
+      "jest"
+    ],
+    "baseUrl": ".",
+    "outDir": "./dist",
+    "paths": {
+      "@nurisk/validation": ["../packages/validation/dist/index.d.ts"],
+      "@nurisk/validation/*": ["../packages/validation/dist/*/index.d.ts"],
+      "@nurisk/shared-types": ["../packages/shared-types/dist/index.d.ts"],
+      "@nurisk/shared-types/*": ["../packages/shared-types/dist/*/index.d.ts"]
+    }
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "src/**/*.spec.ts",
+    "src/test/**/*",
+    "src/controllers/**/*.spec.ts"
+  ]
+}

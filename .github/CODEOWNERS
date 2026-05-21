@@ -1,0 +1,19 @@
+# Global owners
+* @nurisk/core
+
+# Backend
+/backend/ @nurisk/backend-team
+
+# Frontend
+/frontend-web/ @nurisk/frontend-team
+
+# Shared packages
+/packages/shared-types/ @nurisk/core
+/packages/sdk/ @nurisk/core
+/packages/validation/ @nurisk/core
+
+# CI/CD
+/.github/ @nurisk/devops
+
+# Documentation
+/docs/ @nurisk/core

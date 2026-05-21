@@ -1,0 +1,94 @@
+{
+  "roles": {
+    "SUPER_ADMIN": {
+      "level": 100,
+      "secret_key": "PWNU",
+      "scope": "all",
+      "description": "Full system access",
+      "regions": ["*"],
+      "can_create_users": true,
+      "can_delete_data": true
+    },
+    "ADMIN_PWNU": {
+      "level": 90,
+      "secret_key": "PWNU",
+      "scope": "province",
+      "description": "Province-level admin",
+      "regions": ["Jawa Tengah"],
+      "can_create_users": true,
+      "can_delete_data": false
+    },
+    "PWNU": {
+      "level": 85,
+      "secret_key": "PWNU",
+      "scope": "province",
+      "description": "PWNU staff",
+      "regions": ["Jawa Tengah"],
+      "can_create_users": false,
+      "can_delete_data": false
+    },
+    "STAFF_PWNU": {
+      "level": 80,
+      "secret_key": "PWNU",
+      "scope": "province",
+      "description": "PWNU operational staff",
+      "regions": ["Jawa Tengah"],
+      "can_create_users": false,
+      "can_delete_data": false
+    },
+    "COMMANDER": {
+      "level": 75,
+      "secret_key": "PWNU",
+      "scope": "operations",
+      "description": "Operation commander",
+      "regions": ["Jawa Tengah"],
+      "can_create_users": false,
+      "can_delete_data": false
+    },
+    "ADMIN_PCNU": {
+      "level": 70,
+      "secret_key": "PCNU",
+      "scope": "regency",
+      "description": "Regency-level admin",
+      "regions": ["user_region_only"],
+      "can_create_users": true,
+      "can_delete_data": false
+    },
+    "STAFF_PCNU": {
+      "level": 60,
+      "secret_key": "PCNU",
+      "scope": "regency",
+      "description": "PCNU staff",
+      "regions": ["user_region_only"],
+      "can_create_users": false,
+      "can_delete_data": false
+    },
+    "FIELD_STAFF": {
+      "level": 50,
+      "secret_key": null,
+      "scope": "field",
+      "description": "Field operator",
+      "regions": ["user_region_only"],
+      "can_create_users": false,
+      "can_delete_data": false
+    },
+    "RELAWAN": {
+      "level": 40,
+      "secret_key": null,
+      "scope": "volunteer",
+      "description": "Volunteer",
+      "regions": ["user_region_only"],
+      "can_create_users": false,
+      "can_delete_data": false
+    },
+    "PUBLIC": {
+      "level": 10,
+      "secret_key": null,
+      "scope": "public",
+      "description": "Public user",
+      "regions": [],
+      "can_create_users": false,
+      "can_delete_data": false
+    }
+  }
+}

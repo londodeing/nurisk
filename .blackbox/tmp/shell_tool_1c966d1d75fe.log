@@ -1,0 +1,719 @@
+
+=== NURisk Epics Agent v1.0.0-EPICS - LOOP ===
+
+[2026-05-14 12:01:16] [INFO] State loaded: 64 done, 60 blocked
+[2026-05-14 12:01:16] [INFO] Indexed 705 tasks across 18 epics
+[2026-05-14 12:01:16] [INFO] Started: 705 tasks, 626 pending
+[2026-05-14 12:01:16] [INFO] Selected: E04/F03/T03 - T03-task-t03
+[2026-05-14 12:01:16] [INFO] >>> E04/F03 - T03-task-t03
+[2026-05-14 12:01:16] [INFO] Attempt 1/4 [blackbox/minimax]
+[2026-05-14 12:01:16] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T02-task-t02.md-19e265cca84
+[2026-05-14 12:01:16] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5452 chars
+[2026-05-14 12:01:16] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:01:19] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:01:19] [INFO] Blackbox stdout: 
+[2026-05-14 12:01:19] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T03-task-t03.md-19e265cd8ed
+[2026-05-14 12:01:19] [ERROR] Failure #17
+[2026-05-14 12:01:19] [INFO] Attempt 2/4 [blackbox/gpt-4o]
+[2026-05-14 12:01:19] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T03-task-t03.md-19e265cd8ed
+[2026-05-14 12:01:19] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5189 chars
+[2026-05-14 12:01:19] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:01:23] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:01:23] [INFO] Blackbox stdout: 
+[2026-05-14 12:01:23] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T03-task-t03.md-19e265ce700
+[2026-05-14 12:01:23] [ERROR] Failure #18
+[2026-05-14 12:01:23] [INFO] Attempt 3/4 [blackbox/minimax]
+[2026-05-14 12:01:23] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T03-task-t03.md-19e265ce700
+[2026-05-14 12:01:23] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5440 chars
+[2026-05-14 12:01:23] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:01:26] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:01:26] [INFO] Blackbox stdout: 
+[2026-05-14 12:01:26] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T03-task-t03.md-19e265cf455
+[2026-05-14 12:01:26] [ERROR] Failure #19
+[2026-05-14 12:01:26] [INFO] Attempt 4/4 [blackbox/gpt-4o]
+[2026-05-14 12:01:26] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T03-task-t03.md-19e265cf455
+[2026-05-14 12:01:26] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5440 chars
+[2026-05-14 12:01:26] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:01:30] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:01:30] [INFO] Blackbox stdout: 
+[2026-05-14 12:01:30] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T03-task-t03.md-19e265d01dd
+[2026-05-14 12:01:30] [ERROR] Failure #20
+[2026-05-14 12:01:30] [ERROR] FAILED: E04-volunteers-auth\F03-asset-inventory\T03-task-t03.md
+[2026-05-14 12:01:35] [WARN] Recovery phase 9
+[2026-05-14 12:01:35] [WARN] Recovery: SAFE
+[2026-05-14 12:02:35] [INFO] Selected: E04/F03/T04 - T04-task-t04
+[2026-05-14 12:02:35] [INFO] >>> E04/F03 - T04-task-t04
+[2026-05-14 12:02:35] [INFO] Attempt 1/4 [blackbox/minimax]
+[2026-05-14 12:02:35] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T03-task-t03.md-19e265d01dd
+[2026-05-14 12:02:35] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5439 chars
+[2026-05-14 12:02:35] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:02:38] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:02:38] [INFO] Blackbox stdout: 
+[2026-05-14 12:02:38] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T04-task-t04.md-19e265e0cb8
+[2026-05-14 12:02:38] [ERROR] Failure #1
+[2026-05-14 12:02:38] [INFO] Attempt 2/4 [blackbox/gpt-4o]
+[2026-05-14 12:02:38] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T04-task-t04.md-19e265e0cb8
+[2026-05-14 12:02:38] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5191 chars
+[2026-05-14 12:02:38] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:02:41] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:02:41] [INFO] Blackbox stdout: 
+[2026-05-14 12:02:41] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T04-task-t04.md-19e265e19e8
+[2026-05-14 12:02:41] [ERROR] Failure #2
+[2026-05-14 12:02:41] [INFO] Attempt 3/4 [blackbox/minimax]
+[2026-05-14 12:02:41] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T04-task-t04.md-19e265e19e8
+[2026-05-14 12:02:41] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5442 chars
+[2026-05-14 12:02:41] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:02:45] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:02:45] [INFO] Blackbox stdout: 
+[2026-05-14 12:02:45] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T04-task-t04.md-19e265e27d9
+[2026-05-14 12:02:45] [ERROR] Failure #3
+[2026-05-14 12:02:45] [INFO] Attempt 4/4 [blackbox/gpt-4o]
+[2026-05-14 12:02:45] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T04-task-t04.md-19e265e27d9
+[2026-05-14 12:02:45] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5442 chars
+[2026-05-14 12:02:45] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:02:49] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:02:49] [INFO] Blackbox stdout: 
+[2026-05-14 12:02:49] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T04-task-t04.md-19e265e3647
+[2026-05-14 12:02:49] [ERROR] Failure #4
+[2026-05-14 12:02:49] [ERROR] FAILED: E04-volunteers-auth\F03-asset-inventory\T04-task-t04.md
+[2026-05-14 12:02:54] [INFO] Selected: E04/F03/T05 - T05-write-asset-tests
+[2026-05-14 12:02:54] [INFO] >>> E04/F03 - T05-write-asset-tests
+[2026-05-14 12:02:54] [INFO] Attempt 1/4 [blackbox/minimax]
+[2026-05-14 12:02:54] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T04-task-t04.md-19e265e3647
+[2026-05-14 12:02:54] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5445 chars
+[2026-05-14 12:02:54] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:02:57] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:02:57] [INFO] Blackbox stdout: 
+[2026-05-14 12:02:57] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T05-write-asset-tests.md-19e265e568c
+[2026-05-14 12:02:57] [ERROR] Failure #5
+[2026-05-14 12:02:57] [INFO] Attempt 2/4 [blackbox/gpt-4o]
+[2026-05-14 12:02:57] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T05-write-asset-tests.md-19e265e568c
+[2026-05-14 12:02:57] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5206 chars
+[2026-05-14 12:02:57] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:00] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:00] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:00] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T05-write-asset-tests.md-19e265e63c7
+[2026-05-14 12:03:00] [ERROR] Failure #6
+[2026-05-14 12:03:00] [INFO] Attempt 3/4 [blackbox/minimax]
+[2026-05-14 12:03:00] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T05-write-asset-tests.md-19e265e63c7
+[2026-05-14 12:03:00] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5434 chars
+[2026-05-14 12:03:00] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:04] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:04] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:04] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T05-write-asset-tests.md-19e265e7216
+[2026-05-14 12:03:04] [ERROR] Failure #7
+[2026-05-14 12:03:04] [INFO] Attempt 4/4 [blackbox/gpt-4o]
+[2026-05-14 12:03:04] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T05-write-asset-tests.md-19e265e7216
+[2026-05-14 12:03:04] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5434 chars
+[2026-05-14 12:03:04] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:07] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:07] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:07] [INFO] Checkpoint saved: E04-volunteers-auth-F03-asset-inventory-T05-write-asset-tests.md-19e265e7fc6
+[2026-05-14 12:03:07] [ERROR] Failure #8
+[2026-05-14 12:03:07] [ERROR] FAILED: E04-volunteers-auth\F03-asset-inventory\T05-write-asset-tests.md
+[2026-05-14 12:03:12] [INFO] Selected: E04/F04/T01 - T01-task-t01
+[2026-05-14 12:03:12] [INFO] >>> E04/F04 - T01-task-t01
+[2026-05-14 12:03:12] [INFO] Attempt 1/4 [blackbox/minimax]
+[2026-05-14 12:03:12] [INFO] Including checkpoint context: E04-volunteers-auth-F03-asset-inventory-T05-write-asset-tests.md-19e265e7fc6
+[2026-05-14 12:03:12] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5536 chars
+[2026-05-14 12:03:12] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:16] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:16] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:16] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T01-task-t01.md-19e265ea041
+[2026-05-14 12:03:16] [ERROR] Failure #9
+[2026-05-14 12:03:16] [INFO] Attempt 2/4 [blackbox/gpt-4o]
+[2026-05-14 12:03:16] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T01-task-t01.md-19e265ea041
+[2026-05-14 12:03:16] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5305 chars
+[2026-05-14 12:03:16] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:19] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:19] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:19] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T01-task-t01.md-19e265eadc1
+[2026-05-14 12:03:19] [ERROR] Failure #10
+[2026-05-14 12:03:19] [INFO] Attempt 3/4 [blackbox/minimax]
+[2026-05-14 12:03:19] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T01-task-t01.md-19e265eadc1
+[2026-05-14 12:03:19] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5601 chars
+[2026-05-14 12:03:19] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:23] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:23] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:23] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T01-task-t01.md-19e265ebbe0
+[2026-05-14 12:03:23] [ERROR] Failure #11
+[2026-05-14 12:03:23] [INFO] Attempt 4/4 [blackbox/gpt-4o]
+[2026-05-14 12:03:23] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T01-task-t01.md-19e265ebbe0
+[2026-05-14 12:03:23] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5601 chars
+[2026-05-14 12:03:23] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:26] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:26] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:26] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T01-task-t01.md-19e265ec9a2
+[2026-05-14 12:03:26] [ERROR] Failure #12
+[2026-05-14 12:03:26] [ERROR] FAILED: E04-volunteers-auth\F04-asset-transactions\T01-task-t01.md
+[2026-05-14 12:03:31] [INFO] Selected: E04/F04/T02 - T02-task-t02
+[2026-05-14 12:03:31] [INFO] >>> E04/F04 - T02-task-t02
+[2026-05-14 12:03:31] [INFO] Attempt 1/4 [blackbox/minimax]
+[2026-05-14 12:03:31] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T01-task-t01.md-19e265ec9a2
+[2026-05-14 12:03:31] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5563 chars
+[2026-05-14 12:03:31] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:35] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:35] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:35] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T02-task-t02.md-19e265eea29
+[2026-05-14 12:03:35] [ERROR] Failure #13
+[2026-05-14 12:03:35] [INFO] Attempt 2/4 [blackbox/gpt-4o]
+[2026-05-14 12:03:35] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T02-task-t02.md-19e265eea29
+[2026-05-14 12:03:35] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5270 chars
+[2026-05-14 12:03:35] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:38] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:38] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:38] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T02-task-t02.md-19e265ef821
+[2026-05-14 12:03:38] [ERROR] Failure #14
+[2026-05-14 12:03:38] [INFO] Attempt 3/4 [blackbox/minimax]
+[2026-05-14 12:03:38] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T02-task-t02.md-19e265ef821
+[2026-05-14 12:03:38] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5529 chars
+[2026-05-14 12:03:38] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:42] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:42] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:42] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T02-task-t02.md-19e265f05d9
+[2026-05-14 12:03:42] [ERROR] Failure #15
+[2026-05-14 12:03:42] [INFO] Attempt 4/4 [blackbox/gpt-4o]
+[2026-05-14 12:03:42] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T02-task-t02.md-19e265f05d9
+[2026-05-14 12:03:42] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5529 chars
+[2026-05-14 12:03:42] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:45] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:45] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:45] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T02-task-t02.md-19e265f13a0
+[2026-05-14 12:03:45] [ERROR] Failure #16
+[2026-05-14 12:03:45] [ERROR] FAILED: E04-volunteers-auth\F04-asset-transactions\T02-task-t02.md
+[2026-05-14 12:03:50] [INFO] Selected: E04/F04/T03 - T03-task-t03
+[2026-05-14 12:03:50] [INFO] >>> E04/F04 - T03-task-t03
+[2026-05-14 12:03:50] [INFO] Attempt 1/4 [blackbox/minimax]
+[2026-05-14 12:03:50] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T02-task-t02.md-19e265f13a0
+[2026-05-14 12:03:50] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5523 chars
+[2026-05-14 12:03:50] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:54] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:54] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:54] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T03-task-t03.md-19e265f3421
+[2026-05-14 12:03:54] [ERROR] Failure #17
+[2026-05-14 12:03:54] [INFO] Attempt 2/4 [blackbox/gpt-4o]
+[2026-05-14 12:03:54] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T03-task-t03.md-19e265f3421
+[2026-05-14 12:03:54] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5267 chars
+[2026-05-14 12:03:54] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:03:57] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:03:57] [INFO] Blackbox stdout: 
+[2026-05-14 12:03:57] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T03-task-t03.md-19e265f41dc
+[2026-05-14 12:03:57] [ERROR] Failure #18
+[2026-05-14 12:03:57] [INFO] Attempt 3/4 [blackbox/minimax]
+[2026-05-14 12:03:57] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T03-task-t03.md-19e265f41dc
+[2026-05-14 12:03:57] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5521 chars
+[2026-05-14 12:03:57] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:04:01] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:04:01] [INFO] Blackbox stdout: 
+[2026-05-14 12:04:01] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T03-task-t03.md-19e265f4f78
+[2026-05-14 12:04:01] [ERROR] Failure #19
+[2026-05-14 12:04:01] [INFO] Attempt 4/4 [blackbox/gpt-4o]
+[2026-05-14 12:04:01] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T03-task-t03.md-19e265f4f78
+[2026-05-14 12:04:01] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5521 chars
+[2026-05-14 12:04:01] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:04:04] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:04:04] [INFO] Blackbox stdout: 
+[2026-05-14 12:04:04] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T03-task-t03.md-19e265f5d37
+[2026-05-14 12:04:04] [ERROR] Failure #20
+[2026-05-14 12:04:04] [ERROR] FAILED: E04-volunteers-auth\F04-asset-transactions\T03-task-t03.md
+[2026-05-14 12:04:09] [WARN] Recovery phase 10
+[2026-05-14 12:04:09] [WARN] Recovery: SAFE
+[2026-05-14 12:05:09] [INFO] Selected: E04/F04/T04 - T04-task-t04
+[2026-05-14 12:05:09] [INFO] >>> E04/F04 - T04-task-t04
+[2026-05-14 12:05:09] [INFO] Attempt 1/4 [blackbox/minimax]
+[2026-05-14 12:05:09] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T03-task-t03.md-19e265f5d37
+[2026-05-14 12:05:09] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5524 chars
+[2026-05-14 12:05:09] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:05:12] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:05:12] [INFO] Blackbox stdout: 
+[2026-05-14 12:05:12] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T04-task-t04.md-19e2660681e
+[2026-05-14 12:05:12] [ERROR] Failure #1
+[2026-05-14 12:05:12] [INFO] Attempt 2/4 [blackbox/gpt-4o]
+[2026-05-14 12:05:12] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T04-task-t04.md-19e2660681e
+[2026-05-14 12:05:12] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5273 chars
+[2026-05-14 12:05:12] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:05:16] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:05:16] [INFO] Blackbox stdout: 
+[2026-05-14 12:05:16] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T04-task-t04.md-19e2660757c
+[2026-05-14 12:05:16] [ERROR] Failure #2
+[2026-05-14 12:05:16] [INFO] Attempt 3/4 [blackbox/minimax]
+[2026-05-14 12:05:16] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T04-task-t04.md-19e2660757c
+[2026-05-14 12:05:16] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5531 chars
+[2026-05-14 12:05:16] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:05:19] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:05:19] [INFO] Blackbox stdout: 
+[2026-05-14 12:05:19] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T04-task-t04.md-19e26608381
+[2026-05-14 12:05:19] [ERROR] Failure #3
+[2026-05-14 12:05:19] [INFO] Attempt 4/4 [blackbox/gpt-4o]
+[2026-05-14 12:05:19] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T04-task-t04.md-19e26608381
+[2026-05-14 12:05:19] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5531 chars
+[2026-05-14 12:05:19] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:05:23] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:05:23] [INFO] Blackbox stdout: 
+[2026-05-14 12:05:23] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T04-task-t04.md-19e2660913c
+[2026-05-14 12:05:23] [ERROR] Failure #4
+[2026-05-14 12:05:23] [ERROR] FAILED: E04-volunteers-auth\F04-asset-transactions\T04-task-t04.md
+[2026-05-14 12:05:28] [INFO] Selected: E04/F04/T05 - T05-write-transaction-tests
+[2026-05-14 12:05:28] [INFO] >>> E04/F04 - T05-write-transaction-tests
+[2026-05-14 12:05:28] [INFO] Attempt 1/4 [blackbox/minimax]
+[2026-05-14 12:05:28] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T04-task-t04.md-19e2660913c
+[2026-05-14 12:05:28] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5559 chars
+[2026-05-14 12:05:28] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:05:31] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:05:31] [INFO] Blackbox stdout: 
+[2026-05-14 12:05:31] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T05-write-transaction-tests.md-19e2660b196
+[2026-05-14 12:05:31] [ERROR] Failure #5
+[2026-05-14 12:05:31] [INFO] Attempt 2/4 [blackbox/gpt-4o]
+[2026-05-14 12:05:31] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T05-write-transaction-tests.md-19e2660b196
+[2026-05-14 12:05:31] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5319 chars
+[2026-05-14 12:05:31] [INFO] Running: opencode run --model "blackbox/gpt-4o"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:05:35] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:05:35] [INFO] Blackbox stdout: 
+[2026-05-14 12:05:35] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T05-write-transaction-tests.md-19e2660beed
+[2026-05-14 12:05:35] [ERROR] Failure #6
+[2026-05-14 12:05:35] [INFO] Attempt 3/4 [blackbox/minimax]
+[2026-05-14 12:05:35] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T05-write-transaction-tests.md-19e2660beed
+[2026-05-14 12:05:35] [INFO] Executing with blackbox model: blackbox/minimax, prompt: 5561 chars
+[2026-05-14 12:05:35] [INFO] Running: opencode run --model "blackbox/minimax"
+[91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+[2026-05-14 12:05:38] [INFO] Blackbox stderr: [91m[1mError: [0m
+[91m[1mError: [0m{
+  "name": "UnknownError",
+  "data": {
+    "message": "Unexpected server error. Check server logs for details."
+  }
+}
+
+[2026-05-14 12:05:38] [INFO] Blackbox stdout: 
+[2026-05-14 12:05:38] [INFO] Checkpoint saved: E04-volunteers-auth-F04-asset-transactions-T05-write-transaction-tests.md-19e2660cd45
+[2026-05-14 12:05:38] [ERROR] Failure #7
+[2026-05-14 12:05:38] [INFO] Attempt 4/4 [blackbox/gpt-4o]
+[2026-05-14 12:05:38] [INFO] Including checkpoint context: E04-volunteers-auth-F04-asset-transactions-T05-write-transaction-tests.md-19e2660cd45
+[2026-05-14 12:05:38] [INFO] Executing with blackbox model: blackbox/gpt-4o, prompt: 5561 chars
+[2026-05-14 12:05:38] [INFO] Running: opencode run --model "blackbox/gpt-4o"

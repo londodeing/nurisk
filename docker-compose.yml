@@ -1,0 +1,119 @@
+services:
+  postgres:
+    image: timescale/timescaledb:2.15.0-pg16
+    container_name: nurisk-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-nurisk}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nurisk}
+      POSTGRES_DB: ${POSTGRES_DB:-nurisk}
+    command: ["postgres", "-c", "shared_preload_libraries=timescaledb,age", "-c", "age.enable_partition=on"]
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./docker/init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-nurisk}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+    networks:
+      - nurisk-network
+
+  redis:
+    image: redis:7-alpine
+    container_name: nurisk-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - nurisk-network
+
+  neo4j:
+    image: neo4j:5
+    container_name: nurisk-neo4j
+    restart: unless-stopped
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    environment:
+      NEO4J_AUTH: ${NEO4J_USER:-neo4j}/${NEO4J_PASSWORD:-nurisk}
+      NEO4J_dbms_memory_pagecache_size: ${NEO4J_PAGECACHE:-512M}
+      NEO4J_dbms_memory_heap_initial__size: ${NEO4J_HEAP_INITIAL:-512M}
+      NEO4J_dbms_memory_heap_max__size: ${NEO4J_HEAP_MAX:-1G}
+    volumes:
+      - neo4j_data:/data
+      - neo4j_logs:/logs
+    healthcheck:
+      test: ["CMD", "cypher-shell", "-u", "${NEO4J_USER:-neo4j}", "-p", "${NEO4J_PASSWORD:-nurisk}", "RETURN 1"]
+      interval: 15s
+      timeout: 10s
+      retries: 10
+      start_period: 60s
+    networks:
+      - nurisk-network
+
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    image: nurisk/backend:dev
+    container_name: nurisk-backend
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: ${NODE_ENV:-development}
+      DB_HOST: postgres
+      DB_PORT: 5432
+      DB_USER: ${POSTGRES_USER:-nurisk}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-nurisk}
+      DB_NAME: ${POSTGRES_DB:-nurisk}
+      JWT_SECRET: ${JWT_SECRET:-dev-secret}
+      REDIS_URL: redis://redis:6379
+      CORS_ORIGIN: http://localhost:5173
+      PORT: 3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    networks:
+      - nurisk-network
+
+  frontend-web:
+    build:
+      context: .
+      dockerfile: frontend-web/Dockerfile
+    image: nurisk/frontend-web:dev
+    container_name: nurisk-frontend-web
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      VITE_API_BASE_URL: http://localhost:3000
+      VITE_WS_URL: ws://localhost:3000
+    depends_on:
+      - backend
+    networks:
+      - nurisk-network
+
+volumes:
+  postgres_data:
+  redis_data:
+  neo4j_data:
+  neo4j_logs:
+
+networks:
+  nurisk-network:
+    driver: bridge

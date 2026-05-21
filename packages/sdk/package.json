@@ -1,0 +1,94 @@
+{
+  "name": "@nurisk/sdk",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": { "types": "./dist/index.d.ts", "default": "./dist/index.js" },
+      "require": { "types": "./dist/index.d.ts", "default": "./dist/index.cjs" }
+    },
+    "./agent": {
+      "import": { "types": "./dist/agent/index.d.ts", "default": "./dist/agent/index.js" },
+      "require": { "types": "./dist/agent/index.d.ts", "default": "./dist/agent/index.cjs" }
+    },
+    "./awareness": {
+      "import": { "types": "./dist/awareness/index.d.ts", "default": "./dist/awareness/index.js" },
+      "require": { "types": "./dist/awareness/index.d.ts", "default": "./dist/awareness/index.cjs" }
+    },
+    "./briefing": {
+      "import": { "types": "./dist/briefing/index.d.ts", "default": "./dist/briefing/index.js" },
+      "require": { "types": "./dist/briefing/index.d.ts", "default": "./dist/briefing/index.cjs" }
+    },
+    "./early-warning": {
+      "import": { "types": "./dist/early-warning/index.d.ts", "default": "./dist/early-warning/index.js" },
+      "require": { "types": "./dist/early-warning/index.d.ts", "default": "./dist/early-warning/index.cjs" }
+    },
+    "./hazard": {
+      "import": { "types": "./dist/hazard/index.d.ts", "default": "./dist/hazard/index.js" },
+      "require": { "types": "./dist/hazard/index.d.ts", "default": "./dist/hazard/index.cjs" }
+    },
+    "./prophet": {
+      "import": { "types": "./dist/prophet/index.d.ts", "default": "./dist/prophet/index.js" },
+      "require": { "types": "./dist/prophet/index.d.ts", "default": "./dist/prophet/index.cjs" }
+    },
+    "./resource": {
+      "import": { "types": "./dist/resource/index.d.ts", "default": "./dist/resource/index.js" },
+      "require": { "types": "./dist/resource/index.d.ts", "default": "./dist/resource/index.cjs" }
+    },
+    "./risk-registry": {
+      "import": { "types": "./dist/risk-registry/index.d.ts", "default": "./dist/risk-registry/index.js" },
+      "require": { "types": "./dist/risk-registry/index.d.ts", "default": "./dist/risk-registry/index.cjs" }
+    },
+    "./search": {
+      "import": { "types": "./dist/search/index.d.ts", "default": "./dist/search/index.js" },
+      "require": { "types": "./dist/search/index.d.ts", "default": "./dist/search/index.cjs" }
+    },
+    "./shelter": {
+      "import": { "types": "./dist/shelter/index.d.ts", "default": "./dist/shelter/index.js" },
+      "require": { "types": "./dist/shelter/index.d.ts", "default": "./dist/shelter/index.cjs" }
+    },
+    "./stream-analytics": {
+      "import": { "types": "./dist/stream-analytics/index.d.ts", "default": "./dist/stream-analytics/index.js" },
+      "require": { "types": "./dist/stream-analytics/index.d.ts", "default": "./dist/stream-analytics/index.cjs" }
+    },
+    "./trend-analysis": {
+      "import": { "types": "./dist/trend-analysis/index.d.ts", "default": "./dist/trend-analysis/index.js" },
+      "require": { "types": "./dist/trend-analysis/index.d.ts", "default": "./dist/trend-analysis/index.cjs" }
+    },
+    "./volunteer-dispatch": {
+      "import": { "types": "./dist/volunteer-dispatch/index.d.ts", "default": "./dist/volunteer-dispatch/index.js" },
+      "require": { "types": "./dist/volunteer-dispatch/index.d.ts", "default": "./dist/volunteer-dispatch/index.cjs" }
+    },
+    "./weather": {
+      "import": { "types": "./dist/weather/index.d.ts", "default": "./dist/weather/index.js" },
+      "require": { "types": "./dist/weather/index.d.ts", "default": "./dist/weather/index.cjs" }
+    },
+    "./decision": {
+      "import": { "types": "./dist/decision/index.d.ts", "default": "./dist/decision/index.js" },
+      "require": { "types": "./dist/decision/index.d.ts", "default": "./dist/decision/index.cjs" }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "axios": "^1.7.0",
+    "@nurisk/shared-types": "workspace:*"
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

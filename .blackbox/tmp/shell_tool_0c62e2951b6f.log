@@ -1,0 +1,18 @@
+◇ injected env (0) from .env // tip: ⌘ multiple files { path: ['.env.local', '.env'] }
+◇ injected env (0) from .env // tip: ◈ secrets for agents [www.dotenvx.com]
+
+🔍 VALIDATING ENVIRONMENT (DEVELOPMENT)
+==================================================
+❌ Missing required: JWT_SECRET
+❌ Missing required: DB_PASSWORD
+ℹ️  DB_HOST: using default 'localhost'
+ℹ️  DB_PORT: using default '5432'
+ℹ️  DB_USER: using default 'postgres'
+ℹ️  DB_NAME: using default 'pusdatin_nu'
+ℹ️  PORT: using default '7860'
+==================================================
+
+❌ FATAL: Missing required environment variables: JWT_SECRET, DB_PASSWORD
+[ROUTES] Loading analytics routes...
+[ROUTES] Analytics routes loaded successfully
+❌ BOOTSTRAP FAILED: role "Admin" does not exist

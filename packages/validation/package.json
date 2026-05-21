@@ -1,0 +1,159 @@
+{
+  "name": "@nurisk/validation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.cjs"
+      }
+    },
+    "./auth": {
+      "import": {
+        "types": "./dist/auth.d.ts",
+        "default": "./dist/auth.js"
+      },
+      "require": {
+        "types": "./dist/auth.d.ts",
+        "default": "./dist/auth.cjs"
+      }
+    },
+    "./incident": {
+      "import": {
+        "types": "./dist/incident.d.ts",
+        "default": "./dist/incident.js"
+      },
+      "require": {
+        "types": "./dist/incident.d.ts",
+        "default": "./dist/incident.cjs"
+      }
+    },
+    "./volunteer": {
+      "import": {
+        "types": "./dist/volunteer.d.ts",
+        "default": "./dist/volunteer.js"
+      },
+      "require": {
+        "types": "./dist/volunteer.d.ts",
+        "default": "./dist/volunteer.cjs"
+      }
+    },
+    "./assessment": {
+      "import": {
+        "types": "./dist/assessment.d.ts",
+        "default": "./dist/assessment.js"
+      },
+      "require": {
+        "types": "./dist/assessment.d.ts",
+        "default": "./dist/assessment.cjs"
+      }
+    },
+    "./shelter": {
+      "import": {
+        "types": "./dist/shelter.d.ts",
+        "default": "./dist/shelter.js"
+      },
+      "require": {
+        "types": "./dist/shelter.d.ts",
+        "default": "./dist/shelter.cjs"
+      }
+    },
+    "./warehouse": {
+      "import": {
+        "types": "./dist/warehouse.d.ts",
+        "default": "./dist/warehouse.js"
+      },
+      "require": {
+        "types": "./dist/warehouse.d.ts",
+        "default": "./dist/warehouse.cjs"
+      }
+    },
+    "./chat": {
+      "import": {
+        "types": "./dist/chat.d.ts",
+        "default": "./dist/chat.js"
+      },
+      "require": {
+        "types": "./dist/chat.d.ts",
+        "default": "./dist/chat.cjs"
+      }
+    },
+    "./notification": {
+      "import": {
+        "types": "./dist/notification.d.ts",
+        "default": "./dist/notification.js"
+      },
+      "require": {
+        "types": "./dist/notification.d.ts",
+        "default": "./dist/notification.cjs"
+      }
+    },
+    "./inventory": {
+      "import": {
+        "types": "./dist/inventory.d.ts",
+        "default": "./dist/inventory.js"
+      },
+      "require": {
+        "types": "./dist/inventory.d.ts",
+        "default": "./dist/inventory.cjs"
+      }
+    },
+    "./logistics": {
+      "import": {
+        "types": "./dist/logistics.d.ts",
+        "default": "./dist/logistics.js"
+      },
+      "require": {
+        "types": "./dist/logistics.d.ts",
+        "default": "./dist/logistics.cjs"
+      }
+    },
+    "./mission": {
+      "import": {
+        "types": "./dist/mission.d.ts",
+        "default": "./dist/mission.js"
+      },
+      "require": {
+        "types": "./dist/mission.d.ts",
+        "default": "./dist/mission.cjs"
+      }
+    },
+    "./common": {
+      "import": {
+        "types": "./dist/common.d.ts",
+        "default": "./dist/common.js"
+      },
+      "require": {
+        "types": "./dist/common.d.ts",
+        "default": "./dist/common.cjs"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && tsc --emitDeclarationOnly --declaration --declarationMap",
+    "dev": "tsup --watch",
+    "lint": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}

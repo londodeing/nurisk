@@ -1,0 +1,1304 @@
+src/app/AdminAnalytics.tsx(61,59): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/app/AdminAnalytics.tsx(78,59): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/app/AdminAnalytics.tsx(95,59): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/app/AdminDashboard.tsx(3,29): error TS6133: 'CardHeader' is declared but its value is never read.
+src/app/AdminDashboard.tsx(3,41): error TS6133: 'CardTitle' is declared but its value is never read.
+src/app/AdminDashboard.tsx(18,35): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/AdminDashboard.tsx(19,37): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/AdminDashboard.tsx(20,37): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/AdminDashboard.tsx(21,38): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/app/AdminDashboard.tsx(87,37): error TS2339: Property 'id' does not exist on type 'never'.
+src/app/AdminDashboard.tsx(89,54): error TS2339: Property 'id' does not exist on type 'never'.
+src/app/AdminDashboard.tsx(92,67): error TS2339: Property 'title' does not exist on type 'never'.
+src/app/AdminDashboard.tsx(93,75): error TS2339: Property 'location' does not exist on type 'never'.
+src/app/AdminDashboard.tsx(95,50): error TS2339: Property 'severity' does not exist on type 'never'.
+src/app/AdminDashboard.tsx(96,37): error TS2339: Property 'status' does not exist on type 'never'.
+src/app/AdminICS.tsx(4,1): error TS6133: 'Button' is declared but its value is never read.
+src/app/AdminICS.tsx(88,31): error TS2339: Property 'id' does not exist on type 'never'.
+src/app/AdminICS.tsx(90,53): error TS2339: Property 'name' does not exist on type 'never'.
+src/app/AdminICS.tsx(91,64): error TS2339: Property 'role' does not exist on type 'never'.
+src/app/AdminICS.tsx(93,39): error TS2339: Property 'status' does not exist on type 'never'.
+src/app/AdminICS.tsx(94,26): error TS2339: Property 'status' does not exist on type 'never'.
+src/app/audit-log/page.tsx(4,27): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/app/audit-log/page.tsx(28,28): error TS6133: 'error' is declared but its value is never read.
+src/app/audit-log/page.tsx(120,13): error TS2322: Type 'string | undefined' is not assignable to type 'number | undefined'.
+  Type 'string' is not assignable to type 'number'.
+src/app/chat/page.tsx(110,9): error TS2561: Object literal may only specify known properties, but 'conversation_id' does not exist in type 'ChatMessagePayload'. Did you mean to write 'conversationId'?
+src/app/chat/page.tsx(135,19): error TS2367: This comparison appears to be unintentional because the types 'UserRole | undefined' and '"admin"' have no overlap.
+src/app/chat/page.tsx(135,45): error TS2367: This comparison appears to be unintentional because the types 'UserRole | undefined' and '"superadmin"' have no overlap.
+src/app/command-center/page.tsx(6,26): error TS2307: Cannot find module 'next/navigation' or its corresponding type declarations.
+src/app/command-center/page.tsx(14,23): error TS2367: This comparison appears to be unintentional because the types 'UserRole | undefined' and '"admin"' have no overlap.
+src/app/command-center/page.tsx(14,49): error TS2367: This comparison appears to be unintentional because the types 'UserRole | undefined' and '"super_admin"' have no overlap.
+src/app/Dashboard.tsx(3,29): error TS6133: 'CardHeader' is declared but its value is never read.
+src/app/Dashboard.tsx(3,41): error TS6133: 'CardTitle' is declared but its value is never read.
+src/app/Dashboard.tsx(84,37): error TS2339: Property 'id' does not exist on type 'never'.
+src/app/Dashboard.tsx(86,54): error TS2339: Property 'id' does not exist on type 'never'.
+src/app/Dashboard.tsx(89,67): error TS2339: Property 'title' does not exist on type 'never'.
+src/app/Dashboard.tsx(90,75): error TS2339: Property 'location' does not exist on type 'never'.
+src/app/Dashboard.tsx(92,48): error TS2339: Property 'createdAt' does not exist on type 'never'.
+src/app/Dashboard.tsx(95,50): error TS2339: Property 'severity' does not exist on type 'never'.
+src/app/Dashboard.tsx(96,37): error TS2339: Property 'status' does not exist on type 'never'.
+src/app/dashboard/admin/early-warning/page.tsx(249,36): error TS2339: Property 'title' does not exist on type 'Warning'.
+src/app/dashboard/admin/early-warning/page.tsx(253,34): error TS2339: Property 'affectedAreas' does not exist on type 'Warning'.
+src/app/dashboard/admin/resources/page.tsx(5,1): error TS6192: All imports in import declaration are unused.
+src/app/IncidentDetail.tsx(20,37): error TS7006: Parameter 'newStatus' implicitly has an 'any' type.
+src/app/IncidentDetail.tsx(23,21): error TS2698: Spread types may only be created from object types.
+src/app/IncidentDetail.tsx(54,38): error TS2339: Property 'title' does not exist on type 'never'.
+src/app/IncidentDetail.tsx(55,42): error TS2339: Property 'severity' does not exist on type 'never'.
+src/app/IncidentDetail.tsx(56,29): error TS2339: Property 'status' does not exist on type 'never'.
+src/app/IncidentDetail.tsx(63,30): error TS2339: Property 'location' does not exist on type 'never'.
+src/app/IncidentDetail.tsx(67,30): error TS2339: Property 'description' does not exist on type 'never'.
+src/app/IncidentDetail.tsx(72,32): error TS2339: Property 'location' does not exist on type 'never'.
+src/app/IncidentDetail.tsx(76,32): error TS2339: Property 'location' does not exist on type 'never'.
+src/app/IncidentDetail.tsx(81,39): error TS2339: Property 'createdAt' does not exist on type 'never'.
+src/app/incidents/[id]/assessment/page.tsx(1,1): error TS6192: All imports in import declaration are unused.
+src/app/Profile.tsx(16,31): error TS7006: Parameter 'e' implicitly has an 'any' type.
+src/app/PublicDashboard.tsx(19,70): error TS2322: Type '"active"' is not assignable to type 'IncidentStatus | undefined'.
+src/app/PublicDashboard.tsx(65,42): error TS2339: Property 'id' does not exist on type 'never'.
+src/app/PublicMap.tsx(3,50): error TS6133: 'useMap' is declared but its value is never read.
+src/app/PublicMap.tsx(5,29): error TS6133: 'CardHeader' is declared but its value is never read.
+src/app/PublicMap.tsx(5,41): error TS6133: 'CardTitle' is declared but its value is never read.
+src/app/PublicMap.tsx(39,10): error TS6133: 'selectedIncident' is declared but its value is never read.
+src/app/PublicMap.tsx(70,9): error TS6133: 'handleMapClick' is declared but its value is never read.
+src/app/PublicMap.tsx(145,11): error TS2322: Type '(map: any) => void' is not assignable to type '() => void'.
+  Target signature provides too few arguments. Expected 1 or more, but got 0.
+src/app/PublicMap.tsx(145,23): error TS7006: Parameter 'map' implicitly has an 'any' type.
+src/app/PublicReport.tsx(3,29): error TS6133: 'CardHeader' is declared but its value is never read.
+src/app/PublicReport.tsx(3,41): error TS6133: 'CardTitle' is declared but its value is never read.
+src/app/PublicReport.tsx(4,1): error TS6133: 'Button' is declared but its value is never read.
+src/app/register/page.tsx(6,37): error TS6133: 'CheckCircle' is declared but its value is never read.
+src/app/register/page.tsx(19,9): error TS6133: 'navigate' is declared but its value is never read.
+src/app/register/page.tsx(129,9): error TS2353: Object literal may only specify known properties, and 'nik' does not exist in type 'RegisterRequest'.
+src/app/settings/page.tsx(5,29): error TS6133: 'CardHeader' is declared but its value is never read.
+src/app/settings/page.tsx(5,41): error TS6133: 'CardTitle' is declared but its value is never read.
+src/app/settings/page.tsx(5,52): error TS6133: 'CardDescription' is declared but its value is never read.
+src/app/settings/page.tsx(14,9): error TS6133: 'navigate' is declared but its value is never read.
+src/components/admin/AdminSidebar.tsx(5,30): error TS6133: 'Bell' is declared but its value is never read.
+src/components/admin/CommandDashboard.tsx(5,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/admin/CommandDashboard.tsx(6,16): error TS6133: 'TabsContent' is declared but its value is never read.
+src/components/admin/CommandDashboard.tsx(8,32): error TS6133: 'MapPin' is declared but its value is never read.
+src/components/admin/ConversationList.tsx(41,13): error TS6133: 'message' is declared but its value is never read.
+src/components/admin/ConversationList.tsx(98,35): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/components/admin/ConversationList.tsx(101,66): error TS2322: Type 'Message | undefined' is not assignable to type 'ReactNode'.
+  Type 'Message' is not assignable to type 'ReactNode'.
+    Type 'Message' is missing the following properties from type 'ReactPortal': children, props, key
+src/components/admin/ConversationList.tsx(103,18): error TS18048: 'conv.unreadCount' is possibly 'undefined'.
+src/components/admin/KpiDashboard.tsx(8,3): error TS6133: 'MapPin' is declared but its value is never read.
+src/components/admin/OrgChart.tsx(10,10): error TS6133: 'Search' is declared but its value is never read.
+src/components/admin/OrgChart.tsx(10,24): error TS6133: 'Minus' is declared but its value is never read.
+src/components/admin/OrgChart.tsx(11,3): error TS6133: 'ChevronDown' is declared but its value is never read.
+src/components/admin/OrgChart.tsx(11,16): error TS6133: 'ChevronRight' is declared but its value is never read.
+src/components/admin/OrgChart.tsx(26,7): error TS6133: 'MAX_SPAN_OF_CONTROL' is declared but its value is never read.
+src/components/assignments/ShelterCrewAssignment.tsx(9,31): error TS6133: 'Package' is declared but its value is never read.
+src/components/assignments/ShelterCrewAssignment.tsx(9,54): error TS6133: 'Users' is declared but its value is never read.
+src/components/assignments/ShelterCrewAssignment.tsx(10,26): error TS6196: 'VolunteerStatus' is declared but never used.
+src/components/assignments/ShelterCrewAssignment.tsx(55,41): error TS6133: 'shelterId' is declared but its value is never read.
+src/components/assignments/ShelterCrewAssignment.tsx(57,22): error TS6133: 'setFilterRole' is declared but its value is never read.
+src/components/assignments/ShelterCrewAssignment.tsx(58,10): error TS6133: 'filterShift' is declared but its value is never read.
+src/components/assignments/ShelterCrewAssignment.tsx(58,23): error TS6133: 'setFilterShift' is declared but its value is never read.
+src/components/assignments/ShelterPICAssignment.tsx(8,60): error TS6133: 'AlertTriangle' is declared but its value is never read.
+src/components/assignments/ShelterPICAssignment.tsx(17,40): error TS6133: 'shelterId' is declared but its value is never read.
+src/components/assignments/ShelterPICAssignment.tsx(47,9): error TS2367: This comparison appears to be unintentional because the types 'VolunteerStatus' and '"active"' have no overlap.
+src/components/assignments/ShelterPICAssignment.tsx(52,20): error TS2339: Property 'qualification' does not exist on type 'Volunteer'.
+src/components/assignments/ShelterPICAssignment.tsx(57,19): error TS2339: Property 'missionsCompleted' does not exist on type 'Volunteer'.
+src/components/assignments/ShelterPICAssignment.tsx(77,26): error TS7030: Not all code paths return a value.
+src/components/assignments/ShelterPICAssignment.tsx(79,12): error TS2678: Type '"active"' is not comparable to type 'VolunteerStatus'.
+src/components/assignments/ShelterPICAssignment.tsx(81,12): error TS2678: Type '"inactive"' is not comparable to type 'VolunteerStatus'.
+src/components/assignments/ShelterPICAssignment.tsx(83,12): error TS2678: Type '"pending"' is not comparable to type 'VolunteerStatus'.
+src/components/assignments/ShelterPICAssignment.tsx(149,36): error TS2339: Property 'qualification' does not exist on type 'Volunteer'.
+src/components/assignments/ShelterPICAssignment.tsx(149,55): error TS7006: Parameter 'q' implicitly has an 'any' type.
+src/components/assignments/ShelterPICAssignment.tsx(160,36): error TS2339: Property 'missionsCompleted' does not exist on type 'Volunteer'.
+src/components/assignments/WarehouseCrewAssignment.tsx(9,31): error TS6133: 'Package' is declared but its value is never read.
+src/components/assignments/WarehouseCrewAssignment.tsx(9,54): error TS6133: 'Users' is declared but its value is never read.
+src/components/assignments/WarehouseCrewAssignment.tsx(55,43): error TS6133: 'warehouseId' is declared but its value is never read.
+src/components/assignments/WarehouseCrewAssignment.tsx(57,22): error TS6133: 'setFilterRole' is declared but its value is never read.
+src/components/assignments/WarehouseCrewAssignment.tsx(58,10): error TS6133: 'filterShift' is declared but its value is never read.
+src/components/assignments/WarehouseCrewAssignment.tsx(58,23): error TS6133: 'setFilterShift' is declared but its value is never read.
+src/components/assignments/WarehousePICAssignment.tsx(8,18): error TS6133: 'User' is declared but its value is never read.
+src/components/assignments/WarehousePICAssignment.tsx(17,42): error TS6133: 'warehouseId' is declared but its value is never read.
+src/components/assignments/WarehousePICAssignment.tsx(47,9): error TS2367: This comparison appears to be unintentional because the types 'VolunteerStatus' and '"active"' have no overlap.
+src/components/assignments/WarehousePICAssignment.tsx(52,20): error TS2339: Property 'qualification' does not exist on type 'Volunteer'.
+src/components/assignments/WarehousePICAssignment.tsx(53,20): error TS2339: Property 'qualification' does not exist on type 'Volunteer'.
+src/components/assignments/WarehousePICAssignment.tsx(58,19): error TS2339: Property 'missionsCompleted' does not exist on type 'Volunteer'.
+src/components/assignments/WarehousePICAssignment.tsx(78,26): error TS7030: Not all code paths return a value.
+src/components/assignments/WarehousePICAssignment.tsx(80,12): error TS2678: Type '"active"' is not comparable to type 'VolunteerStatus'.
+src/components/assignments/WarehousePICAssignment.tsx(82,12): error TS2678: Type '"inactive"' is not comparable to type 'VolunteerStatus'.
+src/components/assignments/WarehousePICAssignment.tsx(84,12): error TS2678: Type '"pending"' is not comparable to type 'VolunteerStatus'.
+src/components/assignments/WarehousePICAssignment.tsx(150,36): error TS2339: Property 'qualification' does not exist on type 'Volunteer'.
+src/components/assignments/WarehousePICAssignment.tsx(150,55): error TS7006: Parameter 'q' implicitly has an 'any' type.
+src/components/assignments/WarehousePICAssignment.tsx(161,36): error TS2339: Property 'missionsCompleted' does not exist on type 'Volunteer'.
+src/components/audit/AuditDetailModal.tsx(200,19): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/components/audit/AuditDetailModal.tsx(208,19): error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/components/audit/AuditExport.tsx(5,49): error TS6133: 'getActionLabel' is declared but its value is never read.
+src/components/audit/AuditExport.tsx(5,65): error TS6133: 'getEntityTypeLabel' is declared but its value is never read.
+src/components/audit/AuditExport.tsx(13,37): error TS6133: 'filters' is declared but its value is never read.
+src/components/audit/AuditExport.tsx(133,3): error TS6133: 'filters' is declared but its value is never read.
+src/components/audit/AuditFilters.tsx(145,17): error TS2345: Argument of type 'number | undefined' is not assignable to parameter of type 'string | undefined'.
+  Type 'number' is not assignable to type 'string'.
+src/components/audit/AuditLogTable.tsx(7,8): error TS6133: 'AuditAction' is declared but its value is never read.
+src/components/audit/AuditLogTable.tsx(145,21): error TS2367: This comparison appears to be unintentional because the types 'number | undefined' and 'string' have no overlap.
+src/components/audit/AuditLogTable.tsx(196,60): error TS2345: Argument of type 'AuditStatus | undefined' is not assignable to parameter of type 'AuditStatus'.
+  Type 'undefined' is not assignable to type 'AuditStatus'.
+src/components/audit/AuditLogTable.tsx(197,47): error TS2345: Argument of type 'AuditStatus | undefined' is not assignable to parameter of type 'AuditStatus'.
+  Type 'undefined' is not assignable to type 'AuditStatus'.
+src/components/audit/AuditLogTable.tsx(262,48): error TS2345: Argument of type 'AuditStatus | undefined' is not assignable to parameter of type 'AuditStatus'.
+  Type 'undefined' is not assignable to type 'AuditStatus'.
+src/components/auth/NewPasswordForm.tsx(9,10): error TS6133: 'Lock' is declared but its value is never read.
+src/components/auth/RegisterForm.tsx(9,37): error TS6133: 'User' is declared but its value is never read.
+src/components/auth/RegisterForm.tsx(9,43): error TS6133: 'Mail' is declared but its value is never read.
+src/components/auth/RegisterForm.tsx(9,49): error TS6133: 'Phone' is declared but its value is never read.
+src/components/auth/VerifyOtpForm.tsx(21,21): error TS2554: Expected 1 arguments, but got 0.
+src/components/auth/VerifyOtpForm.tsx(27,13): error TS7030: Not all code paths return a value.
+src/components/auth/VerifyOtpForm.tsx(101,13): error TS7030: Not all code paths return a value.
+src/components/awareness/TacticalView.tsx(54,50): error TS2339: Property 'assets' does not exist on type 'TacticalData'.
+src/components/awareness/TacticalView.tsx(55,56): error TS2551: Property 'incidents' does not exist on type 'TacticalData'. Did you mean 'incidentId'?
+src/components/awareness/TacticalView.tsx(56,58): error TS2339: Property 'volunteers' does not exist on type 'TacticalData'.
+src/components/awareness/TacticalView.tsx(57,50): error TS2339: Property 'evacuationRoutes' does not exist on type 'TacticalData'.
+src/components/awareness/TacticalView.tsx(58,48): error TS2339: Property 'exclusionZones' does not exist on type 'TacticalData'.
+src/components/awareness/TacticalView.tsx(59,54): error TS2339: Property 'channels' does not exist on type 'TacticalData'.
+src/components/awareness/TacticalView.tsx(60,58): error TS2339: Property 'broadcasts' does not exist on type 'TacticalData'.
+src/components/awareness/TacticalView.tsx(61,55): error TS2339: Property 'timeline' does not exist on type 'TacticalData'.
+src/components/awareness/TacticalView.tsx(97,38): error TS2554: Expected 1 arguments, but got 3.
+src/components/awareness/TacticalView.tsx(234,48): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/components/awareness/TacticalView.tsx(240,44): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/components/awareness/TacticalView.tsx(246,44): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/components/awareness/TacticalView.tsx(309,38): error TS7006: Parameter 'v' implicitly has an 'any' type.
+src/components/briefing/BriefingExport.tsx(63,11): error TS2339: Property 'situation' does not exist on type 'ExecutiveBriefing'.
+src/components/briefing/BriefingExport.tsx(63,31): error TS2339: Property 'actions' does not exist on type 'ExecutiveBriefing'.
+src/components/briefing/BriefingExport.tsx(107,31): error TS7006: Parameter 'd' implicitly has an 'any' type.
+src/components/briefing/BriefingExport.tsx(121,38): error TS2339: Property 'avgResponseTime' does not exist on type 'KeyMetrics'.
+src/components/briefing/BriefingExport.tsx(126,50): error TS2339: Property 'resolvedIncidents' does not exist on type 'KeyMetrics'.
+src/components/briefing/BriefingExport.tsx(127,36): error TS2339: Property 'resolvedIncidents' does not exist on type 'KeyMetrics'.
+src/components/briefing/BriefingExport.tsx(131,38): error TS2339: Property 'volunteerCount' does not exist on type 'KeyMetrics'.
+src/components/briefing/BriefingExport.tsx(132,36): error TS2339: Property 'resourceUtilization' does not exist on type 'KeyMetrics'.
+src/components/briefing/BriefingExport.tsx(149,23): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/components/briefing/ExecutiveBriefing.tsx(110,35): error TS2322: Type 'IncidentBrief[]' is not assignable to type 'import("C:/nurisk/packages/shared-types/src/briefing/types").IncidentBrief[]'.
+  Type 'IncidentBrief' is missing the following properties from type 'IncidentBrief': status, reportedAt, affectedPopulation, resourcesAllocated, and 2 more.
+src/components/briefing/ExecutiveBriefing.tsx(115,36): error TS2322: Type 'RecommendedAction[]' is not assignable to type 'import("C:/nurisk/packages/shared-types/src/briefing/types").RecommendedAction[]'.
+  Type 'RecommendedAction' is missing the following properties from type 'RecommendedAction': type, affectedRegions
+src/components/briefing/KPIDashboard.tsx(17,29): error TS2339: Property 'resolvedIncidents' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(19,33): error TS2339: Property 'trend' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(20,33): error TS2339: Property 'trend' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(38,45): error TS2339: Property 'avgResponseTime' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(47,32): error TS2339: Property 'resolvedIncidents' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(54,26): error TS2339: Property 'volunteerCount' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(55,32): error TS2339: Property 'resourceUtilization' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(66,29): error TS2339: Property 'resourceUtilization' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(74,29): error TS2339: Property 'verificationRate' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(82,26): error TS2339: Property 'trend' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(85,21): error TS2339: Property 'trend' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(90,21): error TS2339: Property 'trend' does not exist on type 'KeyMetrics'.
+src/components/briefing/KPIDashboard.tsx(95,21): error TS2339: Property 'trend' does not exist on type 'KeyMetrics'.
+src/components/briefing/SituationSummary.tsx(24,24): error TS2339: Property 'headline' does not exist on type 'SituationSummary'.
+src/components/briefing/SituationSummary.tsx(30,38): error TS2339: Property 'overall' does not exist on type 'SituationSummary'.
+src/components/briefing/SituationSummary.tsx(33,37): error TS2339: Property 'overall' does not exist on type 'SituationSummary'.
+src/components/briefing/SituationSummary.tsx(39,20): error TS2339: Property 'details' does not exist on type 'SituationSummary'.
+src/components/briefing/SituationSummary.tsx(39,33): error TS7006: Parameter 'detail' implicitly has an 'any' type.
+src/components/briefing/SituationSummary.tsx(39,41): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/components/briefing/SituationSummary.tsx(55,22): error TS2339: Property 'regions' does not exist on type 'SituationSummary'.
+src/components/briefing/SituationSummary.tsx(55,35): error TS7006: Parameter 'region' implicitly has an 'any' type.
+src/components/briefing/SituationSummary.tsx(74,19): error TS2339: Property 'region' does not exist on type 'RegionStatus'.
+  Property 'region' does not exist on type '"normal"'.
+src/components/briefing/SituationSummary.tsx(81,41): error TS2339: Property 'status' does not exist on type 'RegionStatus'.
+  Property 'status' does not exist on type '"normal"'.
+src/components/briefing/SituationSummary.tsx(84,19): error TS2339: Property 'status' does not exist on type 'RegionStatus'.
+  Property 'status' does not exist on type '"normal"'.
+src/components/briefing/SituationSummary.tsx(86,22): error TS2339: Property 'status' does not exist on type 'RegionStatus'.
+  Property 'status' does not exist on type '"normal"'.
+src/components/briefing/SituationSummary.tsx(88,22): error TS2339: Property 'status' does not exist on type 'RegionStatus'.
+  Property 'status' does not exist on type '"normal"'.
+src/components/briefing/SituationSummary.tsx(92,34): error TS2551: Property 'trend' does not exist on type 'RegionStatus'. Did you mean 'trimEnd'?
+  Property 'trend' does not exist on type '"normal"'.
+src/components/briefing/SituationSummary.tsx(98,53): error TS2339: Property 'trend' does not exist on type 'RegionStatus'.
+src/components/charts/ProphetForecastChart.tsx(7,3): error TS6133: 'LineChart' is declared but its value is never read.
+src/components/charts/ProphetForecastChart.tsx(44,47): error TS2339: Property 'date' does not exist on type 'AnomalyPoint'.
+src/components/charts/ProphetForecastChart.tsx(44,62): error TS2339: Property 'date' does not exist on type 'ForecastDataPoint'.
+src/components/charts/ProphetForecastChart.tsx(47,29): error TS2339: Property 'anomaly' does not exist on type 'AnomalyPoint'.
+src/components/charts/ProphetForecastChart.tsx(57,44): error TS2339: Property 'upper' does not exist on type 'ForecastDataPoint'.
+src/components/charts/ProphetForecastChart.tsx(57,63): error TS2339: Property 'lower' does not exist on type 'ForecastDataPoint'.
+src/components/charts/ProphetForecastChart.tsx(109,41): error TS2554: Expected 2 arguments, but got 1.
+src/components/charts/ProphetForecastChart.tsx(119,17): error TS2554: Expected 2 arguments, but got 1.
+src/components/charts/ProphetForecastChart.tsx(177,28): error TS2339: Property 'date' does not exist on type '{ isAnomaly: any; timestamp: string; actual?: number | undefined; predicted: number; lowerBound?: number | undefined; upperBound?: number | undefined; confidence?: number | undefined; }'.
+src/components/charts/RiskMatrix.tsx(113,35): error TS2345: Argument of type 'number' is not assignable to parameter of type 'RiskLikelihood'.
+src/components/charts/RiskMatrix.tsx(117,51): error TS2345: Argument of type 'number' is not assignable to parameter of type 'RiskLikelihood'.
+src/components/charts/RiskMatrix.tsx(118,61): error TS2345: Argument of type 'number' is not assignable to parameter of type 'RiskLikelihood'.
+src/components/charts/RiskMatrix.tsx(126,53): error TS2345: Argument of type 'number' is not assignable to parameter of type 'RiskLikelihood'.
+src/components/charts/RiskRegistryTable.tsx(8,21): error TS6196: 'RiskLikelihood' is declared but never used.
+src/components/charts/RiskRegistryTable.tsx(8,37): error TS6196: 'RiskImpact' is declared but never used.
+src/components/charts/RiskRegistryTable.tsx(56,35): error TS7053: Element implicitly has an 'any' type because expression of type 'SortField' can't be used to index type 'Risk'.
+  Property 'title' does not exist on type 'Risk'.
+src/components/charts/RiskRegistryTable.tsx(57,35): error TS7053: Element implicitly has an 'any' type because expression of type 'SortField' can't be used to index type 'Risk'.
+  Property 'title' does not exist on type 'Risk'.
+src/components/charts/RiskRegistryTable.tsx(224,47): error TS2339: Property 'inherentRisk' does not exist on type 'Risk'.
+src/components/charts/RiskRegistryTable.tsx(235,29): error TS2339: Property 'title' does not exist on type 'Risk'.
+src/components/charts/RiskRegistryTable.tsx(243,41): error TS2345: Argument of type 'string' is not assignable to parameter of type 'RiskCategory'.
+src/components/charts/RiskRegistryTable.tsx(248,43): error TS2345: Argument of type 'number' is not assignable to parameter of type 'RiskLikelihood'.
+src/components/charts/RiskRegistryTable.tsx(253,39): error TS2345: Argument of type 'number' is not assignable to parameter of type 'RiskImpact'.
+src/components/charts/RiskRegistryTable.tsx(264,45): error TS2339: Property 'inherentRisk' does not exist on type 'Risk'.
+src/components/charts/RiskRegistryTable.tsx(271,80): error TS2339: Property 'residualRisk' does not exist on type 'Risk'.
+src/components/charts/RiskRegistryTable.tsx(272,68): error TS2339: Property 'residualRisk' does not exist on type 'Risk'.
+src/components/charts/RiskRegistryTable.tsx(275,45): error TS2339: Property 'residualRisk' does not exist on type 'Risk'.
+src/components/charts/RiskRegistryTable.tsx(290,27): error TS2339: Property 'mitigationProgress' does not exist on type 'Risk'.
+src/components/charts/RiskRegistryTable.tsx(295,53): error TS2339: Property 'mitigationProgress' does not exist on type 'Risk'.
+src/components/charts/RiskRegistryTable.tsx(299,33): error TS2339: Property 'mitigationProgress' does not exist on type 'Risk'.
+src/components/charts/StreamAnalyticsChart.tsx(56,43): error TS2551: Property 'triggered' does not exist on type 'ThresholdAlert'. Did you mean 'triggeredAt'?
+src/components/charts/StreamAnalyticsChart.tsx(131,14): error TS2554: Expected 2 arguments, but got 1.
+src/components/charts/StreamAnalyticsChart.tsx(164,41): error TS2554: Expected 2 arguments, but got 1.
+src/components/charts/StreamAnalyticsChart.tsx(174,46): error TS2554: Expected 2 arguments, but got 1.
+src/components/charts/StreamAnalyticsChart.tsx(215,24): error TS2339: Property 'window' does not exist on type 'WindowAggregate'.
+src/components/charts/StreamAnalyticsChart.tsx(219,37): error TS2339: Property 'window' does not exist on type 'WindowAggregate'.
+src/components/charts/StreamAnalyticsChart.tsx(222,18): error TS2554: Expected 2 arguments, but got 1.
+src/components/charts/TrendAnalysisChart.tsx(53,45): error TS2339: Property 'movingAverage' does not exist on type 'MovingAverageData'.
+src/components/charts/TrendAnalysisChart.tsx(99,51): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.
+src/components/charts/TrendAnalysisChart.tsx(100,38): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.
+src/components/charts/TrendAnalysisChart.tsx(104,31): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+  Type 'string' is not assignable to type 'number'.
+src/components/charts/TrendAnalysisChart.tsx(179,28): error TS2339: Property 'date' does not exist on type 'ChangePoint'.
+src/components/chat/ConversationList.tsx(43,51): error TS2367: This comparison appears to be unintentional because the types 'ConversationType' and '"broadcast"' have no overlap.
+src/components/chat/ConversationList.tsx(44,53): error TS2367: This comparison appears to be unintentional because the types 'ConversationType' and '"incident"' have no overlap.
+src/components/chat/ConversationList.tsx(45,51): error TS2367: This comparison appears to be unintentional because the types 'ConversationType' and '"direct"' have no overlap.
+src/components/chat/ConversationList.tsx(99,16): error TS18048: 'broadcastConv.unreadCount' is possibly 'undefined'.
+src/components/chat/ConversationList.tsx(141,23): error TS2322: Type 'string | Message' is not assignable to type 'ReactNode'.
+  Type 'Message' is not assignable to type 'ReactNode'.
+    Type 'Message' is missing the following properties from type 'ReactPortal': children, props, key
+src/components/chat/ConversationList.tsx(144,20): error TS18048: 'conv.unreadCount' is possibly 'undefined'.
+src/components/chat/ConversationList.tsx(189,23): error TS2322: Type 'string | Message' is not assignable to type 'ReactNode'.
+  Type 'Message' is not assignable to type 'ReactNode'.
+    Type 'Message' is missing the following properties from type 'ReactPortal': children, props, key
+src/components/chat/ConversationList.tsx(192,20): error TS18048: 'conv.unreadCount' is possibly 'undefined'.
+src/components/chat/MessageBubble.tsx(55,25): error TS2367: This comparison appears to be unintentional because the types 'MessageType' and '"text"' have no overlap.
+src/components/chat/MessageBubble.tsx(85,14): error TS2367: This comparison appears to be unintentional because the types 'MessageType' and '"image"' have no overlap.
+src/components/chat/MessageBubble.tsx(118,21): error TS2322: Type 'string | undefined' is not assignable to type 'To'.
+  Type 'undefined' is not assignable to type 'To'.
+src/components/command/CommandKpiBar.tsx(12,34): error TS2307: Cannot find module '@/stores/use-resource-store' or its corresponding type declarations.
+src/components/command/CommandKpiBar.tsx(43,11): error TS2339: Property 'data' does not exist on type '{ shelters: Shelter[]; loading: boolean; error: string | null; refetch: () => Promise<void>; }'.
+src/components/command/CommandKpiBar.tsx(43,30): error TS2554: Expected 1 arguments, but got 0.
+src/components/command/CommandKpiBar.tsx(60,38): error TS2339: Property 'length' does not exist on type 'PaginatedResponse<Volunteer>'.
+src/components/command/CommandLayout.tsx(7,22): error TS6133: 'Settings' is declared but its value is never read.
+src/components/command/CommandLayout.tsx(7,32): error TS6133: 'LogOut' is declared but its value is never read.
+src/components/command/CommandLayout.tsx(8,1): error TS6133: 'cn' is declared but its value is never read.
+src/components/command/CommandLayout.tsx(19,17): error TS6133: 'logout' is declared but its value is never read.
+src/components/command/CommandMap.tsx(6,10): error TS6133: 'useEffect' is declared but its value is never read.
+src/components/command/CommandMap.tsx(6,21): error TS6133: 'useRef' is declared but its value is never read.
+src/components/command/CommandMap.tsx(7,50): error TS6133: 'useMap' is declared but its value is never read.
+src/components/command/CommandMap.tsx(8,16): error TS6133: 'LatLngBounds' is declared but its value is never read.
+src/components/command/CommandMap.tsx(111,11): error TS2339: Property 'data' does not exist on type '{ shelters: Shelter[]; loading: boolean; error: string | null; refetch: () => Promise<void>; }'.
+src/components/command/CommandMap.tsx(111,30): error TS2554: Expected 1 arguments, but got 0.
+src/components/command/CommandMap.tsx(117,10): error TS6133: 'selectedItem' is declared but its value is never read.
+src/components/command/CommandMap.tsx(162,41): error TS7006: Parameter 'shelter' implicitly has an 'any' type.
+src/components/command/CommunicationHub.tsx(9,1): error TS6133: 'useChatStore' is declared but its value is never read.
+src/components/command/CommunicationHub.tsx(36,9): error TS2322: Type '"message"' is not assignable to type 'MessageType'.
+src/components/command/CommunicationHub.tsx(43,9): error TS2322: Type '"message"' is not assignable to type 'MessageType'.
+src/components/command/CommunicationHub.tsx(61,7): error TS2322: Type '"broadcast" | "message"' is not assignable to type 'MessageType'.
+  Type '"broadcast"' is not assignable to type 'MessageType'.
+src/components/command/CommunicationHub.tsx(124,15): error TS2367: This comparison appears to be unintentional because the types 'MessageType' and '"broadcast"' have no overlap.
+src/components/dashboard/PublicDashboard.tsx(13,10): error TS6133: 'MapPin' is declared but its value is never read.
+src/components/dashboard/PublicDashboard.tsx(116,9): error TS2322: Type '{ id: any; type: "BANJIR" | "LONGSOR" | "GEMPA" | "KEBAKARAN_HUTAN" | "EKSTREM_CUACA"; title: any; location: string; severity: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW"; createdAt: any; }[]' is not assignable to type 'Incident[]'.
+  Type '{ id: any; type: "BANJIR" | "LONGSOR" | "GEMPA" | "KEBAKARAN_HUTAN" | "EKSTREM_CUACA"; title: any; location: string; severity: "CRITICAL" | "HIGH" | "MEDIUM" | "LOW"; createdAt: any; }' is missing the following properties from type 'Incident': description, status, reportedBy, startedAt, updatedAt
+src/components/decision/DecisionConfig.tsx(7,1): error TS6133: 'Input' is declared but its value is never read.
+src/components/decision/DecisionConfig.tsx(8,10): error TS6133: 'Settings' is declared but its value is never read.
+src/components/decision/DecisionConfig.tsx(75,81): error TS2339: Property 'autoDecisionEnabled' does not exist on type 'Record<string, unknown> | DecisionConfig'.
+  Property 'autoDecisionEnabled' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(77,31): error TS2339: Property 'autoDecisionEnabled' does not exist on type 'Record<string, unknown> | DecisionConfig'.
+  Property 'autoDecisionEnabled' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(82,33): error TS2339: Property 'autoDecisionEnabled' does not exist on type 'Record<string, unknown> | DecisionConfig'.
+  Property 'autoDecisionEnabled' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(100,36): error TS2339: Property 'confidenceThreshold' does not exist on type 'Record<string, unknown> | DecisionConfig'.
+  Property 'confidenceThreshold' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(105,30): error TS2339: Property 'confidenceThreshold' does not exist on type 'Record<string, unknown> | DecisionConfig'.
+  Property 'confidenceThreshold' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(121,36): error TS2339: Property 'highRiskThreshold' does not exist on type 'Record<string, unknown> | DecisionConfig'.
+  Property 'highRiskThreshold' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(126,30): error TS2339: Property 'highRiskThreshold' does not exist on type 'Record<string, unknown> | DecisionConfig'.
+  Property 'highRiskThreshold' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(141,86): error TS2551: Property 'requireApprovalForHighRisk' does not exist on type 'Record<string, unknown> | DecisionConfig'. Did you mean 'requireApprovalFor'?
+  Property 'requireApprovalForHighRisk' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(143,29): error TS2551: Property 'requireApprovalForHighRisk' does not exist on type 'Record<string, unknown> | DecisionConfig'. Did you mean 'requireApprovalFor'?
+  Property 'requireApprovalForHighRisk' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(148,31): error TS2551: Property 'requireApprovalForHighRisk' does not exist on type 'Record<string, unknown> | DecisionConfig'. Did you mean 'requireApprovalFor'?
+  Property 'requireApprovalForHighRisk' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(163,78): error TS2339: Property 'notifyOnDecision' does not exist on type 'Record<string, unknown> | DecisionConfig'.
+  Property 'notifyOnDecision' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(165,31): error TS2339: Property 'notifyOnDecision' does not exist on type 'Record<string, unknown> | DecisionConfig'.
+  Property 'notifyOnDecision' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionConfig.tsx(170,33): error TS2339: Property 'notifyOnDecision' does not exist on type 'Record<string, unknown> | DecisionConfig'.
+  Property 'notifyOnDecision' does not exist on type 'DecisionConfig'.
+src/components/decision/DecisionDashboard.tsx(4,29): error TS6133: 'CardHeader' is declared but its value is never read.
+src/components/decision/DecisionDashboard.tsx(4,41): error TS6133: 'CardTitle' is declared but its value is never read.
+src/components/decision/DecisionDashboard.tsx(5,30): error TS6133: 'XCircle' is declared but its value is never read.
+src/components/decision/DecisionDashboard.tsx(47,20): error TS2339: Property 'autoDecisions' does not exist on type 'DecisionStats'.
+src/components/decision/DecisionDashboard.tsx(54,23): error TS2339: Property 'approvalRate' does not exist on type 'DecisionStats'.
+src/components/decision/DecisionDashboard.tsx(61,23): error TS2339: Property 'avgConfidence' does not exist on type 'DecisionStats'.
+src/components/decision/DecisionDetail.tsx(5,52): error TS6133: 'CardDescription' is declared but its value is never read.
+src/components/decision/DecisionDetail.tsx(8,54): error TS6133: 'Clock' is declared but its value is never read.
+src/components/decision/DecisionDetail.tsx(8,61): error TS6133: 'User' is declared but its value is never read.
+src/components/decision/DecisionDetail.tsx(8,67): error TS6133: 'MessageSquare' is declared but its value is never read.
+src/components/decision/DecisionDetail.tsx(15,38): error TS6133: 'onClose' is declared but its value is never read.
+src/components/decision/DecisionDetail.tsx(17,28): error TS6133: 'modify' is declared but its value is never read.
+src/components/decision/DecisionDetail.tsx(21,10): error TS6133: 'action' is declared but its value is never read.
+src/components/decision/DecisionDetail.tsx(21,18): error TS6133: 'setAction' is declared but its value is never read.
+src/components/decision/DecisionDetail.tsx(79,55): error TS2339: Property 'type' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(94,14): error TS2367: This comparison appears to be unintentional because the types '"pending" | "approved" | "rejected" | "deferred"' and '"modified"' have no overlap.
+src/components/decision/DecisionDetail.tsx(108,70): error TS2339: Property 'reasoning' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(113,17): error TS2339: Property 'inputFactors' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(120,40): error TS2339: Property 'inputFactors' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(127,17): error TS2339: Property 'alternatives' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(127,42): error TS2339: Property 'alternatives' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(134,25): error TS2339: Property 'alternatives' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(134,43): error TS7006: Parameter 'alt' implicitly has an 'any' type.
+src/components/decision/DecisionDetail.tsx(134,48): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/components/decision/DecisionDetail.tsx(143,17): error TS2339: Property 'riskAssessment' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(154,17): error TS7053: Element implicitly has an 'any' type because expression of type 'any' can't be used to index type '{ low: string; medium: string; high: string; critical: string; }'.
+src/components/decision/DecisionDetail.tsx(154,37): error TS2339: Property 'riskAssessment' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(156,27): error TS2339: Property 'riskAssessment' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(159,40): error TS2339: Property 'confidence' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(163,25): error TS2339: Property 'riskAssessment' does not exist on type 'Decision'.
+src/components/decision/DecisionDetail.tsx(163,53): error TS7006: Parameter 'factor' implicitly has an 'any' type.
+src/components/decision/DecisionDetail.tsx(163,61): error TS7006: Parameter 'i' implicitly has an 'any' type.
+src/components/decision/DecisionList.tsx(7,17): error TS6133: 'CheckCircle' is declared but its value is never read.
+src/components/decision/DecisionList.tsx(7,30): error TS6133: 'XCircle' is declared but its value is never read.
+src/components/decision/DecisionList.tsx(7,39): error TS6133: 'Clock' is declared but its value is never read.
+src/components/decision/DecisionList.tsx(7,46): error TS6133: 'Search' is declared but its value is never read.
+src/components/decision/DecisionList.tsx(7,54): error TS6133: 'Filter' is declared but its value is never read.
+src/components/decision/DecisionList.tsx(8,1): error TS6133: 'Decision' is declared but its value is never read.
+src/components/decision/DecisionList.tsx(8,31): error TS2307: Cannot find module '@/services/decisionService' or its corresponding type declarations.
+src/components/decision/DecisionList.tsx(108,30): error TS2339: Property 'madeBy' does not exist on type 'Decision'.
+src/components/decision/DecisionList.tsx(111,32): error TS2339: Property 'madeBy' does not exist on type 'Decision'.
+src/components/decision/DecisionList.tsx(115,58): error TS2339: Property 'type' does not exist on type 'Decision'.
+src/components/decision/DecisionList.tsx(118,69): error TS2339: Property 'confidence' does not exist on type 'Decision'.
+src/components/decision/DecisionList.tsx(125,21): error TS7053: Element implicitly has an 'any' type because expression of type '"pending" | "approved" | "rejected" | "deferred"' can't be used to index type '{ pending: string; approved: string; rejected: string; modified: string; }'.
+  Property 'deferred' does not exist on type '{ pending: string; approved: string; rejected: string; modified: string; }'.
+src/components/decision/DecisionList.tsx(130,22): error TS2367: This comparison appears to be unintentional because the types '"pending" | "approved" | "rejected" | "deferred"' and '"modified"' have no overlap.
+src/components/equipment/ShelterEquipmentPanel.tsx(3,20): error TS6133: 'useEffect' is declared but its value is never read.
+src/components/equipment/ShelterEquipmentPanel.tsx(9,33): error TS6133: 'Truck' is declared but its value is never read.
+src/components/equipment/ShelterEquipmentPanel.tsx(9,70): error TS6133: 'Utensils' is declared but its value is never read.
+src/components/equipment/ShelterEquipmentPanel.tsx(9,80): error TS6133: 'MapPin' is declared but its value is never read.
+src/components/equipment/ShelterEquipmentPanel.tsx(9,94): error TS6133: 'Clock' is declared but its value is never read.
+src/components/equipment/ShelterEquipmentPanel.tsx(45,41): error TS6133: 'shelterId' is declared but its value is never read.
+src/components/equipment/ShelterEquipmentPanel.tsx(45,70): error TS6133: 'onUpdate' is declared but its value is never read.
+src/components/equipment/WarehouseEquipmentPanel.tsx(3,20): error TS6133: 'useEffect' is declared but its value is never read.
+src/components/equipment/WarehouseEquipmentPanel.tsx(9,40): error TS6133: 'Zap' is declared but its value is never read.
+src/components/equipment/WarehouseEquipmentPanel.tsx(9,67): error TS6133: 'MapPin' is declared but its value is never read.
+src/components/equipment/WarehouseEquipmentPanel.tsx(9,75): error TS6133: 'Clock' is declared but its value is never read.
+src/components/equipment/WarehouseEquipmentPanel.tsx(45,43): error TS6133: 'warehouseId' is declared but its value is never read.
+src/components/equipment/WarehouseEquipmentPanel.tsx(45,74): error TS6133: 'onUpdate' is declared but its value is never read.
+src/components/forms/RegisterStep2.tsx(3,1): error TS6133: 'Select' is declared but its value is never read.
+src/components/incidents/IncidentDetail.tsx(15,41): error TS6196: 'PriorityLevel' is declared but never used.
+src/components/incidents/IncidentForm.tsx(111,44): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/components/incidents/IncidentList.tsx(107,5): error TS2322: Type '""' is not assignable to type 'DisasterType | undefined'.
+src/components/incidents/IncidentList.tsx(108,5): error TS2322: Type '""' is not assignable to type 'IncidentStatus | undefined'.
+src/components/incidents/IncidentList.tsx(109,5): error TS2322: Type '""' is not assignable to type 'PriorityLevel | undefined'.
+src/components/layout/BottomNav.tsx(4,54): error TS6133: 'Menu' is declared but its value is never read.
+src/components/layout/BottomNav.tsx(70,21): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(props: { className?: string | undefined; }, context?: any): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | ... 4 more ... | undefined', gave the following error.
+    Type '{ size: number; strokeWidth: number; }' is not assignable to type 'IntrinsicAttributes & { className?: string | undefined; }'.
+      Property 'size' does not exist on type 'IntrinsicAttributes & { className?: string | undefined; }'.
+  Overload 2 of 2, '(props: { className?: string | undefined; }): string | number | bigint | boolean | ReactElement<unknown, string | JSXElementConstructor<any>> | ... 4 more ... | undefined', gave the following error.
+    Type '{ size: number; strokeWidth: number; }' is not assignable to type 'IntrinsicAttributes & { className?: string | undefined; }'.
+      Property 'size' does not exist on type 'IntrinsicAttributes & { className?: string | undefined; }'.
+src/components/layout/GlobalSearch.tsx(7,28): error TS6133: 'ArrowRight' is declared but its value is never read.
+src/components/layout/GlobalSearch.tsx(10,10): error TS6133: 'highlightMatch' is declared but its value is never read.
+src/components/layout/GlobalSearch.tsx(12,1): error TS6133: 'SearchResultItem' is declared but its value is never read.
+src/components/layout/GlobalSearch.tsx(39,5): error TS6133: 'clearSearch' is declared but its value is never read.
+src/components/layout/GlobalSearch.tsx(270,26): error TS18048: 'categoryResults' is possibly 'undefined'.
+src/components/layout/GlobalSearch.tsx(276,25): error TS2322: Type 'SearchResult[] | undefined' is not assignable to type 'SearchResult[]'.
+  Type 'undefined' is not assignable to type 'SearchResult[]'.
+src/components/layout/PageTransition.tsx(6,31): error TS6133: 'useCallback' is declared but its value is never read.
+src/components/layout/PageTransition.tsx(98,9): error TS6133: 'navigate' is declared but its value is never read.
+src/components/layout/PageTransition.tsx(130,13): error TS7030: Not all code paths return a value.
+src/components/layout/PublicLayout.tsx(2,1): error TS6133: 'Link' is declared but its value is never read.
+src/components/layout/RoleBasedRedirect.tsx(12,3): error TS2353: Object literal may only specify known properties, and 'admin' does not exist in type 'Record<UserRole, string>'.
+src/components/layout/SearchResultItem.tsx(40,16): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type 'Record<SearchCategory, ReactNode>'.
+  No index signature with a parameter of type 'string' was found on type 'Record<SearchCategory, ReactNode>'.
+src/components/layout/SearchResultItem.tsx(41,22): error TS7053: Element implicitly has an 'any' type because expression of type 'string' can't be used to index type 'Record<SearchCategory, string>'.
+  No index signature with a parameter of type 'string' was found on type 'Record<SearchCategory, string>'.
+src/components/layout/SearchResultItem.tsx(50,19): error TS2339: Property 'subtitle' does not exist on type 'SearchResult'.
+src/components/layout/SearchResultItem.tsx(50,52): error TS2339: Property 'subtitle' does not exist on type 'SearchResult'.
+src/components/layout/SearchResultItem.tsx(51,13): error TS2339: Property 'subtitle' does not exist on type 'SearchResult'.
+src/components/layout/SearchResultItem.tsx(55,45): error TS2339: Property 'status' does not exist on type 'SearchResult'.
+src/components/layout/SearchResultItem.tsx(84,17): error TS2339: Property 'subtitle' does not exist on type 'SearchResult'.
+src/components/layout/SearchResultItem.tsx(95,17): error TS2339: Property 'location' does not exist on type 'SearchResult'.
+src/components/layout/SearchResultItem.tsx(103,27): error TS2339: Property 'location' does not exist on type 'SearchResult'.
+src/components/layout/SearchResultItem.tsx(109,15): error TS2339: Property 'status' does not exist on type 'SearchResult'.
+src/components/layout/SearchResultItem.tsx(116,19): error TS2339: Property 'status' does not exist on type 'SearchResult'.
+src/components/layout/Sidebar.tsx(8,31): error TS6133: 'Settings' is declared but its value is never read.
+src/components/layout/Sidebar.tsx(9,11): error TS6133: 'Menu' is declared but its value is never read.
+src/components/layout/Sidebar.tsx(69,9): error TS6198: All destructured elements are unused.
+src/components/logistics/LogisticsDetail.tsx(5,52): error TS6133: 'CardDescription' is declared but its value is never read.
+src/components/logistics/LogisticsDetail.tsx(18,72): error TS6133: 'LogisticsRequest' is declared but its value is never read.
+src/components/logistics/LogisticsDetail.tsx(25,3): error TS6133: 'Clock' is declared but its value is never read.
+src/components/logistics/LogisticsDetail.tsx(29,3): error TS6133: 'AlertTriangle' is declared but its value is never read.
+src/components/logistics/LogisticsDetail.tsx(295,25): error TS2349: This expression is not callable.
+  Type 'never' has no call signatures.
+src/components/logistics/LogisticsForm.tsx(18,10): error TS6133: 'Plus' is declared but its value is never read.
+src/components/logistics/LogisticsForm.tsx(76,7): error TS2322: Type 'LogisticsItem | { id: string; category: NeedCategory; name: string | undefined; quantity: number; unit: string; }' is not assignable to type 'LogisticsItem'.
+  Type '{ id: string; category: NeedCategory; name: string | undefined; quantity: number; unit: string; }' is not assignable to type 'LogisticsItem'.
+    Types of property 'name' are incompatible.
+      Type 'string | undefined' is not assignable to type 'string'.
+        Type 'undefined' is not assignable to type 'string'.
+src/components/logistics/LogisticsForm.tsx(80,9): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/components/logistics/LogisticsForm.tsx(89,5): error TS2322: Type '{ id?: string | undefined; category?: NeedCategory | undefined; name?: string | undefined; quantity?: number | undefined; unit?: string | undefined; notes?: string; }' is not assignable to type 'LogisticsItem'.
+  Types of property 'id' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+src/components/logistics/LogisticsList.tsx(30,3): error TS6133: 'CheckCircle' is declared but its value is never read.
+src/components/logistics/LogisticsList.tsx(31,3): error TS6133: 'XCircle' is declared but its value is never read.
+src/components/logistics/LogisticsList.tsx(32,3): error TS6133: 'Truck' is declared but its value is never read.
+src/components/logistics/LogisticsTracker.tsx(4,1): error TS6133: 'Badge' is declared but its value is never read.
+src/components/logistics/LogisticsTracker.tsx(6,17): error TS6133: 'Package' is declared but its value is never read.
+src/components/logistics/LogisticsTracker.tsx(6,26): error TS6133: 'CheckCircle' is declared but its value is never read.
+src/components/logistics/LogisticsTracker.tsx(150,42): error TS6133: 'index' is declared but its value is never read.
+src/components/logistics/LogisticsTracker.tsx(183,40): error TS6133: 'index' is declared but its value is never read.
+src/components/map/BmkgSeismikLayer.tsx(2,18): error TS6133: 'CircleMarker' is declared but its value is never read.
+src/components/map/BmkgSeismikLayer.tsx(5,10): error TS6133: 'useBmkgEarthquakes' is declared but its value is never read.
+src/components/map/BmkgSeismikLayer.tsx(151,57): error TS6133: 'isLoading' is declared but its value is never read.
+src/components/map/CommandPostMarkers.tsx(5,16): error TS6133: 'Phone' is declared but its value is never read.
+src/components/map/CommandPostMarkers.tsx(5,23): error TS6133: 'User' is declared but its value is never read.
+src/components/map/HazardMap.tsx(7,3): error TS6133: 'useHazardZonesByType' is declared but its value is never read.
+src/components/map/HazardMap.tsx(9,8): error TS2459: Module '"@/hooks/use-hazard"' declares 'HazardType' locally, but it is not exported.
+src/components/map/HazardMap.tsx(12,3): error TS2724: '"@/services/hazardService"' has no exported member named 'getHazardTypeLabel'. Did you mean 'getHazardTypes'?
+src/components/map/HazardMap.tsx(13,3): error TS2724: '"@/services/hazardService"' has no exported member named 'getHazardTypeColor'. Did you mean 'getHazardTypes'?
+src/components/map/HazardMap.tsx(59,55): error TS2339: Property 'region' does not exist on type 'HazardZone'.
+src/components/map/HazardMap.tsx(84,7): error TS2532: Object is possibly 'undefined'.
+src/components/map/HazardMap.tsx(157,15): error TS2532: Object is possibly 'undefined'.
+src/components/map/HazardMap.tsx(162,31): error TS2367: This comparison appears to be unintentional because the types 'number | undefined' and 'string' have no overlap.
+src/components/map/HazardMap.tsx(282,59): error TS2339: Property 'region' does not exist on type 'HazardZone'.
+src/components/map/HazardMap.tsx(297,63): error TS2551: Property 'hazard_type' does not exist on type 'HazardZone'. Did you mean 'hazardTypeId'?
+src/components/map/HazardMap.tsx(299,66): error TS2551: Property 'hazard_type' does not exist on type 'HazardZone'. Did you mean 'hazardTypeId'?
+src/components/map/HazardMap.tsx(307,63): error TS2339: Property 'severity_level' does not exist on type 'HazardZone'.
+src/components/map/HazardMap.tsx(310,38): error TS2339: Property 'severity_level' does not exist on type 'HazardZone'.
+src/components/map/HazardMap.tsx(315,15): error TS2339: Property 'recurrence_interval' does not exist on type 'HazardZone'.
+src/components/map/HazardMap.tsx(318,49): error TS2339: Property 'recurrence_interval' does not exist on type 'HazardZone'.
+src/components/map/HazardMap.tsx(325,19): error TS2339: Property 'population_exposed' does not exist on type 'HazardZone'.
+src/components/map/HazardMap.tsx(332,23): error TS2339: Property 'infrastructure_value' does not exist on type 'HazardZone'.
+src/components/map/HazardMap.tsx(345,3): error TS6133: 'severity' is declared but its value is never read.
+src/components/map/HazardZoneLayer.tsx(5,32): error TS2459: Module '"@/hooks/use-hazard"' declares 'HazardType' locally, but it is not exported.
+src/components/map/HazardZoneLayer.tsx(7,3): error TS2724: '"@/services/hazardService"' has no exported member named 'getHazardTypeColor'. Did you mean 'getHazardTypes'?
+src/components/map/HazardZoneLayer.tsx(28,41): error TS2551: Property 'hazard_type' does not exist on type 'HazardZone'. Did you mean 'hazardTypeId'?
+src/components/map/HazardZoneLayer.tsx(29,47): error TS2339: Property 'severity_level' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(33,15): error TS2339: Property 'polygon_geometry' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(33,40): error TS2339: Property 'polygon_geometry' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(35,37): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+src/components/map/HazardZoneLayer.tsx(35,51): error TS2339: Property 'region' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(38,17): error TS2339: Property 'polygon_geometry' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(39,13): error TS7006: Parameter 'point' implicitly has an 'any' type.
+src/components/map/HazardZoneLayer.tsx(41,12): error TS2339: Property 'polygon_geometry' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(41,44): error TS2339: Property 'region' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(45,15): error TS2339: Property 'polygon_geometry' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(45,40): error TS2339: Property 'polygon_geometry' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(46,26): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/components/map/HazardZoneLayer.tsx(46,66): error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+src/components/map/HazardZoneLayer.tsx(49,23): error TS2339: Property 'polygon_geometry' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(49,45): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/components/map/HazardZoneLayer.tsx(50,23): error TS2339: Property 'polygon_geometry' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(50,45): error TS7006: Parameter 'p' implicitly has an 'any' type.
+src/components/map/HazardZoneLayer.tsx(59,12): error TS2339: Property 'polygon_geometry' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(95,15): error TS2339: Property 'region' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(107,33): error TS2339: Property 'severity_level' does not exist on type 'HazardZone'.
+src/components/map/HazardZoneLayer.tsx(116,45): error TS6133: 'region' is declared but its value is never read.
+src/components/map/HazardZoneLayer.tsx(142,3): error TS6133: 'hazardType' is declared but its value is never read.
+src/components/map/HazardZoneLayer.tsx(160,23): error TS2367: This comparison appears to be unintentional because the types 'number | undefined' and 'string' have no overlap.
+src/components/map/HazardZoneLayer.tsx(196,29): error TS2551: Property 'hazard_type' does not exist on type 'HazardZone'. Did you mean 'hazardTypeId'?
+src/components/map/HazardZoneLayer.tsx(197,9): error TS2532: Object is possibly 'undefined'.
+src/components/map/HazardZoneLayer.tsx(197,22): error TS2551: Property 'hazard_type' does not exist on type 'HazardZone'. Did you mean 'hazardTypeId'?
+src/components/map/HazardZoneLayer.tsx(210,13): error TS2322: Type 'HazardZone[] | undefined' is not assignable to type 'HazardZone[]'.
+  Type 'undefined' is not assignable to type 'HazardZone[]'.
+src/components/map/HeatmapLayer.tsx(1,38): error TS6133: 'useCallback' is declared but its value is never read.
+src/components/map/HeatmapLayer.tsx(46,36): error TS2694: Namespace '"C:/nurisk/node_modules/.pnpm/@types+leaflet@1.9.21/node_modules/@types/leaflet/index"' has no exported member 'HeatLayer'.
+src/components/map/HeatmapLayer.tsx(142,32): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(o: { [s: string]: string; } | ArrayLike<string>): [string, string][]', gave the following error.
+    Argument of type 'Record<number, string> | undefined' is not assignable to parameter of type '{ [s: string]: string; } | ArrayLike<string>'.
+      Type 'undefined' is not assignable to type '{ [s: string]: string; } | ArrayLike<string>'.
+  Overload 2 of 2, '(o: {}): [string, any][]', gave the following error.
+    Argument of type 'Record<number, string> | undefined' is not assignable to parameter of type '{}'.
+      Type 'undefined' is not assignable to type '{}'.
+src/components/map/MapProvider.tsx(2,35): error TS6133: 'WMSTileLayer' is declared but its value is never read.
+src/components/map/MapProvider.tsx(3,10): error TS6133: 'Map' is declared but its value is never read.
+src/components/map/MapProvider.tsx(11,40): error TS6196: 'IncidentStatus' is declared but never used.
+src/components/map/MapProvider.tsx(11,56): error TS6196: 'DisasterType' is declared but never used.
+src/components/map/MapProvider.tsx(124,41): error TS6133: 'onMapClick' is declared but its value is never read.
+src/components/map/MapProvider.tsx(124,53): error TS6133: 'onBoundsChange' is declared but its value is never read.
+src/components/map/MapProvider.tsx(132,25): error TS2451: Cannot redeclare block-scoped variable 'setHeatmapRadius'.
+src/components/map/MapProvider.tsx(157,9): error TS2451: Cannot redeclare block-scoped variable 'setHeatmapRadius'.
+src/components/map/MarkerCluster.tsx(1,29): error TS6133: 'useMemo' is declared but its value is never read.
+src/components/map/MarkerCluster.tsx(23,3): error TS6133: 'children' is declared but its value is never read.
+src/components/map/ShelterMarkers.tsx(5,16): error TS6133: 'Users' is declared but its value is never read.
+src/components/map/ShelterMarkers.tsx(5,23): error TS6133: 'Phone' is declared but its value is never read.
+src/components/map/ShelterMarkers.tsx(72,76): error TS6133: 'contact' is declared but its value is never read.
+src/components/map/ShelterMarkers.tsx(75,9): error TS6133: 'status' is declared but its value is never read.
+src/components/map/VulnerabilityMap.tsx(8,8): error TS2724: '"@/hooks/use-hazard"' has no exported member named 'VulnerabilityAssessment'. Did you mean 'useVulnerabilityAssessments'?
+src/components/map/VulnerabilityMap.tsx(9,8): error TS2724: '"@/hooks/use-hazard"' has no exported member named 'VulnerabilityHeatmapData'. Did you mean 'useVulnerabilityHeatmap'?
+src/components/map/VulnerabilityMap.tsx(9,8): error TS6133: 'VulnerabilityHeatmapData' is declared but its value is never read.
+src/components/map/VulnerabilityMap.tsx(12,3): error TS2724: '"@/services/hazardService"' has no exported member named 'getVulnerabilityColor'. Did you mean 'getVulnerabilityScore'?
+src/components/map/VulnerabilityMap.tsx(13,3): error TS2724: '"@/services/hazardService"' has no exported member named 'getVulnerabilityLabel'. Did you mean 'getVulnerabilityScore'?
+src/components/map/VulnerabilityMap.tsx(14,3): error TS2724: '"@/services/hazardService"' has no exported member named 'getVulnerabilityGradient'. Did you mean 'getVulnerabilityScore'?
+src/components/map/VulnerabilityMap.tsx(16,3): error TS2724: '"@/services/hazardService"' has no exported member named 'MOCK_VULNERABILITY_HEATMAP'. Did you mean 'MOCK_VULNERABILITY_DATA'?
+src/components/map/VulnerabilityMap.tsx(41,9): error TS6133: 'vulnData' is declared but its value is never read.
+src/components/map/VulnerabilityMap.tsx(46,29): error TS7006: Parameter 'region' implicitly has an 'any' type.
+src/components/map/VulnerabilityMap.tsx(48,39): error TS7006: Parameter 'h' implicitly has an 'any' type.
+src/components/map/VulnerabilityMap.tsx(53,9): error TS6133: 'maxVulnerability' is declared but its value is never read.
+src/components/map/VulnerabilityMap.tsx(54,41): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/components/map/VulnerabilityMap.tsx(60,26): error TS7006: Parameter 'region' implicitly has an 'any' type.
+src/components/map/VulnerabilityMap.tsx(61,31): error TS7006: Parameter 'h' implicitly has an 'any' type.
+src/components/map/VulnerabilityMap.tsx(104,32): error TS7006: Parameter 'region' implicitly has an 'any' type.
+src/components/map/VulnerabilityMap.tsx(168,28): error TS7006: Parameter 'sum' implicitly has an 'any' type.
+src/components/map/VulnerabilityMap.tsx(168,33): error TS7006: Parameter 'r' implicitly has an 'any' type.
+src/components/map/WarehouseMarkers.tsx(5,19): error TS6133: 'Box' is declared but its value is never read.
+src/components/map/WarehouseMarkers.tsx(5,24): error TS6133: 'Truck' is declared but its value is never read.
+src/components/map/WmsOverlay.tsx(4,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/map/WmsOverlay.tsx(8,1): error TS6133: 'Slider' is declared but its value is never read.
+src/components/map/WmsOverlay.tsx(8,24): error TS2307: Cannot find module '@/components/ui/slider' or its corresponding type declarations.
+src/components/map/WmsOverlay.tsx(11,36): error TS6133: 'CloudRain' is declared but its value is never read.
+src/components/map/WmsOverlay.tsx(227,9): error TS6133: 'url' is declared but its value is never read.
+src/components/monitoring/ShelterOccupancyPanel.tsx(6,26): error TS2307: Cannot find module '@/components/ui/progress' or its corresponding type declarations.
+src/components/monitoring/ShelterOccupancyPanel.tsx(26,41): error TS6133: 'shelterId' is declared but its value is never read.
+src/components/monitoring/ShelterOccupancyPanel.tsx(26,63): error TS6133: 'onUpdate' is declared but its value is never read.
+src/components/report/ReportForm.tsx(11,48): error TS6133: 'MapPin' is declared but its value is never read.
+src/components/report/ReportForm.tsx(11,56): error TS6133: 'Check' is declared but its value is never read.
+src/components/report/ReportForm.tsx(129,15): error TS2345: Argument of type 'Step | undefined' is not assignable to parameter of type 'SetStateAction<Step>'.
+  Type 'undefined' is not assignable to type 'SetStateAction<Step>'.
+src/components/report/ReportForm.tsx(137,15): error TS2345: Argument of type 'Step | undefined' is not assignable to parameter of type 'SetStateAction<Step>'.
+  Type 'undefined' is not assignable to type 'SetStateAction<Step>'.
+src/components/report/ReportForm.tsx(145,11): error TS6133: 'mediaUrls' is declared but its value is never read.
+src/components/resources/ResourceAllocation.tsx(9,27): error TS6133: 'Users' is declared but its value is never read.
+src/components/resources/ResourceAllocation.tsx(13,21): error TS6133: 'deallocate' is declared but its value is never read.
+src/components/resources/ResourceAllocation.tsx(124,35): error TS2339: Property 'available' does not exist on type 'Resource'.
+src/components/resources/ResourceAllocation.tsx(128,65): error TS2339: Property 'deployed' does not exist on type 'Resource'.
+src/components/resources/ResourceAllocation.tsx(133,45): error TS2339: Property 'name' does not exist on type 'GeoLocation'.
+src/components/resources/ResourceAllocation.tsx(133,62): error TS2339: Property 'warehouse' does not exist on type 'Resource'.
+src/components/resources/ResourceAllocation.tsx(140,29): error TS2367: This comparison appears to be unintentional because the types '"allocated" | "consumed" | "reserved"' and '"deployed"' have no overlap.
+src/components/resources/ResourceAllocation.tsx(151,44): error TS2339: Property 'available' does not exist on type 'Resource'.
+src/components/resources/ResourceForecast.tsx(8,38): error TS6133: 'refetch' is declared but its value is never read.
+src/components/resources/ResourceForecast.tsx(63,35): error TS2551: Property 'predictedDemand' does not exist on type 'ResourceForecast'. Did you mean 'projectedDemand'?
+src/components/resources/ResourceForecast.tsx(65,33): error TS2551: Property 'predictedDemand' does not exist on type 'ResourceForecast'. Did you mean 'projectedDemand'?
+src/components/resources/ResourceForecast.tsx(93,30): error TS2339: Property 'recommendedProcurement' does not exist on type 'ResourceForecast'.
+src/components/resources/ResourceForecast.tsx(107,34): error TS2339: Property 'recommendedProcurement' does not exist on type 'ResourceForecast'.
+src/components/resources/ResourceForecast.tsx(113,38): error TS2339: Property 'recommendedProcurement' does not exist on type 'ResourceForecast'.
+src/components/resources/ResourceOptimization.tsx(4,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/resources/ResourceOptimization.tsx(9,42): error TS6133: 'refetch' is declared but its value is never read.
+src/components/resources/ResourceOptimization.tsx(64,55): error TS7053: Element implicitly has an 'any' type because expression of type '"low" | "medium" | "high" | "critical"' can't be used to index type '{ high: string; medium: string; low: string; }'.
+  Property 'critical' does not exist on type '{ high: string; medium: string; low: string; }'.
+src/components/resources/ResourceOptimization.tsx(76,28): error TS7053: Element implicitly has an 'any' type because expression of type '"low" | "medium" | "high" | "critical"' can't be used to index type '{ high: string; medium: string; low: string; }'.
+  Property 'critical' does not exist on type '{ high: string; medium: string; low: string; }'.
+src/components/resources/ResourceOptimization.tsx(80,51): error TS2339: Property 'issue' does not exist on type 'ResourceOptimization'.
+src/components/resources/ResourceOptimization.tsx(82,74): error TS2339: Property 'suggestion' does not exist on type 'ResourceOptimization'.
+src/components/resources/ResourceOptimization.tsx(89,32): error TS2339: Property 'potentialSavings' does not exist on type 'ResourceOptimization'.
+src/components/resources/ResourceOverview.tsx(130,36): error TS7053: Element implicitly has an 'any' type because expression of type 'ResourceType' can't be used to index type '{ PERSONNEL: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>; VEHICLE: ForwardRefExoticComponent<...>; EQUIPMENT: ForwardRefExoticComponent<...>; SUPPLIES: ForwardRefExoticComponent<...>; SHELTER: ForwardRefExoticComponent<...>; }'.
+  Property 'MEDICAL' does not exist on type '{ PERSONNEL: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>; VEHICLE: ForwardRefExoticComponent<...>; EQUIPMENT: ForwardRefExoticComponent<...>; SUPPLIES: ForwardRefExoticComponent<...>; SHELTER: ForwardRefExoticComponent<...>; }'.
+src/components/resources/ResourceOverview.tsx(137,33): error TS2339: Property 'available' does not exist on type 'Resource'.
+src/components/settings/SecuritySettings.tsx(8,1): error TS6133: 'Switch' is declared but its value is never read.
+src/components/settings/SecuritySettings.tsx(12,3): error TS6133: 'Key' is declared but its value is never read.
+src/components/settings/SecuritySettings.tsx(16,3): error TS6133: 'AlertTriangle' is declared but its value is never read.
+src/components/settings/SecuritySettings.tsx(45,21): error TS2367: This comparison appears to be unintentional because the types 'UserRole' and '"admin"' have no overlap.
+src/components/settings/ThemeSettings.tsx(5,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/shelter/ShelterActivationPanel.tsx(8,38): error TS6133: 'Users' is declared but its value is never read.
+src/components/shelter/ShelterActivationPanel.tsx(8,45): error TS6133: 'MapPin' is declared but its value is never read.
+src/components/shelter/ShelterActivationPanel.tsx(23,42): error TS6133: 'shelterId' is declared but its value is never read.
+src/components/shelters/ShelterActivationPanel.tsx(9,24): error TS6196: 'ShelterStatus' is declared but never used.
+src/components/shelters/ShelterActivationPanel.tsx(24,9): error TS6133: 'isPending' is declared but its value is never read.
+src/components/shelters/ShelterActivationPanel.tsx(24,21): error TS2367: This comparison appears to be unintentional because the types 'ShelterStatus' and '"PENDING_APPROVAL"' have no overlap.
+src/components/shelters/ShelterActivationPanel.tsx(25,22): error TS2367: This comparison appears to be unintentional because the types 'ShelterStatus' and '"APPROVED"' have no overlap.
+src/components/shelters/ShelterActivationPanel.tsx(127,10): error TS2367: This comparison appears to be unintentional because the types 'ShelterStatus' and '"ACTIVE"' have no overlap.
+src/components/shelters/ShelterCrewAssignment.tsx(7,23): error TS6133: 'Trash2' is declared but its value is never read.
+src/components/shelters/ShelterDetail.tsx(6,1): error TS6133: 'Button' is declared but its value is never read.
+src/components/shelters/ShelterDetail.tsx(8,100): error TS6133: 'useShelterOperations' is declared but its value is never read.
+src/components/shelters/ShelterDetail.tsx(9,49): error TS6133: 'CheckCircle' is declared but its value is never read.
+src/components/shelters/ShelterDetail.tsx(9,62): error TS6133: 'AlertTriangle' is declared but its value is never read.
+src/components/shelters/ShelterDetail.tsx(10,1): error TS6192: All imports in import declaration are unused.
+src/components/shelters/ShelterDetail.tsx(232,11): error TS2339: Property 'timeline' does not exist on type '{ events: ShelterTimelineEvent[]; loading: boolean; error: string | null; refetch: () => Promise<void>; }'.
+src/components/shelters/ShelterDetail.tsx(248,28): error TS7006: Parameter 'event' implicitly has an 'any' type.
+src/components/shelters/ShelterDetail.tsx(276,50): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/components/shelters/ShelterList.tsx(8,18): error TS6133: 'Users' is declared but its value is never read.
+src/components/shelters/ShelterList.tsx(8,25): error TS6133: 'AlertCircle' is declared but its value is never read.
+src/components/shelters/ShelterList.tsx(8,38): error TS6133: 'CheckCircle' is declared but its value is never read.
+src/components/shelters/ShelterList.tsx(8,51): error TS6133: 'Clock' is declared but its value is never read.
+src/components/shelters/ShelterList.tsx(10,15): error TS6196: 'Shelter' is declared but never used.
+src/components/shelters/ShelterList.tsx(13,3): error TS2353: Object literal may only specify known properties, and 'PROPOSED' does not exist in type 'Record<ShelterStatus, string>'.
+src/components/shelters/ShelterMapView.tsx(8,1): error TS6192: All imports in import declaration are unused.
+src/components/shelters/ShelterMapView.tsx(11,1): error TS6133: 'markerIcon2x' is declared but its value is never read.
+src/components/shelters/ShelterMapView.tsx(12,1): error TS6133: 'markerIcon' is declared but its value is never read.
+src/components/shelters/ShelterMapView.tsx(13,1): error TS6133: 'markerShadow' is declared but its value is never read.
+src/components/shelters/ShelterMapView.tsx(17,4): error TS2693: 'ShelterCapacityStatus' only refers to a type, but is being used as a value here.
+src/components/shelters/ShelterMapView.tsx(18,4): error TS2693: 'ShelterCapacityStatus' only refers to a type, but is being used as a value here.
+src/components/shelters/ShelterMapView.tsx(19,4): error TS2693: 'ShelterCapacityStatus' only refers to a type, but is being used as a value here.
+src/components/shelters/ShelterMapView.tsx(20,4): error TS2693: 'ShelterCapacityStatus' only refers to a type, but is being used as a value here.
+src/components/shelters/ShelterMapView.tsx(42,10): error TS6133: 'MapCenter' is declared but its value is never read.
+src/components/shelters/ShelterMapView.tsx(57,13): error TS2693: 'ShelterStatus' only refers to a type, but is being used as a value here.
+src/components/shelters/ShelterMapView.tsx(59,10): error TS6133: 'selectedShelter' is declared but its value is never read.
+src/components/shelters/ShelterMapView.tsx(60,21): error TS6133: 'setMapCenter' is declared but its value is never read.
+src/components/shelters/ShelterMapView.tsx(102,41): error TS7015: Element implicitly has an 'any' type because index expression is not of type 'number'.
+src/components/shelters/ShelterPICAssignment.tsx(6,1): error TS6133: 'Input' is declared but its value is never read.
+src/components/shelters/ShelterPICAssignment.tsx(8,16): error TS6133: 'Phone' is declared but its value is never read.
+src/components/ui/dropdown-menu.tsx(3,1): error TS6192: All imports in import declaration are unused.
+src/components/ui/ExportButton.tsx(82,36): error TS2345: Argument of type 'ExportFormat | undefined' is not assignable to parameter of type 'ExportFormat'.
+  Type 'undefined' is not assignable to type 'ExportFormat'.
+src/components/ui/ExportButton.tsx(95,24): error TS2538: Type 'undefined' cannot be used as an index type.
+src/components/ui/ExportButton.tsx(106,36): error TS2345: Argument of type 'ExportFormat | undefined' is not assignable to parameter of type 'ExportFormat'.
+  Type 'undefined' is not assignable to type 'ExportFormat'.
+src/components/ui/ExportModal.tsx(10,10): error TS6133: 'getExportFormats' is declared but its value is never read.
+src/components/ui/ExportModal.tsx(15,46): error TS2552: Cannot find name 'ExportOptions'. Did you mean 'ExportOption'?
+src/components/ui/LoadingSpinner.tsx(1,1): error TS6133: 'React' is declared but its value is never read.
+src/components/ui/switch.tsx(9,46): error TS6133: 'ref' is declared but its value is never read.
+src/components/ui/switch.tsx(12,11): error TS6133: 'handleChange' is declared but its value is never read.
+src/components/volunteers/DispatchMap.tsx(34,31): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchMap.tsx(49,52): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchMap.tsx(104,57): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchMap.tsx(109,26): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchMap.tsx(111,23): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchMap.tsx(112,23): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchMap.tsx(139,54): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchMap.tsx(144,55): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchMap.tsx(146,35): error TS2339: Property 'distanceText' does not exist on type 'SkillMatch'.
+src/components/volunteers/DispatchMap.tsx(183,10): error TS6133: 'DispatchMapSkeleton' is declared but its value is never read.
+src/components/volunteers/DispatchPanel.tsx(34,36): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchPanel.tsx(35,41): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchPanel.tsx(40,63): error TS2339: Property 'distance' does not exist on type 'SkillMatch'.
+src/components/volunteers/DispatchPanel.tsx(40,76): error TS2339: Property 'distance' does not exist on type 'SkillMatch'.
+src/components/volunteers/DispatchPanel.tsx(43,9): error TS6133: 'selectedMatches' is declared but its value is never read.
+src/components/volunteers/DispatchPanel.tsx(43,72): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchPanel.tsx(51,9): error TS2561: Object literal may only specify known properties, but 'volunteerIds' does not exist in type '{ volunteerId: string; incidentId: string; role: string; startAt: string; }'. Did you mean to write 'volunteerId'?
+src/components/volunteers/DispatchPanel.tsx(71,45): error TS2339: Property 'priority' does not exist on type 'Incident'.
+src/components/volunteers/DispatchPanel.tsx(74,44): error TS2339: Property 'priority' does not exist on type 'Incident'.
+src/components/volunteers/DispatchPanel.tsx(83,25): error TS2551: Property 'assignedCount' does not exist on type 'Incident'. Did you mean 'assignedTo'?
+src/components/volunteers/DispatchPanel.tsx(83,50): error TS2339: Property 'requiredCount' does not exist on type 'Incident'.
+src/components/volunteers/DispatchPanel.tsx(92,21): error TS2339: Property 'requiredSkills' does not exist on type 'Incident'.
+src/components/volunteers/DispatchPanel.tsx(92,41): error TS7006: Parameter 'skill' implicitly has an 'any' type.
+src/components/volunteers/DispatchPanel.tsx(121,21): error TS2339: Property 'requiredSkills' does not exist on type 'Incident'.
+src/components/volunteers/DispatchPanel.tsx(121,41): error TS7006: Parameter 'skill' implicitly has an 'any' type.
+src/components/volunteers/DispatchPanel.tsx(165,26): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchPanel.tsx(167,54): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchPanel.tsx(169,48): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchPanel.tsx(170,45): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchPanel.tsx(172,43): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/DispatchPanel.tsx(195,25): error TS2339: Property 'requiredCount' does not exist on type 'Incident'.
+src/components/volunteers/DispatchPanel.tsx(195,50): error TS2551: Property 'assignedCount' does not exist on type 'Incident'. Did you mean 'assignedTo'?
+src/components/volunteers/DispatchPanel.tsx(229,10): error TS6133: 'DispatchPanelSkeleton' is declared but its value is never read.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(9,36): error TS6133: 'AlertTriangle' is declared but its value is never read.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(9,51): error TS6133: 'Clock' is declared but its value is never read.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(65,7): error TS2367: This comparison appears to be unintentional because the types 'VolunteerStatus' and '"approved"' have no overlap.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(69,7): error TS2367: This comparison appears to be unintentional because the types 'VolunteerStatus' and '"suspended"' have no overlap.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(73,7): error TS2367: This comparison appears to be unintentional because the types 'VolunteerStatus' and '"inactive"' have no overlap.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(88,67): error TS2339: Property 'status' does not exist on type 'MissionAssignment'.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(101,3): error TS6133: 'missionId' is declared but its value is never read.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(124,59): error TS2339: Property 'volunteerId' does not exist on type 'MissionAssignment'.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(249,23): error TS2367: This comparison appears to be unintentional because the types 'VolunteerStatus' and '"approved"' have no overlap.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(251,27): error TS2367: This comparison appears to be unintentional because the types 'VolunteerStatus' and '"suspended"' have no overlap.
+src/components/volunteers/VolunteerDatabaseIntegration.tsx(261,45): error TS2339: Property 'missionName' does not exist on type 'MissionAssignment'.
+src/components/volunteers/VolunteerSuggestion.tsx(21,11): error TS2339: Property 'volunteer' does not exist on type 'SkillMatch'.
+src/components/volunteers/VolunteerSuggestion.tsx(21,34): error TS2339: Property 'distanceText' does not exist on type 'SkillMatch'.
+src/components/volunteers/VolunteerSuggestion.tsx(69,32): error TS7006: Parameter 'skill' implicitly has an 'any' type.
+src/components/volunteers/VolunteerSuggestion.tsx(70,36): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/VolunteerSuggestion.tsx(70,59): error TS7006: Parameter 's' implicitly has an 'any' type.
+src/components/volunteers/VolunteerSuggestion.tsx(71,19): error TS2551: Property 'volunteer' does not exist on type 'SkillMatch'. Did you mean 'volunteerId'?
+src/components/volunteers/VolunteerSuggestion.tsx(109,10): error TS6133: 'VolunteerSuggestionSkeleton' is declared but its value is never read.
+src/components/warehouse/WarehouseDetail.tsx(5,29): error TS6133: 'CardHeader' is declared but its value is never read.
+src/components/warehouse/WarehouseDetail.tsx(5,41): error TS6133: 'CardTitle' is declared but its value is never read.
+src/components/warehouse/WarehouseDetail.tsx(8,18): error TS6133: 'Phone' is declared but its value is never read.
+src/components/warehouse/WarehouseDetail.tsx(9,26): error TS6196: 'WarehouseStatus' is declared but never used.
+src/components/warehouse/WarehouseDetail.tsx(53,25): error TS2367: This comparison appears to be unintentional because the types 'WarehouseStatus' and '"active"' have no overlap.
+src/components/warehouse/WarehouseDetail.tsx(77,58): error TS2339: Property 'manager' does not exist on type 'Warehouse'.
+src/components/warehouse/WarehouseStockAlerts.tsx(6,54): error TS6133: 'User' is declared but its value is never read.
+src/components/warnings/WarningBanner.tsx(45,20): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'SetStateAction<string>'.
+  Type 'null' is not assignable to type 'SetStateAction<string>'.
+src/components/warnings/WarningBanner.tsx(45,39): error TS2345: Argument of type 'Warning' is not assignable to parameter of type 'string'.
+src/components/warnings/WarningBanner.tsx(54,29): error TS2339: Property 'isActive' does not exist on type 'Warning'.
+src/components/warnings/WarningBanner.tsx(85,18): error TS7053: Element implicitly has an 'any' type because expression of type 'WarningLevel' can't be used to index type '{ info: { bg: string; border: string; icon: string; text: string; }; advisory: { bg: string; border: string; icon: string; text: string; }; watch: { bg: string; border: string; icon: string; text: string; }; warning: { ...; }; }'.
+  Property 'emergency' does not exist on type '{ info: { bg: string; border: string; icon: string; text: string; }; advisory: { bg: string; border: string; icon: string; text: string; }; watch: { bg: string; border: string; icon: string; text: string; }; warning: { ...; }; }'.
+src/components/warnings/WarningBanner.tsx(123,72): error TS2339: Property 'title' does not exist on type 'Warning'.
+src/components/warnings/WarningBanner.tsx(132,31): error TS2339: Property 'affectedAreas' does not exist on type 'Warning'.
+src/components/warnings/WarningCreation.tsx(44,5): error TS2322: Type '"gempa"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningCreation.tsx(46,5): error TS2322: Type '"banjir"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningCreation.tsx(47,5): error TS2322: Type '"cuaca"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningCreation.tsx(48,5): error TS2322: Type '"kebakaran"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningCreation.tsx(49,5): error TS2322: Type '"longsor"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningCreation.tsx(50,5): error TS2322: Type '"lainnya"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningCreation.tsx(53,42): error TS2322: Type '"info"' is not assignable to type 'WarningLevel'.
+src/components/warnings/WarningCreation.tsx(85,9): error TS2353: Object literal may only specify known properties, and 'center' does not exist in type 'WarningArea'.
+src/components/warnings/WarningCreation.tsx(110,7): error TS2322: Type 'number' is not assignable to type 'string'.
+src/components/warnings/WarningCreation.tsx(252,8): error TS2367: This comparison appears to be unintentional because the types '"" | WarningType' and '"gempa"' have no overlap.
+src/components/warnings/WarningCreation.tsx(310,9): error TS2367: This comparison appears to be unintentional because the types '"" | WarningType' and '"banjir"' have no overlap.
+src/components/warnings/WarningDetail.tsx(35,20): error TS2345: Argument of type 'string | null' is not assignable to parameter of type 'SetStateAction<string>'.
+  Type 'null' is not assignable to type 'SetStateAction<string>'.
+src/components/warnings/WarningDetail.tsx(35,39): error TS2345: Argument of type 'Warning' is not assignable to parameter of type 'string'.
+src/components/warnings/WarningDetail.tsx(75,18): error TS7053: Element implicitly has an 'any' type because expression of type 'WarningLevel' can't be used to index type '{ info: { bg: string; border: string; icon: string; text: string; badge: string; }; advisory: { bg: string; border: string; icon: string; text: string; badge: string; }; watch: { bg: string; border: string; icon: string; text: string; badge: string; }; warning: { ...; }; }'.
+  Property 'emergency' does not exist on type '{ info: { bg: string; border: string; icon: string; text: string; badge: string; }; advisory: { bg: string; border: string; icon: string; text: string; badge: string; }; watch: { bg: string; border: string; icon: string; text: string; badge: string; }; warning: { ...; }; }'.
+src/components/warnings/WarningDetail.tsx(100,24): error TS2339: Property 'title' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(150,45): error TS2339: Property 'severity' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(155,39): error TS2339: Property 'severity' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(155,60): error TS2339: Property 'severity' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(167,8): error TS2367: This comparison appears to be unintentional because the types 'WarningType' and '"gempa"' have no overlap.
+src/components/warnings/WarningDetail.tsx(167,44): error TS2339: Property 'magnitude' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(175,59): error TS2339: Property 'magnitude' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(177,22): error TS2339: Property 'depth' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(180,61): error TS2339: Property 'depth' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(183,22): error TS2339: Property 'epicenter' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(187,28): error TS2339: Property 'epicenter' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(188,28): error TS2339: Property 'epicenter' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(197,9): error TS2367: This comparison appears to be unintentional because the types 'WarningType' and '"banjir"' have no overlap.
+src/components/warnings/WarningDetail.tsx(198,17): error TS2339: Property 'estimatedHeight' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(203,57): error TS2339: Property 'estimatedHeight' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(213,20): error TS2339: Property 'affectedAreas' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(213,39): error TS7006: Parameter 'area' implicitly has an 'any' type.
+src/components/warnings/WarningDetail.tsx(225,27): error TS2339: Property 'affectedAreas' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(235,26): error TS2339: Property 'affectedAreas' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(238,30): error TS2339: Property 'affectedAreas' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(239,30): error TS2339: Property 'affectedAreas' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(254,20): error TS2339: Property 'recommendedActions' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(254,44): error TS7006: Parameter 'action' implicitly has an 'any' type.
+src/components/warnings/WarningDetail.tsx(254,52): error TS7006: Parameter 'index' implicitly has an 'any' type.
+src/components/warnings/WarningDetail.tsx(285,33): error TS2339: Property 'isActive' does not exist on type 'Warning'.
+src/components/warnings/WarningDetail.tsx(293,31): error TS2339: Property 'isActive' does not exist on type 'Warning'.
+src/components/warnings/WarningList.tsx(38,38): error TS2339: Property 'isActive' does not exist on type 'Warning'.
+src/components/warnings/WarningList.tsx(47,29): error TS2367: This comparison appears to be unintentional because the types 'string' and 'WarningSource' have no overlap.
+src/components/warnings/WarningList.tsx(53,19): error TS2339: Property 'title' does not exist on type 'Warning'.
+src/components/warnings/WarningList.tsx(55,19): error TS2339: Property 'affectedAreas' does not exist on type 'Warning'.
+src/components/warnings/WarningList.tsx(55,39): error TS7006: Parameter 'area' implicitly has an 'any' type.
+src/components/warnings/WarningList.tsx(69,13): error TS2339: Property 'isActive' does not exist on type 'Warning'.
+src/components/warnings/WarningList.tsx(69,28): error TS2339: Property 'isActive' does not exist on type 'Warning'.
+src/components/warnings/WarningList.tsx(70,18): error TS2339: Property 'isActive' does not exist on type 'Warning'.
+src/components/warnings/WarningList.tsx(77,9): error TS2353: Object literal may only specify known properties, and 'info' does not exist in type 'Record<WarningLevel, number>'.
+src/components/warnings/WarningList.tsx(99,5): error TS2322: Type '"gempa"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningList.tsx(101,5): error TS2322: Type '"banjir"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningList.tsx(102,5): error TS2322: Type '"cuaca"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningList.tsx(103,5): error TS2322: Type '"kebakaran"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningList.tsx(104,5): error TS2322: Type '"longsor"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningList.tsx(105,5): error TS2322: Type '"lainnya"' is not assignable to type 'WarningType'.
+src/components/warnings/WarningList.tsx(108,42): error TS2322: Type '"info"' is not assignable to type 'WarningLevel'.
+src/components/warnings/WarningList.tsx(110,44): error TS2322: Type 'string' is not assignable to type 'WarningSource'.
+src/components/warnings/WarningList.tsx(110,52): error TS2322: Type 'string' is not assignable to type 'WarningSource'.
+src/components/warnings/WarningList.tsx(110,60): error TS2322: Type 'string' is not assignable to type 'WarningSource'.
+src/components/warnings/WarningList.tsx(110,78): error TS2322: Type 'string' is not assignable to type 'WarningSource'.
+src/components/warnings/WarningList.tsx(160,15): error TS2322: Type '"" | WarningSource' is not assignable to type 'string | number | readonly string[] | undefined'.
+  Type 'WarningSource' is not assignable to type 'string | number | readonly string[] | undefined'.
+src/components/warnings/WarningList.tsx(166,25): error TS2322: Type 'WarningSource' is not assignable to type 'Key | null | undefined'.
+src/components/warnings/WarningList.tsx(166,38): error TS2322: Type 'WarningSource' is not assignable to type 'string | number | readonly string[] | undefined'.
+src/components/warnings/WarningList.tsx(167,19): error TS2322: Type 'WarningSource' is not assignable to type 'ReactNode'.
+  Type 'WarningSource' is missing the following properties from type 'ReactPortal': children, props, key
+src/components/warnings/WarningMap.tsx(21,46): error TS2339: Property 'affectedAreas' does not exist on type 'Warning'.
+src/components/warnings/WarningMap.tsx(108,21): error TS2339: Property 'affectedAreas' does not exist on type 'Warning'.
+src/components/warnings/WarningMap.tsx(108,41): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/components/warnings/WarningMap.tsx(114,26): error TS7031: Binding element 'lng' implicitly has an 'any' type.
+src/components/warnings/WarningMap.tsx(114,31): error TS7031: Binding element 'lat' implicitly has an 'any' type.
+src/components/warnings/WarningMap.tsx(175,45): error TS2339: Property 'isActive' does not exist on type 'Warning'.
+src/components/warnings/WarningMap.tsx(225,15): error TS2339: Property 'center' does not exist on type 'WarningArea'.
+src/components/warnings/WarningMap.tsx(227,23): error TS2339: Property 'center' does not exist on type 'WarningArea'.
+src/components/warnings/WarningMap.tsx(228,24): error TS2339: Property 'center' does not exist on type 'WarningArea'.
+src/components/weather/ForecastCard.tsx(27,42): error TS2339: Property 'dayName' does not exist on type 'DailyForecast'.
+src/components/weather/ForecastCard.tsx(38,21): error TS2339: Property 'highTemp' does not exist on type 'DailyForecast'.
+src/components/weather/ForecastCard.tsx(40,24): error TS2339: Property 'lowTemp' does not exist on type 'DailyForecast'.
+src/components/weather/ForecastCard.tsx(46,60): error TS2551: Property 'conditionText' does not exist on type 'DailyForecast'. Did you mean 'condition'?
+src/components/weather/ForecastCard.tsx(84,52): error TS2339: Property 'dayName' does not exist on type 'DailyForecast'.
+src/components/weather/ForecastCard.tsx(88,25): error TS2339: Property 'highTemp' does not exist on type 'DailyForecast'.
+src/components/weather/WeatherAlert.tsx(46,18): error TS7053: Element implicitly has an 'any' type because expression of type '"minor" | "moderate" | "extreme" | "severe"' can't be used to index type '{ info: { container: string; icon: string; title: string; description: string; }; watch: { container: string; icon: string; title: string; description: string; }; warning: { container: string; icon: string; title: string; description: string; }; emergency: { ...; }; }'.
+  Property 'minor' does not exist on type '{ info: { container: string; icon: string; title: string; description: string; }; watch: { container: string; icon: string; title: string; description: string; }; warning: { container: string; icon: string; title: string; description: string; }; emergency: { ...; }; }'.
+src/components/weather/WeatherAlert.tsx(47,25): error TS7053: Element implicitly has an 'any' type because expression of type '"minor" | "moderate" | "extreme" | "severe"' can't be used to index type '{ info: string; watch: string; warning: string; emergency: string; }'.
+  Property 'minor' does not exist on type '{ info: string; watch: string; warning: string; emergency: string; }'.
+src/components/weather/WeatherAlert.tsx(80,22): error TS2339: Property 'title' does not exist on type 'WeatherAlert'.
+src/components/weather/WeatherAlert.tsx(102,34): error TS2339: Property 'source' does not exist on type 'WeatherAlert'.
+src/components/weather/WeatherAlert.tsx(145,44): error TS2367: This comparison appears to be unintentional because the types '"minor" | "moderate" | "extreme" | "severe"' and '"emergency"' have no overlap.
+src/components/weather/WeatherAlert.tsx(146,43): error TS2367: This comparison appears to be unintentional because the types '"minor" | "moderate" | "extreme" | "severe"' and '"warning"' have no overlap.
+src/components/weather/WeatherAlert.tsx(153,18): error TS7053: Element implicitly has an 'any' type because expression of type '"minor" | "moderate" | "extreme" | "severe"' can't be used to index type '{ info: { container: string; icon: string; title: string; description: string; }; watch: { container: string; icon: string; title: string; description: string; }; warning: { container: string; icon: string; title: string; description: string; }; emergency: { ...; }; }'.
+  Property 'minor' does not exist on type '{ info: { container: string; icon: string; title: string; description: string; }; watch: { container: string; icon: string; title: string; description: string; }; warning: { container: string; icon: string; title: string; description: string; }; emergency: { ...; }; }'.
+src/components/weather/WeatherAlert.tsx(166,24): error TS2339: Property 'title' does not exist on type 'WeatherAlert'.
+src/components/weather/WeatherIcon.tsx(18,25): error TS2344: Type 'WeatherCondition' does not satisfy the constraint 'string | number | symbol'.
+src/components/weather/WeatherIcon.tsx(29,33): error TS2344: Type 'WeatherCondition' does not satisfy the constraint 'string | number | symbol'.
+src/components/weather/WeatherIcon.tsx(46,27): error TS2538: Type 'WeatherCondition' cannot be used as an index type.
+src/components/weather/WeatherIcon.tsx(47,55): error TS2538: Type 'WeatherCondition' cannot be used as an index type.
+src/components/weather/WeatherIcon.tsx(50,6): error TS2322: Type '{ children: any; className: string; role: "img"; "aria-label": WeatherCondition; }' is not assignable to type 'DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>'.
+  Type '{ children: any; className: string; role: "img"; "aria-label": WeatherCondition; }' is not assignable to type 'HTMLAttributes<HTMLSpanElement>'.
+    Types of property '"aria-label"' are incompatible.
+      Type 'WeatherCondition' is not assignable to type 'string'.
+src/components/weather/WeatherIcon.tsx(72,25): error TS2344: Type 'WeatherCondition' does not satisfy the constraint 'string | number | symbol'.
+src/components/weather/WeatherIcon.tsx(160,26): error TS2538: Type 'WeatherCondition' cannot be used as an index type.
+src/components/weather/WeatherIcon.tsx(160,50): error TS2339: Property 'unknown' does not exist on type 'Record<WeatherCondition, ReactNode>'.
+src/components/weather/WeatherWidget.tsx(103,60): error TS2551: Property 'conditionText' does not exist on type 'CurrentWeather'. Did you mean 'condition'?
+src/components/weather/WeatherWidget.tsx(114,72): error TS2339: Property 'highTemp' does not exist on type 'DailyForecast'.
+src/components/weather/WeatherWidget.tsx(118,72): error TS2339: Property 'lowTemp' does not exist on type 'DailyForecast'.
+src/components/weather/WeatherWidget.tsx(144,51): error TS2345: Argument of type 'number | undefined' is not assignable to parameter of type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/components/weather/WeatherWidget.tsx(203,65): error TS2551: Property 'conditionText' does not exist on type 'CurrentWeather'. Did you mean 'condition'?
+src/features/auth/pages/LoginPage.tsx(6,9): error TS6133: 'navigate' is declared but its value is never read.
+src/features/auth/pages/VerifyOtpPage.tsx(15,13): error TS7030: Not all code paths return a value.
+src/features/auth/pages/VerifyOtpPage.tsx(23,44): error TS2353: Object literal may only specify known properties, and 'email' does not exist in type 'VerifyOtpRequest'.
+src/features/chat/hooks/useSendMessage.ts(14,46): error TS2353: Object literal may only specify known properties, and 'content' does not exist in type 'SendMessageRequest'.
+src/features/shelters/pages/ShelterDetailPage.tsx(2,38): error TS6133: 'Mail' is declared but its value is never read.
+src/hooks/__tests__/use-incidents.test.tsx(1,48): error TS6133: 'afterEach' is declared but its value is never read.
+src/hooks/__tests__/use-incidents.test.tsx(2,37): error TS2307: Cannot find module '@testing-library/react-query' or its corresponding type declarations.
+src/hooks/__tests__/use-incidents.test.tsx(78,56): error TS2353: Object literal may only specify known properties, and 'page' does not exist in type 'IncidentFilter'.
+src/hooks/__tests__/use-incidents.test.tsx(134,26): error TS2551: Property 'mockRejectedValueOnceOnce' does not exist on type 'MockedFunction<(<T = any, R = AxiosResponse<T, any, {}>, D = any>(url: string, data?: D | undefined, config?: AxiosRequestConfig<D> | undefined) => Promise<R>)>'. Did you mean 'mockRejectedValueOnce'?
+src/hooks/use-audit-log.ts(6,33): error TS6133: 'useQueryClient' is declared but its value is never read.
+src/hooks/use-audit-log.ts(132,9): error TS2740: Type '{ LOGIN: string; LOGOUT: string; CREATE_INCIDENT: string; UPDATE_INCIDENT: string; DELETE_INCIDENT: string; CREATE_ASSESSMENT: string; UPDATE_ASSESSMENT: string; DEPLOY_VOLUNTEER: string; ... 9 more ...; DELETE_USER: string; }' is missing the following properties from type 'Record<AuditAction, string>': DELETE, CREATE, UPDATE, READ, and 2 more.
+src/hooks/use-audit-log.ts(177,9): error TS2740: Type '{ LOGIN: string; LOGOUT: string; CREATE_INCIDENT: string; UPDATE_INCIDENT: string; DELETE_INCIDENT: string; CREATE_ASSESSMENT: string; UPDATE_ASSESSMENT: string; DEPLOY_VOLUNTEER: string; ... 9 more ...; DELETE_USER: string; }' is missing the following properties from type 'Record<AuditAction, string>': DELETE, CREATE, UPDATE, READ, and 2 more.
+src/hooks/use-auth.ts(6,15): error TS6196: 'User' is declared but never used.
+src/hooks/use-auth.ts(39,24): error TS6133: 'variables' is declared but its value is never read.
+src/hooks/use-awareness.ts(48,23): error TS2339: Property 'assets' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(64,23): error TS2551: Property 'incidents' does not exist on type 'TacticalData'. Did you mean 'incidentId'?
+src/hooks/use-awareness.ts(80,23): error TS2339: Property 'volunteers' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(120,23): error TS2339: Property 'channels' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(136,23): error TS2339: Property 'broadcasts' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(152,23): error TS2339: Property 'timeline' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(164,3): error TS2353: Object literal may only specify known properties, and 'assets' does not exist in type 'TacticalData'.
+src/hooks/use-awareness.ts(353,56): error TS2339: Property 'assets' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(354,62): error TS2551: Property 'incidents' does not exist on type 'TacticalData'. Did you mean 'incidentId'?
+src/hooks/use-awareness.ts(355,64): error TS2339: Property 'volunteers' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(356,66): error TS2339: Property 'evacuationRoutes' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(357,63): error TS2339: Property 'exclusionZones' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(358,73): error TS2339: Property 'channels' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(359,71): error TS2339: Property 'broadcasts' does not exist on type 'TacticalData'.
+src/hooks/use-awareness.ts(360,66): error TS2339: Property 'timeline' does not exist on type 'TacticalData'.
+src/hooks/use-bmkg.ts(1,1): error TS6192: All imports in import declaration are unused.
+src/hooks/use-bmkg.ts(42,12): error TS2322: Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/hooks/use-bmkg.ts(42,17): error TS2322: Type 'number | undefined' is not assignable to type 'number'.
+  Type 'undefined' is not assignable to type 'number'.
+src/hooks/use-bmkg.ts(45,10): error TS6133: 'parseLatLon' is declared but its value is never read.
+src/hooks/use-bmkg.ts(50,35): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/hooks/use-bmkg.ts(51,35): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/hooks/use-bmkg.ts(64,29): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/hooks/use-bmkg.ts(71,29): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/hooks/use-bmkg.ts(95,17): error TS2552: Cannot find name 'gema'. Did you mean 'gempa'?
+src/hooks/use-bmkg.ts(113,7): error TS2740: Type 'ApiResponse<BmkgEarthquake[]>' is missing the following properties from type 'BmkgEarthquake[]': length, pop, push, concat, and 29 more.
+src/hooks/use-briefing.ts(14,14): error TS2352: Conversion of type '{ activeIncidents: number; criticalAlerts: number; resourcesDeployed: number; }' to type 'SituationSummary' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ activeIncidents: number; criticalAlerts: number; resourcesDeployed: number; }' is missing the following properties from type 'SituationSummary': overview, criticalIssues, ongoingOperations, resourceStatus
+src/hooks/use-briefing.ts(15,12): error TS2352: Conversion of type '{ totalIncidents: number; resolvedIncidents: number; }' to type 'KeyMetrics' may be a mistake because neither type sufficiently overlaps with the other. If this was intentional, convert the expression to 'unknown' first.
+  Type '{ totalIncidents: number; resolvedIncidents: number; }' is missing the following properties from type 'KeyMetrics': activeIncidents, totalVolunteers, deployedVolunteers, totalShelters, and 4 more.
+src/hooks/use-briefing.ts(95,23): error TS2551: Property 'recommendedActions' does not exist on type 'ExecutiveBriefing'. Did you mean 'recommendations'?
+src/hooks/use-briefing.ts(114,21): error TS2339: Property 'priority' does not exist on type 'ExecutiveBriefing'.
+src/hooks/use-briefing.ts(115,21): error TS2339: Property 'region' does not exist on type 'ExecutiveBriefing'.
+src/hooks/use-briefing.ts(139,5): error TS2322: Type 'SituationSummary | ExecutiveBriefing' is not assignable to type 'SituationSummary'.
+  Type 'ExecutiveBriefing' is missing the following properties from type 'SituationSummary': overview, criticalIssues, ongoingOperations, resourceStatus
+src/hooks/use-chat.ts(12,3): error TS6196: 'ChatUser' is declared but never used.
+src/hooks/use-chat.ts(15,3): error TS6196: 'TypingIndicator' is declared but never used.
+src/hooks/use-chat.ts(16,3): error TS6196: 'MessageType' is declared but never used.
+src/hooks/use-chat.ts(17,3): error TS6196: 'ConversationType' is declared but never used.
+src/hooks/use-chat.ts(98,54): error TS2353: Object literal may only specify known properties, and 'userId' does not exist in type 'ChatFilter & PaginationRequest'.
+src/hooks/use-chat.ts(269,9): error TS6133: 'user' is declared but its value is never read.
+src/hooks/use-chat.ts(272,13): error TS7030: Not all code paths return a value.
+src/hooks/use-chat.ts(293,73): error TS2339: Property 'hasMore' does not exist on type '{ messages: Message[]; }'.
+src/hooks/use-debounce.ts(66,13): error TS7030: Not all code paths return a value.
+src/hooks/use-early-warning.ts(76,40): error TS2554: Expected 0 arguments, but got 3.
+src/hooks/use-early-warning.ts(89,66): error TS2345: Argument of type 'import("C:/nurisk/frontend-web/src/services/earlyWarningService").WarningCreateRequest' is not assignable to parameter of type 'import("C:/nurisk/packages/sdk/src/early-warning/EarlyWarningApi").WarningCreateRequest'.
+  Property 'headline' is missing in type 'import("C:/nurisk/frontend-web/src/services/earlyWarningService").WarningCreateRequest' but required in type 'import("C:/nurisk/packages/sdk/src/early-warning/EarlyWarningApi").WarningCreateRequest'.
+src/hooks/use-early-warning.ts(109,29): error TS2345: Argument of type 'Partial<import("C:/nurisk/frontend-web/src/services/earlyWarningService").WarningCreateRequest>' is not assignable to parameter of type 'Partial<import("C:/nurisk/packages/sdk/src/early-warning/EarlyWarningApi").WarningCreateRequest>'.
+  Types of property 'affectedAreas' are incompatible.
+    Type 'import("C:/nurisk/frontend-web/src/services/earlyWarningService").WarningArea[] | undefined' is not assignable to type 'import("C:/nurisk/packages/sdk/src/early-warning/EarlyWarningApi").WarningArea[] | undefined'.
+      Type 'import("C:/nurisk/frontend-web/src/services/earlyWarningService").WarningArea[]' is not assignable to type 'import("C:/nurisk/packages/sdk/src/early-warning/EarlyWarningApi").WarningArea[]'.
+        Property 'center' is missing in type 'import("C:/nurisk/frontend-web/src/services/earlyWarningService").WarningArea' but required in type 'import("C:/nurisk/packages/sdk/src/early-warning/EarlyWarningApi").WarningArea'.
+src/hooks/use-early-warning.ts(138,5): error TS2322: Type '(id: string) => void' is not assignable to type 'MutationFunction<unknown, string>'.
+  Type 'void' is not assignable to type 'Promise<unknown>'.
+src/hooks/use-early-warning.ts(151,5): error TS2322: Type '({ id, channels, }: { id: string; channels?: string[]; }) => void' is not assignable to type 'MutationFunction<unknown, { id: string; channels?: string[] | undefined; }>'.
+  Type 'void' is not assignable to type 'Promise<unknown>'.
+src/hooks/use-early-warning.ts(157,32): error TS2554: Expected 1 arguments, but got 2.
+src/hooks/use-early-warning.ts(198,19): error TS2339: Property 'isActive' does not exist on type 'Warning'.
+src/hooks/use-export.ts(92,60): error TS2454: Variable 'filename' is used before being assigned.
+src/hooks/use-export.ts(211,25): error TS2322: Type 'unknown[][]' is not assignable to type '(string | number)[][]'.
+  Type 'unknown[]' is not assignable to type '(string | number)[]'.
+    Type 'unknown' is not assignable to type 'string | number'.
+src/hooks/use-global-search.ts(8,29): error TS6196: 'SearchCategory' is declared but never used.
+src/hooks/use-global-search.ts(8,45): error TS6196: 'SearchResponse' is declared but never used.
+src/hooks/use-global-search.ts(106,30): error TS2503: Cannot find namespace 'NodeJS'.
+src/hooks/use-global-search.ts(227,7): error TS2322: Type 'SearchResult | undefined' is not assignable to type 'SearchResult | null'.
+  Type 'undefined' is not assignable to type 'SearchResult | null'.
+src/hooks/use-hazard.ts(73,46): error TS2367: This comparison appears to be unintentional because the types 'string' and 'number' have no overlap.
+src/hooks/use-hazard.ts(136,49): error TS2345: Argument of type '{ region_id?: string | undefined; hazard_type?: string | undefined; } | undefined' is not assignable to parameter of type '{ regionId?: string | undefined; hazardType?: string | undefined; } | undefined'.
+  Type '{ region_id?: string | undefined; hazard_type?: string | undefined; }' has no properties in common with type '{ regionId?: string | undefined; hazardType?: string | undefined; }'.
+src/hooks/use-hazard.ts(155,20): error TS2339: Property 'region_id' does not exist on type 'VulnerabilityAssessment'.
+src/hooks/use-hazard.ts(155,48): error TS2551: Property 'hazard_type' does not exist on type 'VulnerabilityAssessment'. Did you mean 'hazardTypeId'?
+src/hooks/use-hazard.ts(223,71): error TS2345: Argument of type 'HazardType' is not assignable to parameter of type 'string'.
+src/hooks/use-hazard.ts(224,22): error TS2339: Property 'vulnerability_index' does not exist on type 'VulnerabilityAssessment'.
+src/hooks/use-hazard.ts(255,43): error TS2551: Property 'hazard_type' does not exist on type 'HazardZone'. Did you mean 'hazardTypeId'?
+src/hooks/use-hazard.ts(275,16): error TS2339: Property 'vulnerability_index' does not exist on type 'VulnerabilityAssessment'.
+src/hooks/use-hazard.ts(275,48): error TS2339: Property 'vulnerability_index' does not exist on type 'VulnerabilityAssessment'.
+src/hooks/use-logistics.ts(231,18): error TS2345: Argument of type 'ApiResponse<LogisticsRequest>' is not assignable to parameter of type 'SetStateAction<LogisticsRequest | null>'.
+src/hooks/use-native-camera.ts(63,19): error TS2345: Argument of type '(prev: CapturedPhoto[]) => (CapturedPhoto | undefined)[]' is not assignable to parameter of type 'SetStateAction<CapturedPhoto[]>'.
+  Type '(prev: CapturedPhoto[]) => (CapturedPhoto | undefined)[]' is not assignable to type '(prevState: CapturedPhoto[]) => CapturedPhoto[]'.
+    Type '(CapturedPhoto | undefined)[]' is not assignable to type 'CapturedPhoto[]'.
+      Type 'CapturedPhoto | undefined' is not assignable to type 'CapturedPhoto'.
+        Type 'undefined' is not assignable to type 'CapturedPhoto'.
+src/hooks/use-native-camera.ts(64,9): error TS2322: Type 'CapturedPhoto | undefined' is not assignable to type 'CapturedPhoto | null'.
+  Type 'undefined' is not assignable to type 'CapturedPhoto | null'.
+src/hooks/use-prophet.ts(23,43): error TS2345: Argument of type 'import("C:/nurisk/packages/shared-types/src/forecast/types").ForecastRequest' is not assignable to parameter of type 'import("C:/nurisk/packages/sdk/src/prophet/ProphetApi").ForecastRequest'.
+  Property 'period' is missing in type 'import("C:/nurisk/packages/shared-types/src/forecast/types").ForecastRequest' but required in type 'import("C:/nurisk/packages/sdk/src/prophet/ProphetApi").ForecastRequest'.
+src/hooks/use-prophet.ts(33,27): error TS2339: Property 'period' does not exist on type 'ForecastRequest'.
+src/hooks/use-prophet.ts(48,27): error TS2339: Property 'period' does not exist on type 'ForecastRequest'.
+src/hooks/use-prophet.ts(62,27): error TS2339: Property 'period' does not exist on type 'ForecastRequest'.
+src/hooks/use-prophet.ts(81,58): error TS6133: 'index' is declared but its value is never read.
+src/hooks/use-prophet.ts(82,50): error TS2339: Property 'date' does not exist on type 'AnomalyPoint'.
+src/hooks/use-prophet.ts(82,65): error TS2339: Property 'date' does not exist on type 'ForecastDataPoint'.
+src/hooks/use-prophet.ts(85,27): error TS2339: Property 'anomaly' does not exist on type 'AnomalyPoint'.
+src/hooks/use-resources.ts(170,13): error TS2322: Type '{ resourceId: string; issue: string; suggestion: string; potentialSavings: number; priority: "high"; }[]' is not assignable to type 'ResourceOptimization[]'.
+  Type '{ resourceId: string; issue: string; suggestion: string; potentialSavings: number; priority: "high"; }' is missing the following properties from type 'ResourceOptimization': resourceName, currentStock, requiredStock, optimalAllocation, and 2 more.
+src/hooks/use-resources.ts(176,59): error TS2339: Property 'unitCost' does not exist on type 'Resource'.
+src/hooks/use-resources.ts(216,9): error TS2353: Object literal may only specify known properties, and 'assignedAt' does not exist in type 'ResourceAllocation'.
+src/hooks/use-risk-registry.ts(24,10): error TS6133: 'calculateInherentRisk' is declared but its value is never read.
+src/hooks/use-risk-registry.ts(28,10): error TS6133: 'calculateResidualRisk' is declared but its value is never read.
+src/hooks/use-risk-registry.ts(159,44): error TS2339: Property 'inherentRisk' does not exist on type 'Risk'.
+src/hooks/use-risk-registry.ts(217,17): error TS2339: Property 'title' does not exist on type 'Risk'.
+src/hooks/use-risk-registry.ts(218,24): error TS2339: Property 'inherentRisk' does not exist on type 'Risk'.
+src/hooks/use-risk-registry.ts(219,24): error TS2339: Property 'residualRisk' does not exist on type 'Risk'.
+src/hooks/use-risk-registry.ts(220,30): error TS2339: Property 'inherentRisk' does not exist on type 'Risk'.
+src/hooks/use-risk-registry.ts(249,8): error TS18048: 'summary.byStatus' is possibly 'undefined'.
+src/hooks/use-risk-registry.ts(250,8): error TS18048: 'summary.byStatus' is possibly 'undefined'.
+src/hooks/use-risk-registry.ts(251,8): error TS18048: 'summary.byStatus' is possibly 'undefined'.
+src/hooks/use-risk-registry.ts(252,13): error TS18048: 'summary.byStatus' is possibly 'undefined'.
+src/hooks/use-scroll-restoration.ts(42,10): error TS6133: 'getScrollPositions' is declared but its value is never read.
+src/hooks/use-shelters.ts(21,3): error TS6196: 'ShelterPIC' is declared but never used.
+src/hooks/use-shelters.ts(22,3): error TS6196: 'ShelterCrewRole' is declared but never used.
+src/hooks/use-shelters.ts(331,21): error TS2345: Argument of type 'ApiResponse<{ id: string; name: string; role: string; skills: string[]; }[]>' is not assignable to parameter of type 'SetStateAction<{ id: string; name: string; role: string; skills: string[]; }[]>'.
+src/hooks/use-socket-events.ts(21,40): error TS6133: 'incidents' is declared but its value is never read.
+src/hooks/use-socket-events.ts(68,42): error TS2345: Argument of type '(incident: Incident) => void' is not assignable to parameter of type 'EventHandler'.
+  Types of parameters 'incident' and 'args' are incompatible.
+    Type 'unknown' is not assignable to type 'Incident'.
+src/hooks/use-socket-events.ts(69,42): error TS2345: Argument of type '(incident: Incident) => void' is not assignable to parameter of type 'EventHandler'.
+  Types of parameters 'incident' and 'args' are incompatible.
+    Type 'unknown' is not assignable to type 'Incident'.
+src/hooks/use-socket-events.ts(70,44): error TS2345: Argument of type '(data: { title: string; message: string; roles: string[]; }) => void' is not assignable to parameter of type 'EventHandler'.
+  Types of parameters 'data' and 'args' are incompatible.
+    Type 'unknown' is not assignable to type '{ title: string; message: string; roles: string[]; }'.
+src/hooks/use-socket-events.ts(71,38): error TS2345: Argument of type '(message: ChatMessage) => void' is not assignable to parameter of type 'EventHandler'.
+  Types of parameters 'message' and 'args' are incompatible.
+    Type 'unknown' is not assignable to type 'ChatMessage'.
+src/hooks/use-socket-events.ts(74,45): error TS2345: Argument of type '(incident: Incident) => void' is not assignable to parameter of type 'EventHandler'.
+  Types of parameters 'incident' and 'args' are incompatible.
+    Type 'unknown' is not assignable to type 'Incident'.
+src/hooks/use-socket-events.ts(75,45): error TS2345: Argument of type '(incident: Incident) => void' is not assignable to parameter of type 'EventHandler'.
+  Types of parameters 'incident' and 'args' are incompatible.
+    Type 'unknown' is not assignable to type 'Incident'.
+src/hooks/use-socket-events.ts(76,47): error TS2345: Argument of type '(data: { title: string; message: string; roles: string[]; }) => void' is not assignable to parameter of type 'EventHandler'.
+  Types of parameters 'data' and 'args' are incompatible.
+    Type 'unknown' is not assignable to type '{ title: string; message: string; roles: string[]; }'.
+src/hooks/use-socket-events.ts(77,41): error TS2345: Argument of type '(message: ChatMessage) => void' is not assignable to parameter of type 'EventHandler'.
+  Types of parameters 'message' and 'args' are incompatible.
+    Type 'unknown' is not assignable to type 'ChatMessage'.
+src/hooks/use-stream-analytics.ts(21,40): error TS2339: Property 'getStream' does not exist on type 'StreamAnalyticsApi'.
+src/hooks/use-stream-analytics.ts(48,40): error TS2339: Property 'getAlerts' does not exist on type 'StreamAnalyticsApi'.
+src/hooks/use-stream-analytics.ts(68,31): error TS2339: Property 'setAlert' does not exist on type 'StreamAnalyticsApi'.
+src/hooks/use-stream-analytics.ts(84,58): error TS2339: Property 'removeAlert' does not exist on type 'StreamAnalyticsApi'.
+src/hooks/use-stream-analytics.ts(176,43): error TS7006: Parameter 'a' implicitly has an 'any' type.
+src/hooks/use-trend-analysis.ts(100,37): error TS2339: Property 'movingAverage' does not exist on type 'MovingAverageData'.
+src/hooks/use-virtual-list.ts(120,5): error TS2322: Type 'RefObject<HTMLDivElement | null>' is not assignable to type 'RefObject<HTMLDivElement>'.
+  Type 'HTMLDivElement | null' is not assignable to type 'HTMLDivElement'.
+    Type 'null' is not assignable to type 'HTMLDivElement'.
+src/hooks/use-volunteer-dispatch.ts(16,3): error TS2322: Type '"active"' is not assignable to type 'IncidentStatus'.
+src/hooks/use-volunteer-dispatch.ts(62,58): error TS2322: Type '"pending"' is not assignable to type '"assigned" | "en_route" | "on_site" | "completed" | "cancelled" | undefined'.
+src/hooks/use-volunteer-dispatch.ts(117,55): error TS2345: Argument of type '"accepted"' is not assignable to parameter of type '"assigned" | "en_route" | "on_site" | "completed" | "cancelled"'.
+src/hooks/use-volunteer-dispatch.ts(162,20): error TS2339: Property 'requiredSkills' does not exist on type 'Deployment'.
+src/hooks/use-volunteer-dispatch.ts(173,5): error TS2322: Type 'Deployment | Incident' is not assignable to type 'Incident'.
+  Type 'Deployment' is missing the following properties from type 'Incident': title, description, type, severity, and 4 more.
+src/hooks/use-volunteer-dispatch.ts(174,5): error TS2322: Type 'Deployment[] | SkillMatch[]' is not assignable to type 'SkillMatch[]'.
+  Type 'Deployment[]' is not assignable to type 'SkillMatch[]'.
+    Type 'Deployment' is missing the following properties from type 'SkillMatch': skill, proficiency, matchedTo, matchScore
+src/hooks/use-volunteers.ts(100,27): error TS2345: Argument of type '(raw: RawVolunteerData) => Volunteer' is not assignable to parameter of type '(value: Volunteer, index: number, array: Volunteer[]) => Volunteer'.
+  Types of parameters 'raw' and 'value' are incompatible.
+    Type 'Volunteer' is not assignable to type 'RawVolunteerData'.
+      Index signature for type 'string' is missing in type 'Volunteer'.
+src/hooks/use-warehouse-operations.ts(10,3): error TS6196: 'WarehouseStatus' is declared but never used.
+src/hooks/use-warehouses.ts(21,3): error TS6196: 'MovementType' is declared but never used.
+src/hooks/use-weather.ts(64,5): error TS2322: Type 'string' is not assignable to type 'number'.
+src/hooks/use-weather.ts(68,5): error TS2322: Type 'string' is not assignable to type 'WeatherCondition'.
+src/hooks/use-weather.ts(79,7): error TS2322: Type 'string' is not assignable to type 'WeatherCondition'.
+src/hooks/use-weather.ts(91,7): error TS2322: Type 'string' is not assignable to type 'WeatherCondition'.
+src/hooks/use-weather.ts(103,7): error TS2322: Type 'string' is not assignable to type 'WeatherCondition'.
+src/hooks/use-weather.ts(117,7): error TS2322: Type '"warning"' is not assignable to type '"minor" | "moderate" | "severe" | "extreme"'.
+src/hooks/use-weather.ts(118,7): error TS2322: Type 'string' is not assignable to type 'string[]'.
+src/layouts/AdminLayout.tsx(2,18): error TS6133: 'Link' is declared but its value is never read.
+src/lib/api.ts(140,13): error TS18048: 'originalRequest.headers' is possibly 'undefined'.
+src/lib/api.ts(165,15): error TS7030: Not all code paths return a value.
+src/lib/api.ts(169,13): error TS18048: 'originalRequest.headers' is possibly 'undefined'.
+src/lib/export/csv.ts(6,18): error TS7016: Could not find a declaration file for module 'papaparse'. 'C:/nurisk/node_modules/.pnpm/papaparse@5.5.3/node_modules/papaparse/papaparse.js' implicitly has an 'any' type.
+  Try `npm i --save-dev @types/papaparse` if it exists or add a new declaration (.d.ts) file containing `declare module 'papaparse';`
+src/lib/export/csv.ts(113,3): error TS6133: 'data' is declared but its value is never read.
+src/lib/export/csv.ts(129,14): error TS2538: Type 'undefined' cannot be used as an index type.
+src/lib/export/csv.ts(221,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(222,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(223,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(224,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(224,69): error TS2339: Property 'lat' does not exist on type 'string'.
+src/lib/export/csv.ts(225,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(225,70): error TS2339: Property 'lng' does not exist on type 'string'.
+src/lib/export/csv.ts(226,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(227,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(228,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(229,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(230,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(231,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(232,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(233,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(234,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(262,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(263,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(264,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(265,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(266,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(267,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(268,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(269,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(270,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(271,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(272,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(299,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(300,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(301,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(302,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(303,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(304,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(305,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(306,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(307,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(308,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(335,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(336,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(337,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(338,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(339,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(340,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(341,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(342,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(343,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(344,7): error TS2464: A computed property name must be of type 'string', 'number', 'symbol', or 'any'.
+src/lib/export/csv.ts(358,39): error TS2345: Argument of type 'T[]' is not assignable to parameter of type 'CSVRow[]'.
+  Type 'T' is not assignable to type 'CSVRow'.
+    Type 'Record<string, unknown>' is not assignable to type 'CSVRow'.
+      'string' index signatures are incompatible.
+        Type 'unknown' is not assignable to type 'string | number | boolean | null | undefined'.
+src/lib/export/excel.ts(54,7): error TS6133: 'NU_GREEN_LIGHT' is declared but its value is never read.
+src/lib/export/excel.ts(84,31): error TS6133: 'i' is declared but its value is never read.
+src/lib/export/excel.ts(97,32): error TS6133: 'i' is declared but its value is never read.
+src/lib/export/excel.ts(238,19): error TS2339: Property 'lat' does not exist on type 'string'.
+src/lib/export/excel.ts(239,19): error TS2339: Property 'lng' does not exist on type 'string'.
+src/lib/export/index.ts(125,41): error TS2339: Property 'exportAndDownloadExcel' does not exist on type 'typeof import("C:/nurisk/frontend-web/src/lib/export/excel")'.
+src/lib/export/index.ts(129,42): error TS2339: Property 'exportAndDownloadExcel' does not exist on type 'typeof import("C:/nurisk/frontend-web/src/lib/export/excel")'.
+src/lib/export/index.ts(133,40): error TS2339: Property 'exportAndDownloadExcel' does not exist on type 'typeof import("C:/nurisk/frontend-web/src/lib/export/excel")'.
+src/lib/export/index.ts(137,41): error TS2339: Property 'exportAndDownloadExcel' does not exist on type 'typeof import("C:/nurisk/frontend-web/src/lib/export/excel")'.
+src/lib/export/pdf.ts(78,7): error TS6133: 'PAGE_SIZES' is declared but its value is never read.
+src/lib/export/pdf.ts(153,9): error TS6133: 'pageWidth' is declared but its value is never read.
+src/lib/export/pdf.ts(207,9): error TS6133: 'pageWidth' is declared but its value is never read.
+src/lib/export/pdf.ts(406,3): error TS6133: 'filename' is declared but its value is never read.
+src/lib/performance.ts(19,10): error TS6133: 'memoizedCallback' is declared but its value is never read.
+src/lib/performance.ts(232,3): error TS6133: 'bounds' is declared but its value is never read.
+src/lib/performance.ts(249,27): error TS2322: Type 'T | undefined' is not assignable to type 'T'.
+  'T' could be instantiated with an arbitrary type which could be unrelated to 'T | undefined'.
+src/lib/performance.ts(256,9): error TS2532: Object is possibly 'undefined'.
+src/lib/performance.ts(257,9): error TS2532: Object is possibly 'undefined'.
+src/lib/performance.ts(258,9): error TS2532: Object is possibly 'undefined'.
+src/lib/performance.ts(259,9): error TS2532: Object is possibly 'undefined'.
+src/lib/performance.ts(263,22): error TS2345: Argument of type 'T | undefined' is not assignable to parameter of type 'T'.
+  'T' could be instantiated with an arbitrary type which could be unrelated to 'T | undefined'.
+src/lib/socket.ts(42,11): error TS6133: 'getExponentialDelay' is declared but its value is never read.
+src/lib/socket.ts(98,22): error TS2367: This comparison appears to be unintentional because the types 'DisconnectReason' and '"io.clientDisconnect"' have no overlap.
+src/routes.tsx(66,10): error TS2741: Property 'children' is missing in type '{ type: "fade"; duration: number; }' but required in type 'PageTransitionProps'.
+src/routes.tsx(74,19): error TS2741: Property 'children' is missing in type '{}' but required in type 'PublicLayoutProps'.
+src/routes.tsx(103,40): error TS2322: Type '"volunteer"' is not assignable to type 'UserRole'.
+src/routes.tsx(130,40): error TS2322: Type '"admin"' is not assignable to type 'UserRole'.
+src/services/agentService.ts(215,3): error TS2322: Type 'BiasReport' is not assignable to type '{ generatedAt: string; period: { start: string; end: string; }; metrics: { geographic: { regionDistribution: Record<string, number>; regionResponseTimes: Record<string, number>; regionAccuracy: Record<...>; underservedRegions: string[]; biasScore: number; }; demographic: { ...; }; temporal: { ...; }; }; alerts: { .....'.
+  Types of property 'alerts' are incompatible.
+    Type 'BiasAlert[]' is not assignable to type '{ id: string; type: "geographic" | "demographic" | "temporal"; severity: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"; message: string; details: Record<string, unknown>; detectedAt: string; }[]'.
+      Type 'BiasAlert' is not assignable to type '{ id: string; type: "geographic" | "demographic" | "temporal"; severity: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"; message: string; details: Record<string, unknown>; detectedAt: string; }'.
+        Types of property 'severity' are incompatible.
+          Type '"low" | "medium" | "high" | "critical"' is not assignable to type '"LOW" | "MEDIUM" | "HIGH" | "CRITICAL"'.
+            Type '"low"' is not assignable to type '"LOW" | "MEDIUM" | "HIGH" | "CRITICAL"'. Did you mean '"LOW"'?
+src/services/agentService.ts(230,3): error TS2322: Type 'BiasAlert[]' is not assignable to type '{ id: string; type: "geographic" | "demographic" | "temporal"; severity: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"; message: string; details: Record<string, unknown>; detectedAt: string; }[]'.
+  Type 'BiasAlert' is not assignable to type '{ id: string; type: "geographic" | "demographic" | "temporal"; severity: "LOW" | "MEDIUM" | "HIGH" | "CRITICAL"; message: string; details: Record<string, unknown>; detectedAt: string; }'.
+    Types of property 'severity' are incompatible.
+      Type '"low" | "medium" | "high" | "critical"' is not assignable to type '"LOW" | "MEDIUM" | "HIGH" | "CRITICAL"'.
+        Type '"low"' is not assignable to type '"LOW" | "MEDIUM" | "HIGH" | "CRITICAL"'. Did you mean '"LOW"'?
+src/services/api.ts(1,21): error TS6133: 'LocalStorageAuthStorage' is declared but its value is never read.
+src/services/awarenessService.ts(41,5): error TS2353: Object literal may only specify known properties, and 'out_of_service' does not exist in type 'Record<AssetStatus, string>'.
+src/services/awarenessService.ts(52,5): error TS2353: Object literal may only specify known properties, and 'warehouse' does not exist in type 'Record<AssetType, string>'.
+src/services/awarenessService.ts(58,58): error TS2339: Property 'getAssetById' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(59,66): error TS2339: Property 'createAsset' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(59,99): error TS2339: Property 'createAsset' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(60,78): error TS2339: Property 'updateAsset' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(60,111): error TS2339: Property 'updateAsset' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(61,57): error TS2339: Property 'deleteAsset' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(64,61): error TS2551: Property 'getIncidentById' does not exist on type 'AwarenessApi'. Did you mean 'getIncidents'?
+src/services/awarenessService.ts(65,69): error TS2339: Property 'createIncident' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(65,105): error TS2339: Property 'createIncident' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(66,81): error TS2339: Property 'updateIncident' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(66,117): error TS2339: Property 'updateIncident' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(67,60): error TS2339: Property 'deleteIncident' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(70,62): error TS2551: Property 'getVolunteerById' does not exist on type 'AwarenessApi'. Did you mean 'getVolunteers'?
+src/services/awarenessService.ts(71,70): error TS2551: Property 'createVolunteer' does not exist on type 'AwarenessApi'. Did you mean 'getVolunteers'?
+src/services/awarenessService.ts(71,107): error TS2551: Property 'createVolunteer' does not exist on type 'AwarenessApi'. Did you mean 'getVolunteers'?
+src/services/awarenessService.ts(72,82): error TS2339: Property 'updateVolunteer' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(72,119): error TS2339: Property 'updateVolunteer' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(73,61): error TS2551: Property 'deleteVolunteer' does not exist on type 'AwarenessApi'. Did you mean 'getVolunteers'?
+src/services/awarenessService.ts(75,77): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+src/services/awarenessService.ts(76,91): error TS2339: Property 'addTimelineEvent' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(77,16): error TS2339: Property 'addTimelineEvent' does not exist on type 'AwarenessApi'.
+src/services/awarenessService.ts(79,71): error TS2554: Expected 2-3 arguments, but got 1.
+src/services/awarenessService.ts(82,85): error TS2554: Expected 0 arguments, but got 1.
+src/services/briefingService.ts(31,60): error TS2339: Property 'getBriefingById' does not exist on type 'BriefingApi'.
+src/services/briefingService.ts(33,53): error TS2551: Property 'getRecommendations' does not exist on type 'BriefingApi'. Did you mean 'getRecommendedActions'?
+src/services/earlyWarningService.ts(12,5): error TS2353: Object literal may only specify known properties, and 'info' does not exist in type 'Record<WarningLevel, string>'.
+src/services/earlyWarningService.ts(18,34): error TS2339: Property 'info' does not exist on type 'Record<WarningLevel, string>'.
+src/services/earlyWarningService.ts(23,5): error TS2353: Object literal may only specify known properties, and 'info' does not exist in type 'Record<WarningLevel, string>'.
+src/services/earlyWarningService.ts(34,5): error TS2353: Object literal may only specify known properties, and 'gempa' does not exist in type 'Record<WarningType, string>'.
+src/services/earlyWarningService.ts(130,59): error TS2551: Property 'getWarningById' does not exist on type 'EarlyWarningApi'. Did you mean 'getWarning'?
+src/services/earlyWarningService.ts(131,63): error TS2551: Property 'getWarningById' does not exist on type 'EarlyWarningApi'. Did you mean 'getWarning'?
+src/services/hazardService.ts(25,5): error TS2353: Object literal may only specify known properties, and 'medium' does not exist in type 'Record<SeverityLevel, string>'.
+src/services/hazardService.ts(35,5): error TS2353: Object literal may only specify known properties, and 'medium' does not exist in type 'Record<SeverityLevel, string>'.
+src/services/hazardService.ts(51,47): error TS2339: Property 'getHazardTypes' does not exist on type 'HazardApi'.
+src/services/hazardService.ts(52,60): error TS2551: Property 'getHazardTypeById' does not exist on type 'HazardApi'. Did you mean 'getHazardZoneById'?
+src/services/hazardService.ts(54,78): error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+src/services/hazardService.ts(55,67): error TS2551: Property 'getHazardZonesByType' does not exist on type 'HazardApi'. Did you mean 'getHazardZones'?
+src/services/hazardService.ts(57,47): error TS2339: Property 'getHazardStats' does not exist on type 'HazardApi'.
+src/services/hazardService.ts(58,68): error TS2551: Property 'getVulnerabilityScore' does not exist on type 'HazardApi'. Did you mean 'getVulnerabilityColor'?
+src/services/native/camera.ts(10,50): error TS6133: 'GalleryImageOptions' is declared but its value is never read.
+src/services/native/camera.ts(11,1): error TS6133: 'FilesystemDirectory' is declared but its value is never read.
+src/services/native/camera.ts(86,32): error TS18048: 'base64' is possibly 'undefined'.
+src/services/native/camera.ts(196,23): error TS2339: Property 'width' does not exist on type 'Photo'.
+src/services/native/camera.ts(197,24): error TS2339: Property 'height' does not exist on type 'Photo'.
+src/services/native/camera.ts(218,5): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/services/native/camera.ts(258,33): error TS2551: Property 'getPhotos' does not exist on type 'CameraPlugin'. Did you mean 'getPhoto'?
+src/services/native/camera.ts(263,31): error TS7006: Parameter 'img' implicitly has an 'any' type.
+src/services/native/camera.ts(280,32): error TS6133: 'reject' is declared but its value is never read.
+src/services/native/camera.ts(285,11): error TS2339: Property 'maxFiles' does not exist on type 'HTMLInputElement'.
+src/services/native/location.ts(10,23): error TS6133: 'PermissionStatus' is declared but its value is never read.
+src/services/native/network.ts(86,63): error TS2304: Cannot find name 'NetworkInformation'.
+src/services/native/notifications.ts(10,29): error TS6133: 'Token' is declared but its value is never read.
+src/services/native/notifications.ts(10,36): error TS6133: 'PushNotificationSchema' is declared but its value is never read.
+src/services/native/notifications.ts(100,21): error TS2339: Property 'deviceToken' does not exist on type 'void'.
+src/services/native/notifications.ts(131,45): error TS2339: Property 'getDeviceToken' does not exist on type 'PushNotificationsPlugin'.
+src/services/native/notifications.ts(161,13): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/services/native/notifications.ts(171,30): error TS2551: Property 'notificationId' does not exist on type 'ActionPerformed'. Did you mean 'notification'?
+src/services/native/notifications.ts(174,32): error TS2551: Property 'notificationData' does not exist on type 'ActionPerformed'. Did you mean 'notification'?
+src/services/native/notifications.ts(225,13): error TS2353: Object literal may only specify known properties, and 'data' does not exist in type 'LocalNotificationSchema'.
+src/services/native/notifications.ts(269,32): error TS2551: Property 'cancelAll' does not exist on type 'LocalNotificationsPlugin'. Did you mean 'cancel'?
+src/services/native/notifications.ts(288,17): error TS2339: Property 'data' does not exist on type 'PendingLocalNotificationSchema'.
+src/services/prophetService.ts(13,97): error TS2554: Expected 1 arguments, but got 2.
+src/services/prophetService.ts(14,60): error TS2554: Expected 2 arguments, but got 1.
+src/services/prophetService.ts(15,69): error TS2339: Property 'getSeasonalComponents' does not exist on type 'ProphetApi'.
+src/services/resourceService.ts(14,60): error TS2551: Property 'getResourceById' does not exist on type 'ResourceApi'. Did you mean 'getResource'?
+src/services/resourceService.ts(19,51): error TS2551: Property 'getResourceStats' does not exist on type 'ResourceApi'. Did you mean 'getResources'?
+src/services/resourceService.ts(20,90): error TS2339: Property 'getResourceForecast' does not exist on type 'ResourceApi'.
+src/services/riskRegistryService.ts(55,5): error TS2353: Object literal may only specify known properties, and 'rare' does not exist in type 'Record<RiskLikelihood, string>'.
+src/services/riskRegistryService.ts(66,5): error TS2353: Object literal may only specify known properties, and 'negligible' does not exist in type 'Record<RiskImpact, string>'.
+src/services/riskRegistryService.ts(78,5): error TS2353: Object literal may only specify known properties, and 'assessing' does not exist in type 'Record<RiskStatus, string>'.
+src/services/riskRegistryService.ts(89,5): error TS2353: Object literal may only specify known properties, and 'assessing' does not exist in type 'Record<RiskStatus, string>'.
+src/services/riskRegistryService.ts(100,5): error TS2353: Object literal may only specify known properties, and 'strategic' does not exist in type 'Record<RiskCategory, string>'.
+src/services/searchService.ts(19,61): error TS2339: Property 'search' does not exist on type 'SearchApi'.
+src/services/shelter-service.ts(10,24): error TS6196: 'ShelterOccupancy' is declared but never used.
+src/services/shelter-service.ts(10,42): error TS6196: 'ShelterCrewAssignment' is declared but never used.
+src/services/shelter-service.ts(10,65): error TS6196: 'ShelterPIC' is declared but never used.
+src/services/shelter-service.ts(10,77): error TS6196: 'CreateShelterRequest' is declared but never used.
+src/services/shelter-service.ts(10,99): error TS6196: 'UpdateShelterRequest' is declared but never used.
+src/services/shelter-service.ts(10,121): error TS6196: 'ActivateShelterRequest' is declared but never used.
+src/services/shelter-service.ts(10,145): error TS6196: 'AssignPICRequest' is declared but never used.
+src/services/shelter-service.ts(10,163): error TS6196: 'AssignCrewRequest' is declared but never used.
+src/services/shelter-service.ts(10,182): error TS6196: 'UpdateOccupancyRequest' is declared but never used.
+src/services/shelter-service.ts(10,206): error TS6196: 'ShelterFilter' is declared but never used.
+src/services/streamAnalyticsService.ts(28,22): error TS2339: Property 'getStreamData' does not exist on type 'StreamAnalyticsApi'.
+src/services/streamAnalyticsService.ts(30,50): error TS2345: Argument of type 'string' is not assignable to parameter of type 'StreamWindow[]'.
+  Type 'string' is not assignable to type 'StreamWindow[]'.
+src/services/streamAnalyticsService.ts(31,94): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+src/services/streamAnalyticsService.ts(32,93): error TS2345: Argument of type 'string' is not assignable to parameter of type 'StreamFilters'.
+src/services/streamAnalyticsService.ts(44,5): error TS2353: Object literal may only specify known properties, and ''1m'' does not exist in type 'Record<StreamWindow, string>'.
+src/services/trendAnalysisService.ts(33,90): error TS2339: Property 'getTrendData' does not exist on type 'TrendAnalysisApi'.
+src/services/trendAnalysisService.ts(35,20): error TS2551: Property 'getMovingAverage' does not exist on type 'TrendAnalysisApi'. Did you mean 'getMovingAverages'?
+src/services/trendAnalysisService.ts(36,69): error TS2554: Expected 2 arguments, but got 1.
+src/services/trendAnalysisService.ts(39,72): error TS2551: Property 'getSeasonalPattern' does not exist on type 'TrendAnalysisApi'. Did you mean 'getSeasonalPatterns'?
+src/services/trendAnalysisService.ts(40,87): error TS2345: Argument of type 'string' is not assignable to parameter of type 'TrendFilters'.
+src/services/volunteerDispatchService.ts(36,57): error TS2339: Property 'getVolunteers' does not exist on type 'VolunteerDispatchApi'.
+src/services/volunteerDispatchService.ts(37,70): error TS2339: Property 'getVolunteerById' does not exist on type 'VolunteerDispatchApi'.
+src/services/volunteerDispatchService.ts(38,106): error TS2554: Expected 0 arguments, but got 1.
+src/services/volunteerDispatchService.ts(39,83): error TS2339: Property 'dispatchVolunteers' does not exist on type 'VolunteerDispatchApi'.
+src/services/volunteerDispatchService.ts(40,56): error TS2551: Property 'getIncidents' does not exist on type 'VolunteerDispatchApi'. Did you mean 'getIncident'?
+src/services/volunteerDispatchService.ts(41,69): error TS2551: Property 'getIncidentById' does not exist on type 'VolunteerDispatchApi'. Did you mean 'getIncident'?
+src/services/volunteerDispatchService.ts(42,77): error TS2551: Property 'createIncident' does not exist on type 'VolunteerDispatchApi'. Did you mean 'getIncident'?
+src/services/volunteerDispatchService.ts(42,121): error TS2551: Property 'createIncident' does not exist on type 'VolunteerDispatchApi'. Did you mean 'getIncident'?
+src/services/volunteerDispatchService.ts(43,89): error TS2339: Property 'updateIncident' does not exist on type 'VolunteerDispatchApi'.
+src/services/volunteerDispatchService.ts(44,24): error TS2339: Property 'updateIncident' does not exist on type 'VolunteerDispatchApi'.
+src/services/volunteerDispatchService.ts(45,77): error TS2339: Property 'getSkillMatches' does not exist on type 'VolunteerDispatchApi'.
+src/services/volunteerDispatchService.ts(49,53): error TS2339: Property 'priority' does not exist on type 'Incident'.
+src/services/volunteerDispatchService.ts(50,33): error TS2339: Property 'priority' does not exist on type 'Incident'.
+src/services/volunteerDispatchService.ts(59,53): error TS2339: Property 'priority' does not exist on type 'Incident'.
+src/services/volunteerDispatchService.ts(60,33): error TS2339: Property 'priority' does not exist on type 'Incident'.
+src/services/volunteerDispatchService.ts(85,5): error TS2353: Object literal may only specify known properties, and 'available' does not exist in type 'Record<VolunteerStatus, string>'.
+src/services/volunteerDispatchService.ts(94,5): error TS2353: Object literal may only specify known properties, and 'available' does not exist in type 'Record<VolunteerStatus, string>'.
+src/services/volunteerDispatchService.ts(110,3): error TS2322: Type '"open"' is not assignable to type 'IncidentStatus'.
+src/services/weatherService.ts(35,37): error TS2353: Object literal may only specify known properties, and 'baseUrl' does not exist in type 'SdkClient'.
+src/services/weatherService.ts(40,76): error TS2551: Property 'getWeatherAlerts' does not exist on type 'WeatherApi'. Did you mean 'getWeatherData'?
+src/stores/auth-store.ts(47,19): error TS2339: Property 'token' does not exist on type 'ApiResponse<{ token: string; user: FrontendUser; }>'.
+src/stores/auth-store.ts(47,26): error TS2339: Property 'user' does not exist on type 'ApiResponse<{ token: string; user: FrontendUser; }>'.
+src/stores/auth-store.ts(74,19): error TS2339: Property 'token' does not exist on type 'ApiResponse<{ token: string; user: FrontendUser; }>'.
+src/stores/auth-store.ts(74,26): error TS2339: Property 'user' does not exist on type 'ApiResponse<{ token: string; user: FrontendUser; }>'.
+src/stores/auth-store.ts(94,19): error TS2339: Property 'token' does not exist on type 'ApiResponse<{ token: string; user: FrontendUser; }>'.
+src/stores/auth-store.ts(94,26): error TS2339: Property 'user' does not exist on type 'ApiResponse<{ token: string; user: FrontendUser; }>'.
+src/stores/auth-store.ts(111,17): error TS2740: Type 'ApiResponse<FrontendUser>' is missing the following properties from type 'FrontendUser': id, email, name, role, and 5 more.
+src/stores/auth-store.ts(147,5): error TS6133: 'isRefreshing' is declared but its value is never read.
+src/stores/auth-store.ts(153,7): error TS6133: 'processQueue' is declared but its value is never read.
+src/stores/use-analytics-store.ts(59,65): error TS6133: 'get' is declared but its value is never read.
+src/stores/use-chat-store.ts(43,83): error TS2551: Property 'unread_count' does not exist on type 'Conversation'. Did you mean 'unreadCount'?
+src/stores/use-notification-store.ts(73,13): error TS2322: Type '(Notification | { status: string; sent_at: Date; id: string; })[]' is not assignable to type 'Notification[]'.
+  Type 'Notification | { status: string; sent_at: Date; id: string; }' is not assignable to type 'Notification'.
+    Type '{ status: string; sent_at: Date; id: string; }' is not assignable to type 'Notification'.
+      Types of property 'sent_at' are incompatible.
+        Type 'Date' is not assignable to type 'string'.
+src/test/socket.spec.ts(10,1): error TS2304: Cannot find name 'global'.
+src/test/socket.spec.ts(32,1): error TS2304: Cannot find name 'global'.
+../packages/sdk/src/awareness/AwarenessApi.ts(235,5): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+../packages/sdk/src/awareness/AwarenessApi.ts(278,5): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+../packages/sdk/src/briefing/BriefingApi.ts(137,5): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+../packages/sdk/src/briefing/BriefingApi.ts(150,5): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+../packages/sdk/src/core/client.ts(5,10): error TS6133: 'LocalStorageAuthStorage' is declared but its value is never read.
+../packages/sdk/src/core/transform.ts(3,6): error TS6196: 'Primitive' is declared but never used.
+../packages/sdk/src/domains/stream-analytics/index.ts(3,80): error TS6196: 'StreamWindow' is declared but never used.
+../packages/sdk/src/domains/trend-analysis/index.ts(3,118): error TS6196: 'PeriodComparison' is declared but never used.
+../packages/sdk/src/domains/trend-analysis/index.ts(3,136): error TS6196: 'MovingAverageWindow' is declared but never used.
+../packages/sdk/src/early-warning/EarlyWarningApi.ts(5,24): error TS6196: 'WarningFilter' is declared but never used.
+../packages/sdk/src/prophet/ProphetApi.ts(124,30): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/prophet/ProphetApi.ts(124,42): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/prophet/ProphetApi.ts(129,37): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(317,7): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(320,7): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(327,9): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(328,11): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(328,11): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(329,11): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(329,11): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(330,11): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(330,11): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(335,12): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/search/SearchApi.ts(335,12): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/shelter/ShelterApi.ts(5,24): error TS6196: 'ShelterOccupancy' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,42): error TS6196: 'ShelterCrewAssignment' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,65): error TS6196: 'ShelterPIC' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,77): error TS6196: 'ShelterAmenity' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,93): error TS6196: 'ShelterEquipment' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,111): error TS6196: 'ShelterActivation' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,130): error TS6196: 'CreateShelterRequest' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,152): error TS6196: 'UpdateShelterRequest' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,174): error TS6196: 'ActivateShelterRequest' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,198): error TS6196: 'AssignPICRequest' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,216): error TS6196: 'AssignCrewRequest' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,235): error TS6196: 'UpdateOccupancyRequest' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(5,259): error TS6196: 'ShelterFilter' is declared but never used.
+../packages/sdk/src/shelter/ShelterApi.ts(89,16): error TS6133: 'params' is declared but its value is never read.
+../packages/sdk/src/shelter/ShelterApi.ts(155,23): error TS6133: 'params' is declared but its value is never read.
+../packages/sdk/src/shelter/ShelterApi.ts(256,22): error TS6133: 'params' is declared but its value is never read.
+../packages/sdk/src/stream-analytics/StreamAnalyticsApi.ts(225,15): error TS2532: Object is possibly 'undefined'.
+../packages/sdk/src/trend-analysis/TrendAnalysisApi.ts(6,3): error TS6196: 'TrendDataPoint' is declared but never used.
+../packages/shared-types/src/awareness/types.ts(3,1): error TS6133: 'Incident' is declared but its value is never read.
+../packages/shared-types/src/awareness/types.ts(4,1): error TS6133: 'Volunteer' is declared but its value is never read.
+../packages/shared-types/src/entities/Shelter.ts(4,53): error TS6196: 'ShelterCrewRole' is declared but never used.
+../packages/shared-types/src/inventory/types.ts(3,1): error TS6133: 'GeoLocation' is declared but its value is never read.
+../packages/shared-types/src/notification/types.ts(3,55): error TS6196: 'NotificationChannel' is declared but never used.
+../packages/shared-types/src/volunteer-dispatch/types.ts(2,1): error TS6133: 'Incident' is declared but its value is never read.

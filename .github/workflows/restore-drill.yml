@@ -1,0 +1,118 @@
+name: Restore Drill
+
+on:
+  schedule:
+    # Run monthly on the 1st day of each month at 2:00 AM UTC
+    - cron: '0 2 1 * *'
+  workflow_dispatch:
+    # Allow manual trigger
+    inputs:
+      backup_date:
+        description: 'Backup date to restore (YYYYMMDD)'
+        required: false
+        type: string
+
+jobs:
+  restore-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: nurisk_test
+        ports: [5432:5432]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Determine backup to restore
+        id: backup_info
+        run: |
+          if [ -n "${{ github.event.inputs.backup_date }}" ]; then
+            BACKUP_DATE="${{ github.event.inputs.backup_date }}"
+          else
+            # Use last month's backup
+            BACKUP_DATE=$(date -d "last month" +%Y%m%d)
+          fi
+          echo "backup_date=$BACKUP_DATE" >> $GITHUB_OUTPUT
+          echo "Using backup date: $BACKUP_DATE"
+
+      - name: Download backup from S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+        run: |
+          BACKUP_DATE="${{ steps.backup_info.outputs.backup_date }}"
+          aws s3 cp "s3://$S3_BUCKET/logical/${BACKUP_DATE}/nurisk_logical_${BACKUP_DATE}.sql" ./backup.sql || \
+          aws s3 cp "s3://$S3_BUCKET/logical/nurisk_logical_${BACKUP_DATE}.sql" ./backup.sql
+
+      - name: Restore database
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: nurisk_test
+        run: |
+          PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -d $POSTGRES_DB -f ./backup.sql
+
+      - name: Verify restore
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: nurisk_test
+        run: |
+          # Check table count
+          TABLE_COUNT=$(PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -d $POSTGRES_DB -tAc "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema='public';")
+          echo "Tables restored: $TABLE_COUNT"
+          
+          # Check critical tables exist
+          CRITICAL_TABLES="incidents users volunteers building_assessments"
+          for table in $CRITICAL_TABLES; do
+            EXISTS=$(PGPASSWORD=$POSTGRES_PASSWORD psql -h $POSTGRES_HOST -p $POSTGRES_PORT -U $POSTGRES_USER -d $POSTGRES_DB -tAc "SELECT 1 FROM information_schema.tables WHERE table_name='$table';")
+            if [ "$EXISTS" = "1" ]; then
+              echo "✓ $table exists"
+            else
+              echo "✗ $table missing"
+              exit 1
+            fi
+          done
+
+      - name: Run application tests
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: nurisk_test
+        run: pnpm test
+
+      - name: Report success
+        if: success()
+        run: echo "✓ Restore drill completed successfully"
+
+      - name: Report failure
+        if: failure()
+        run: |
+          echo "✗ Restore drill failed"
+          exit 1

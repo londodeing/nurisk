@@ -1,0 +1,10 @@
+export const INCIDENT_STATUS = [
+  'REPORTED',
+  'VERIFIED',
+  'ASSESSMENT',
+  'COMMANDED',
+  'ACTION',
+  'COMPLETED',
+  'REJECTED',
+  'ASSESSED',
+] as const;

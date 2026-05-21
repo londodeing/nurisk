@@ -1,0 +1,45 @@
+// Test setup file
+// This file runs before each test file
+
+// Set test environment variables
+process.env.NODE_ENV = 'test';
+process.env.JWT_PRIVATE_KEY = `-----BEGIN RSA PRIVATE KEY-----
+MIIEowIBAAKCAQEA0Z3VS5JJcds3xfn/ygWyF8PbnGy0AHB7MBgMB4GDgE8D3y3F
+k8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+wIDAQABAoIBAFG8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+FQZ/AoGBAOp5s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8
+l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8
+l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8
+l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8
+l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8
+AoGBAOp5s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8
+l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8
+l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8
+l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8
+-----END RSA PRIVATE KEY-----`;
+process.env.JWT_PUBLIC_KEY = `-----BEGIN PUBLIC KEY-----
+MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA0Z3VS5JJcds3xfn/ygWy
+F8PbnGy0AHB7MBgMB4GDgE8D3y3Fk8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8
+l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8s8l8
+wIDAQAB-----END PUBLIC KEY-----`;
+process.env.PWCJ1926 = 'PWNU_JATENG_BOSS';
+process.env.PCNU1926 = 'PCNU_JATENG_MEMBER';
+process.env.DB_HOST = 'localhost';
+process.env.DB_PORT = '5432';
+process.env.DB_USER = 'test';
+process.env.DB_PASSWORD = 'test';
+process.env.DB_NAME = 'test_db';

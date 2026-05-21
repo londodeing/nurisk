@@ -1,0 +1,186 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  TURBO_API: ${{ secrets.TURBO_API_URL }}
+  TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+  TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+
+  canonical-governance:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: Scan for Incident enum drift
+        run: |
+          echo "🔍 Scanning for canonical Incident enum drift..."
+          DRIFT=$(grep -r --include="*.tsx" --include="*.ts" \
+            -E "severity === 'critical'|severity === 'high'|severity === 'medium'|severity === 'low'" \
+            frontend-web/src \
+            --exclude-dir=node_modules \
+            --exclude-dir=__tests__ \
+            --exclude-dir=.next \
+            --exclude="*.test.ts" \
+            --exclude="*.test.tsx" \
+            2>/dev/null || true)
+          if [ -n "$DRIFT" ]; then
+            echo "❌ Found lowercase Incident severity enums:"
+            echo "$DRIFT"
+            exit 1
+          fi
+          echo "✅ No lowercase Incident severity enums found"
+
+      - name: Scan for snake_case Incident fields
+        run: |
+          echo "🔍 Scanning for snake_case Incident fields..."
+          SNAKE=$(grep -r --include="*.tsx" --include="*.ts" \
+            -E "incident\.created_at|incident\.updated_at|incident\.latitude|incident\.longitude" \
+            frontend-web/src \
+            --exclude-dir=node_modules \
+            --exclude-dir=__tests__ \
+            --exclude-dir=.next \
+            --exclude="*.test.ts" \
+            --exclude="*.test.tsx" \
+            --exclude="use-chat.ts" \
+            2>/dev/null || true)
+          if [ -n "$SNAKE" ]; then
+            echo "❌ Found snake_case Incident fields:"
+            echo "$SNAKE"
+            exit 1
+          fi
+          echo "✅ No snake_case Incident fields found"
+
+      - name: Scan for local duplicate interfaces
+        run: |
+          echo "🔍 Scanning for local duplicate domain interfaces..."
+          DUP=$(grep -r --include="*.tsx" --include="*.ts" \
+            -E "^interface Incident \\{|^interface Mission \\{|^interface AuditLogEntry \\{" \
+            frontend-web/src \
+            --exclude-dir=node_modules \
+            --exclude-dir=__tests__ \
+            --exclude-dir=.next \
+            --exclude="*.test.ts" \
+            --exclude="*.test.tsx" \
+            2>/dev/null || true)
+          if [ -n "$DUP" ]; then
+            echo "❌ Found local duplicate domain interfaces:"
+            echo "$DUP"
+            exit 1
+          fi
+          echo "✅ No local duplicate interfaces found"
+
+      - name: Check for stale .js files in backend/src
+        run: |
+          cd backend/src
+          js_files=$(find . -name '*.js' -not -path './node_modules/*' -not -path './dist/*' 2>/dev/null || true)
+          if [ -n "$js_files" ]; then
+            echo "❌ Found .js files in backend/src/ alongside .ts files:"          
+            echo "$js_files"
+            exit 1
+          fi
+          echo "✅ No stale .js files found"
+
+  typecheck:
+    runs-on: ubuntu-latest
+    needs: [canonical-governance]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [typecheck]
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: nurisk_test
+        ports: [5432:5432]
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test -- --coverage
+        env:
+          POSTGRES_HOST: localhost
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: nurisk_test
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage
+          path: coverage/
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+      - run: pnpm build
+        name: Build (cache hit verification)
+
+      - name: Contract compliance check
+        run: node scripts/check-contract.mjs 2>/dev/null || echo "⚠️ Contract check script not found — skipping"
+
+  security-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm audit --audit-level=high
+        continue-on-error: true

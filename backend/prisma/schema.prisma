@@ -1,0 +1,2408 @@
+// Prisma schema for NURisk - Database & Data Layer
+// Single source of truth for PostgreSQL + PostGIS database
+
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["extendedWhereUnique"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Core entity models: User, Volunteer, Role, Permission
+
+enum Role {
+  PWNU
+  PCNU
+  RELAWAN
+  RELAWAN_ADMIN
+  SUPER_ADMIN
+  BNPB
+}
+
+enum Permission {
+  // Incident management permissions
+  INCIDENT_CREATE
+  INCIDENT_READ
+  INCIDENT_UPDATE
+  INCIDENT_DELETE
+  INCIDENT_APPROVE
+
+  // Volunteer management permissions
+  VOLUNTEER_CREATE
+  VOLUNTEER_READ
+  VOLUNTEER_UPDATE
+  VOLUNTEER_DELETE
+  VOLUNTEER_APPROVE
+
+  // Shelter/Warehouse management permissions
+  SHELTER_CREATE
+  SHELTER_READ
+  SHELTER_UPDATE
+  SHELTER_DELETE
+  WAREHOUSE_CREATE
+  WAREHOUSE_READ
+  WAREHOUSE_UPDATE
+  WAREHOUSE_DELETE
+
+  // Logistics permissions
+  LOGISTICS_CREATE
+  LOGISTICS_READ
+  LOGISTICS_UPDATE
+  LOGISTICS_DELETE
+
+  // System administration permissions
+  USER_MANAGE
+  ROLE_MANAGE
+  PERMISSION_MANAGE
+  SYSTEM_SETTINGS
+
+  // Reporting and analytics permissions
+  REPORT_CREATE
+  REPORT_READ
+  REPORT_UPDATE
+  REPORT_DELETE
+  ANALYTICS_VIEW
+  DASHBOARD_VIEW
+}
+
+model User {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  // Authentication fields
+  username       String  @unique
+  passwordHash   String
+  email          String?
+  phoneNumber    String?
+  whatsappNumber String?
+
+  // Profile information
+  fullName    String?
+  avatarUrl   String?
+  region      String?
+  isActive    Boolean   @default(true)
+  lastLoginAt DateTime?
+
+  // Role and permissions
+  role        Role         @default(RELAWAN)
+  permissions Permission[] @default([])
+
+  // Relations
+  incidents          Incident[]           @relation("CreatedIncidents")
+  volunteer          Volunteer?
+  auditLogs          AuditLog[]           @relation("ActorAuditLogs")
+  notifications      Notification[]       @relation("RecipientNotifications")
+  chatMessages       ChatMessage[]        @relation("SenderChatMessages")
+  UserSession        UserSession[]
+  ChatParticipant    ChatParticipant[]
+  TeamMessage        TeamMessage[]
+  VerificationResult VerificationResult[]
+  PiiAudit           PiiAudit[]
+
+  @@index([username])
+  @@index([role])
+  @@index([region])
+  @@index([isActive])
+}
+
+model Volunteer {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  // Link to user
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id])
+
+  // Profile information
+  fullName  String?
+  phone     String?
+  birthDate DateTime?
+  gender    String?
+  bloodType String?
+
+  // Location
+  regency       String?
+  district      String?
+  village       String?
+  detailAddress String?
+  location      Unsupported("geography(Point, 4326)")?
+
+  // Medical and expertise information
+  medicalHistory String?
+  expertise      String?
+  experience     String?
+
+  // Status fields
+  status       String  @default("pending") // pending/approved/rejected/inactive/active
+  statusTugas  String  @default("available") // available/on_duty/off_duty
+  lastLocation String?
+
+  // Metrics
+  rating        Float?
+  totalMissions Int    @default(0)
+  totalHours    Float  @default(0)
+
+  // Relations
+  deployments      VolunteerDeployment[]  @relation("VolunteerDeployments")
+  schedules        VolunteerSchedule[]    @relation("VolunteerSchedules")
+  performance      VolunteerPerformance[] @relation("VolunteerPerformance")
+  devices          VolunteerDevice[]      @relation("VolunteerDevices")
+  AssetTransaction AssetTransaction[]
+  Mission          Mission[]
+  CheckIn          CheckIn[]
+  Certification    Certification[]
+
+  @@index([userId])
+  @@index([status])
+  @@index([regency])
+  @@index([location])
+  @@index([statusTugas])
+}
+
+// User sessions for refresh token tracking
+model UserSession {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  refreshToken String    @unique
+  deviceInfo   String?
+  ipAddress    String?
+  expiresAt    DateTime
+  revokedAt    DateTime?
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+// Incident model with enum status, severity, type, and source fields
+model Incident {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  // Human-readable identifier
+  incidentCode String @unique
+
+  // Basic information
+  title       String?
+  description String?
+
+  // Classification
+  disasterType  DisasterType?
+  status        IncidentStatus    @default(REPORTED)
+  severity      IncidentSeverity?
+  priorityScore Float?
+  priorityLevel String?
+
+  // Location (PostGIS)
+  location       Unsupported("geography(Point, 4326)")?
+  region         String?
+  kecamatan      String?
+  desa           String?
+  alamatSpesifik String?
+
+  // Timing
+  eventDate DateTime?
+
+  // Impact assessments (JSONB fields)
+  dampakManusia    Json?
+  dampakRumah      Json?
+  dampakFasum      Json?
+  dampakVital      Json?
+  dampakLingkungan Json?
+  needsNumeric     Json?
+
+  // Additional fields
+  kondisiMutakhir  String?
+  hasShelter       Boolean @default(false)
+  isAiGenerated    Boolean @default(false)
+  reporterName     String?
+  whatsappNumber   String?
+  photoData        String? // Base64 encoded or reference to storage
+  probabilityScore Float?
+  aiFeatures       Json?
+
+  // Relations
+  creator   User?   @relation("CreatedIncidents", fields: [userId], references: [id])
+  createdBy String?
+
+  actions              IncidentAction[]       @relation("IncidentActions")
+  instructions         IncidentInstruction[]  @relation("IncidentInstructions")
+  logs                 IncidentLog[]          @relation("IncidentLogs")
+  logisticsRequests    LogisticsRequest[]     @relation("LogisticsRequests")
+  deployments          VolunteerDeployment[]  @relation("VolunteerDeployments")
+  assessments          BuildingAssessment[]   @relation("BuildingAssessments")
+  volunteerPerformance VolunteerPerformance[] @relation("VolunteerPerformance")
+  userId               String?
+  Shelter              Shelter[]
+  AssetTransaction     AssetTransaction[]
+  Notification         Notification[]
+  ChatConversation     ChatConversation[]
+  Mission              Mission[]
+  IntelReport          IntelReport[]
+  NewsItem             NewsItem[]
+  Instruction          Instruction[]
+  PlaybookExecution    PlaybookExecution[]
+  EscalationRule       EscalationRule[]
+  EscalationTimer      EscalationTimer[]
+  AgentRun             AgentRun[]
+  ScoredEvent          ScoredEvent[]
+  Prediction           Prediction[]
+  VerificationResult   VerificationResult[]
+  EvacuationRoute      EvacuationRoute[]
+
+  @@index([status])
+  @@index([disasterType])
+  @@index([region])
+  @@index([location]) // GiST index
+  @@index([eventDate])
+  @@index([priorityScore, status])
+  @@index([kecamatan])
+  @@index([isAiGenerated])
+}
+
+// Enums for Incident model
+enum DisasterType {
+  BANJIR
+  LONGSOR
+  GEMPA
+  TSUNAMI
+  VOLKANO
+  KEBAKARAN_HUTAN
+  KEBAKARAN_BANGUNAN
+  EKSTREM_CUACA
+  WABAH_PENYAKIT
+}
+
+enum IncidentStatus {
+  REPORTED
+  ASSIGNED
+  IN_PROGRESS
+  RESOLVED
+  CLOSED
+}
+
+enum IncidentSeverity {
+  RENDAH
+  SEDANG
+  TINGGI
+  KRITIS
+}
+
+// Incident related models
+model IncidentAction {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  incidentId String
+  incident   Incident @relation("IncidentActions", fields: [incidentId], references: [id])
+
+  kluster         String?
+  namaKegiatan    String?
+  jumlahPaket     Int?
+  penerimaManfaat String?
+  targetsMet      Json?
+
+  @@index([incidentId])
+  @@index([kluster])
+}
+
+model IncidentInstruction {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  incidentId String
+  incident   Incident @relation("IncidentInstructions", fields: [incidentId], references: [id])
+
+  nomorSP         String    @unique
+  pjNama          String?
+  picLapangan     String?
+  timAnggota      String?
+  armadaDetail    String?
+  peralatanDetail String?
+  duration        Int? // in minutes
+  statusSP        StatusSP? // draft/issued/executing/completed/cancelled
+
+  @@index([incidentId])
+  @@index([nomorSP])
+  @@index([statusSP])
+}
+
+enum StatusSP {
+  DRAFT
+  ISSUED
+  EXECUTING
+  COMPLETED
+  CANCELLED
+}
+
+model IncidentLog {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  incidentId String
+  incident   Incident @relation("IncidentLogs", fields: [incidentId], references: [id])
+
+  fromStatus IncidentStatus?
+  toStatus   IncidentStatus?
+  changedBy  String? // VARCHAR - could be user ID or name
+  note       String?
+
+  @@index([incidentId])
+  @@index([createdAt])
+}
+
+// Shelter, Warehouse, Asset, AssetTransaction inventory models
+model Shelter {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name     String?
+  region   String?
+  address  String?
+  location Unsupported("geography(Point, 4326)")?
+
+  capacity         Int?
+  refugeeCount     Int    @default(0)
+  waterStockLiters Float?
+  toiletCount      Int?
+
+  status      ShelterStatus? // AKTIF/FULL/CLOSED
+  score       Float?
+  stockStatus String?
+
+  // Optional relation to incident
+  incidentId String?
+  incident   Incident? @relation(fields: [incidentId], references: [id])
+
+  @@index([incidentId])
+  @@index([region])
+  @@index([status])
+}
+
+enum ShelterStatus {
+  AKTIF
+  FULL
+  CLOSED
+}
+
+model Warehouse {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name        String?
+  region      String?
+  address     String?
+  location    Unsupported("geography(Point, 4326)")?
+  phoneNumber String?
+
+  type             WarehouseType? // GUDANG/POSKO/DISTRIBUSI
+  Asset            Asset[]
+  AssetTransaction AssetTransaction[]
+  Fulfillment      Fulfillment[]
+
+  @@index([region])
+  @@index([type])
+}
+
+enum WarehouseType {
+  GUDANG
+  POSKO
+  DISTRIBUSI
+}
+
+enum ShelterType {
+  EVAKUASI
+  SEMENTARA
+  PERMANEN
+  BERGERAK
+}
+
+model Asset {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name     String?
+  category AssetCategory? // FOOD/MEDICINE/CLOTHING/SHELTER/TOOLS/OTHER
+  quantity Float          @default(0) // >=0 constraint
+  unit     String?
+
+  location    Unsupported("geography(Point, 4326)")?
+  region      String?
+  warehouseId String?
+  warehouse   Warehouse?                             @relation(fields: [warehouseId], references: [id])
+
+  qrCode   String  @unique
+  status   String?
+  minStock Float?
+
+  // Relations
+  transactions AssetTransaction[] @relation("AssetTransactions")
+
+  @@index([category])
+  @@index([status])
+  @@index([qrCode])
+  @@index([warehouseId])
+  @@index([location])
+  @@index([region])
+  @@index([region, category])
+  @@index([status, quantity])
+}
+
+enum AssetCategory {
+  FOOD
+  MEDICINE
+  CLOTHING
+  SHELTER
+  TOOLS
+  OTHER
+}
+
+enum AssetCondition {
+  NEW
+  GOOD
+  FAIR
+  POOR
+  DAMAGED
+  EXPIRED
+}
+
+model AssetTransaction {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  assetId String
+  asset   Asset  @relation("AssetTransactions", fields: [assetId], references: [id])
+
+  incidentId String?
+  incident   Incident? @relation(fields: [incidentId], references: [id])
+
+  volunteerId String?
+  volunteer   Volunteer? @relation(fields: [volunteerId], references: [id])
+
+  quantity Float                   @default(0) // >0 for most transactions
+  type     AssetTransactionType? // checkin/checkout/dispatch/transfer/return/maintenance/retire
+  status   AssetTransactionStatus? // pending/approved/completed/rejected/cancelled
+
+  notes String?
+
+  // For transfers between warehouses
+  toWarehouseId String?
+  toWarehouse   Warehouse? @relation(fields: [toWarehouseId], references: [id])
+  toRegion      String?
+
+  @@index([assetId])
+  @@index([incidentId])
+  @@index([volunteerId])
+  @@index([type])
+  @@index([status])
+  @@index([createdAt])
+  @@index([incidentId, createdAt])
+}
+
+enum AssetTransactionType {
+  CHECKIN
+  CHECKOUT
+  DISPATCH
+  TRANSFER
+  RETURN
+  MAINTENANCE
+  RETIRE
+}
+
+enum AssetTransactionStatus {
+  PENDING
+  APPROVED
+  COMPLETED
+  REJECTED
+  CANCELLED
+}
+
+// Additional models from the full inventory that are needed for completeness
+// These will be expanded in subsequent tasks
+
+model AuditLog {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  actorId String?
+  actor   User?   @relation("ActorAuditLogs", fields: [actorId], references: [id])
+
+  action     String? // CREATE/UPDATE/DELETE/VERIFY/etc.
+  entityType String?
+  entityId   String?
+  oldValue   Json?
+  newValue   Json?
+  payload    Json?
+  ipAddress  String?
+
+  @@index([actorId])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  title        String?
+  body         String?
+  targetRole   String?
+  targetRegion String?
+  incidentId   String?
+  incident     Incident? @relation(fields: [incidentId], references: [id])
+
+  type   String?
+  status NotificationStatus? // pending/sent/failed/read
+  sentAt DateTime?
+
+  userId String? // FK for direct notifications
+  user   User?   @relation("RecipientNotifications", fields: [userId], references: [id])
+
+  isRead Boolean   @default(false)
+  readAt DateTime?
+
+  data Json?
+
+  @@index([incidentId])
+  @@index([targetRole])
+  @@index([status])
+}
+
+enum NotificationStatus {
+  PENDING
+  SENT
+  FAILED
+  READ
+}
+
+model ChatConversation {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  incidentId String?
+  incident   Incident? @relation(fields: [incidentId], references: [id])
+
+  type            ChatType? // incident/broadcast
+  title           String?
+  lastMessageAt   DateTime?
+  ChatParticipant ChatParticipant[]
+  ChatMessage     ChatMessage[]
+
+  @@index([incidentId])
+}
+
+enum ChatType {
+  INCIDENT
+  BROADCAST
+}
+
+model ChatParticipant {
+  id         String    @id @default(uuid())
+  joinedAt   DateTime  @default(now())
+  lastReadAt DateTime?
+
+  conversationId String
+  conversation   ChatConversation @relation(fields: [conversationId], references: [id])
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id])
+
+  @@unique([conversationId, userId])
+  @@index([conversationId])
+  @@index([userId])
+}
+
+model ChatMessage {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  conversationId String
+  conversation   ChatConversation @relation(fields: [conversationId], references: [id])
+
+  senderId String
+  sender   User   @relation("SenderChatMessages", fields: [senderId], references: [id])
+
+  message     String?
+  messageType MessageType? // TEXT/IMAGE/FILE/SYSTEM
+  fileUrl     String?
+  readBy      String[] // Array of user IDs who have read the message
+
+  @@index([conversationId])
+  @@index([conversationId, createdAt])
+}
+
+enum MessageType {
+  TEXT
+  IMAGE
+  FILE
+  SYSTEM
+}
+
+model TeamMessage {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  region     String?
+  senderId   String?
+  sender     User?   @relation(fields: [senderId], references: [id])
+  senderName String?
+  message    String?
+
+  @@index([region])
+  @@index([createdAt])
+}
+
+// Intelligence and news models
+model IntelNews {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  source       String?
+  title        String?
+  content      String?
+  url          String        @unique
+  category     String?
+  region       String?
+  severity     NewsSeverity? // LOW/MEDIUM/HIGH/CRITICAL
+  aiConfidence Float? // 0-1
+
+  @@index([source])
+  @@index([category])
+  @@index([region])
+  @@index([createdAt])
+}
+
+enum NewsSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model HistoricalDisaster {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  region       String?
+  disasterType DisasterType?
+  eventDate    DateTime?
+  location     Unsupported("geography(Point, 4326)")?
+  time         String?
+  source       String?
+
+  @@index([region])
+  @@index([disasterType])
+  @@index([eventDate])
+  @@index([region, eventDate])
+}
+
+model Report {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  reportCode String @unique
+
+  reporterName  String?
+  reporterPhone String?
+  disasterType  DisasterType?
+  description   String?
+  location      Unsupported("geography(Point, 4326)")?
+  province      String?
+  city          String?
+  district      String?
+  village       String?
+
+  status ReportStatus? // pending/verified/rejected
+
+  @@index([status])
+  @@index([createdAt])
+}
+
+enum ReportStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}
+
+model DisasterLearning {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  region                 String?
+  disasterType           DisasterType?
+  occurrenceCount        Int           @default(0)
+  totalIncidentsInRegion Int           @default(0)
+  avgSeverityScore       Float?
+  lastIncidentDate       DateTime?
+
+  @@unique([region, disasterType])
+  @@index([region])
+  @@index([disasterType])
+}
+
+// Mission model for volunteer operations
+enum MissionStatus {
+  PLANNED
+  ACTIVE
+  COMPLETED
+  CANCELLED
+}
+
+model Mission {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name        String?
+  description String?
+
+  // Optional relation to incident
+  incidentId String?
+  incident   Incident? @relation(fields: [incidentId], references: [id])
+
+  // Mission leader
+  leaderId String?
+  leader   Volunteer? @relation(fields: [leaderId], references: [id])
+
+  status   MissionStatus?                         @default(PLANNED)
+  region   String?
+  location Unsupported("geography(Point, 4326)")?
+
+  // Timing
+  startDate DateTime?
+  endDate   DateTime?
+
+  // Child deployments
+  deployments VolunteerDeployment[] @relation("MissionDeployments")
+
+  @@index([incidentId])
+  @@index([leaderId])
+  @@index([status])
+  @@index([region])
+}
+
+model LogisticsRequest {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  incidentId String
+  incident   Incident @relation("LogisticsRequests", fields: [incidentId], references: [id])
+
+  requesterRegion   String?
+  itemName          String?
+  quantityRequested Float                   @default(0) // >0
+  status            LogisticsRequestStatus? // pending/approved/fulfilled/rejected/cancelled
+  adminNote         String?
+  approvedBy        String?
+  LogisticsItem     LogisticsItem[]
+
+  @@index([incidentId])
+  @@index([status])
+  @@index([requesterRegion])
+}
+
+enum LogisticsRequestStatus {
+  PENDING
+  APPROVED
+  FULFILLED
+  REJECTED
+  CANCELLED
+}
+
+// LogisticsItem model for detailed line items on a logistics request
+model LogisticsItem {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  requestId String
+  request   LogisticsRequest @relation(fields: [requestId], references: [id])
+
+  itemName          String?
+  category          String?
+  quantityRequested Float   @default(0)
+  quantityFulfilled Float   @default(0)
+  unit              String?
+  notes             String?
+
+  // Child fulfillments
+  fulfillments Fulfillment[] @relation("ItemFulfillments")
+
+  @@index([requestId])
+  @@index([category])
+}
+
+// Fulfillment model for tracking fulfillment of logistics items
+model Fulfillment {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  itemId String
+  item   LogisticsItem @relation("ItemFulfillments", fields: [itemId], references: [id])
+
+  warehouseId String?
+  warehouse   Warehouse? @relation(fields: [warehouseId], references: [id])
+
+  quantity    Float     @default(0)
+  notes       String?
+  fulfilledBy String?
+  fulfilledAt DateTime?
+
+  @@index([itemId])
+  @@index([warehouseId])
+}
+
+model VolunteerDeployment {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  volunteerId String
+  volunteer   Volunteer @relation("VolunteerDeployments", fields: [volunteerId], references: [id])
+
+  incidentId String
+  incident   Incident @relation("VolunteerDeployments", fields: [incidentId], references: [id])
+
+  missionId String?
+  mission   Mission? @relation("MissionDeployments", fields: [missionId], references: [id])
+
+  status          DeploymentStatus?
+  checkInLocation Unsupported("geography(Point, 4326)")?
+  checkInAt       DateTime?
+  checkOutAt      DateTime?
+  note            String?
+
+  // Relations
+  checkIns CheckIn[] @relation("DeploymentCheckIns")
+
+  @@index([volunteerId])
+  @@index([incidentId])
+  @@index([missionId])
+  @@index([status])
+  @@index([volunteerId, status])
+}
+
+enum DeploymentStatus {
+  APPLIED
+  APPROVED
+  REJECTED
+  DEPLOYED
+  COMPLETED
+  CANCELLED
+}
+
+// CheckIn model for detailed check-in tracking per deployment
+enum CheckInStatus {
+  CHECKED_IN
+  CHECKED_OUT
+  MISSING
+  CANCELLED
+}
+
+model CheckIn {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  deploymentId String
+  deployment   VolunteerDeployment @relation("DeploymentCheckIns", fields: [deploymentId], references: [id])
+
+  volunteerId String
+  volunteer   Volunteer @relation(fields: [volunteerId], references: [id])
+
+  location   Unsupported("geography(Point, 4326)")?
+  checkInAt  DateTime?
+  checkOutAt DateTime?
+  status     CheckInStatus?
+  notes      String?
+
+  @@index([deploymentId])
+  @@index([volunteerId])
+  @@index([status])
+}
+
+model VolunteerSchedule {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  volunteerId String
+  volunteer   Volunteer @relation("VolunteerSchedules", fields: [volunteerId], references: [id])
+
+  date       DateTime?
+  shiftStart String? // TIME
+  shiftEnd   String? // TIME
+  status     String?
+
+  @@index([volunteerId])
+  @@index([date])
+  @@index([volunteerId, date])
+}
+
+model VolunteerPerformance {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  volunteerId String
+  volunteer   Volunteer @relation("VolunteerPerformance", fields: [volunteerId], references: [id])
+
+  incidentId String?
+  incident   Incident? @relation("VolunteerPerformance", fields: [incidentId], references: [id])
+
+  hoursWorked       Float?
+  missionsCompleted Int     @default(0)
+  rating            Int? // 0-5
+  notes             String?
+
+  @@index([volunteerId])
+  @@index([incidentId])
+}
+
+model VolunteerDevice {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  volunteerId String
+  volunteer   Volunteer @relation("VolunteerDevices", fields: [volunteerId], references: [id])
+
+  token      String    @unique
+  platform   String? // e.g., "android", "ios"
+  lastActive DateTime?
+
+  @@index([volunteerId])
+}
+
+// Building assessment model
+model BuildingAssessment {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  namaGedung String?
+  fungsi     String? // 10+ types
+  fungsiLain String?
+  alamat     String?
+  location   Unsupported("geography(Point, 4326)")?
+  region     String?
+
+  imb       String?
+  slf       String?
+  odnk      String?
+  ancaman   Json?
+  fasilitas Json?
+  peralatan Json?
+
+  ibuHamil      Int     @default(0)
+  sakitKronis   Int     @default(0)
+  lansia        Int     @default(0)
+  balita        Int     @default(0)
+  anakAnak      Int     @default(0)
+  dewasaSehat   Int     @default(0)
+  pernahTerjadi Boolean @default(false)
+  riwayatDesa   String?
+
+  struktur     String?
+  nonStrukural String?
+  danaDarurat  Float?
+  anggaran     Float?
+  asuransi     String?
+  kerjasama    String?
+  peduli       String?
+  konflik      String?
+
+  section    Int? // 1-6
+  totalScore Float?
+  completed  Boolean @default(false)
+
+  incidentId String?
+  incident   Incident? @relation("BuildingAssessments", fields: [incidentId], references: [id])
+
+  @@index([region])
+  @@index([fungsi])
+  @@index([completed])
+  @@index([totalScore])
+}
+
+// Command post model
+model CommandPost {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  name     String?
+  location Unsupported("geography(Point, 4326)")?
+  address  String?
+
+  @@index([name])
+}
+
+// Certification model
+model Certification {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  volunteerId String
+  volunteer   Volunteer @relation(fields: [volunteerId], references: [id])
+
+  name              String?
+  issuedDate        DateTime?
+  expiryDate        DateTime?
+  certificateNumber String?
+  documentUrl       String?
+  status            CertificationStatus?
+
+  @@index([volunteerId])
+  @@index([status])
+}
+
+enum CertificationStatus {
+  ACTIVE
+  EXPIRED
+  REVOKED
+  PENDING_RENEWAL
+}
+
+// Historical disaster learning model (additional)
+model DisasterLearningExtended {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  region          String?
+  disasterType    DisasterType?
+  year            Int?
+  month           Int?
+  occurrenceCount Int           @default(0)
+  severityScore   Float?
+  notes           String?
+
+  @@index([region, disasterType, year, month])
+  @@index([region])
+  @@index([disasterType])
+}
+
+// ===== Intelligence and External Data Models =====
+
+model IntelReport {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  title     String?
+  content   String?
+  source    String?
+  sourceUrl String?
+  category  String?
+  region    String?
+  location  Unsupported("geography(Point, 4326)")?
+
+  severity          IntelReportSeverity?
+  sourceReliability Float? // 0-1 trust score
+  aiConfidence      Float? // 0-1
+
+  verifiedBy        String?
+  verifiedAt        DateTime?
+  relatedIncidentId String?
+  relatedIncident   Incident? @relation(fields: [relatedIncidentId], references: [id])
+
+  @@index([source])
+  @@index([category])
+  @@index([region])
+  @@index([severity])
+  @@index([relatedIncidentId])
+  @@index([createdAt])
+}
+
+enum IntelReportSeverity {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+model NewsItem {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  title       String?
+  url         String    @unique
+  source      String?
+  publishedAt DateTime?
+
+  summary  String?
+  content  String?
+  category String?
+  region   String?
+
+  severity     NewsSeverity?
+  aiConfidence Float?
+
+  relatedIncidentId String?
+  relatedIncident   Incident? @relation(fields: [relatedIncidentId], references: [id])
+
+  @@index([source])
+  @@index([category])
+  @@index([region])
+  @@index([severity])
+  @@index([relatedIncidentId])
+  @@index([publishedAt])
+  @@index([createdAt])
+}
+
+model ScrapedSource {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name       String?
+  url        String             @unique
+  sourceType ScrapedSourceType? // RSS/API/WEB
+  category   String?
+  region     String?
+
+  lastScrapedAt  DateTime?
+  scrapeInterval Int? // in minutes
+  status         ScrapedSourceStatus? @default(ACTIVE)
+  lastError      String?
+
+  @@index([sourceType])
+  @@index([status])
+  @@index([url])
+  @@index([category])
+}
+
+enum ScrapedSourceType {
+  RSS
+  API
+  WEB
+}
+
+enum ScrapedSourceStatus {
+  ACTIVE
+  INACTIVE
+  ERROR
+}
+
+// ===== Operational Metrics Models =====
+
+model AnalyticsEvent {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  eventType String?
+  eventName String?
+  userId    String?
+  sessionId String?
+
+  properties Json?
+  source     String? // web/mobile/api
+  eventTime  DateTime @default(now())
+
+  @@index([eventType])
+  @@index([eventName])
+  @@index([userId])
+  @@index([sessionId])
+  @@index([eventTime])
+  @@index([eventType, eventTime])
+}
+
+model DashboardKPISnapshot {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  snapshotDate DateTime         @default(now())
+  period       DashboardPeriod? // DAILY/WEEKLY/MONTHLY/QUARTERLY/YEARLY
+
+  metrics     Json?
+  region      String?
+  generatedBy String?
+
+  @@index([snapshotDate])
+  @@index([period])
+  @@index([region])
+  @@index([snapshotDate, period])
+}
+
+enum DashboardPeriod {
+  DAILY
+  WEEKLY
+  MONTHLY
+  QUARTERLY
+  YEARLY
+}
+
+// ===== Instruction (Surat Perintah) Model =====
+
+model Instruction {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  instructionNumber String  @unique // nomor SP
+  title             String?
+  description       String?
+  content           String?
+
+  // Document attachment fields
+  documentUrls  String[] // Array of document attachment URLs
+  documentTypes String[] // Array of document types (PDF/DOC/IMAGE/etc.)
+  documentNames String[] // Array of original file names
+
+  incidentId String?
+  incident   Incident? @relation(fields: [incidentId], references: [id])
+
+  issuedBy String?
+  issuedTo String?
+  issuedAt DateTime?
+  priority InstructionPriority?
+
+  status InstructionStatus? @default(DRAFT)
+  notes  String?
+
+  @@index([instructionNumber])
+  @@index([incidentId])
+  @@index([status])
+  @@index([issuedBy])
+  @@index([createdAt])
+}
+
+enum InstructionStatus {
+  DRAFT
+  ISSUED
+  EXECUTING
+  COMPLETED
+  CANCELLED
+}
+
+enum InstructionPriority {
+  LOW
+  MEDIUM
+  HIGH
+  URGENT
+}
+
+// ===== Playbook and Automation Models (T04) =====
+
+// Playbook: predefined response plans triggered manually or automatically
+model Playbook {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name         String
+  description  String?
+  disasterType DisasterType?
+  version      Int           @default(1)
+  region       String?
+
+  status PlaybookStatus @default(DRAFT)
+
+  // Relations
+  steps      PlaybookStep[]      @relation("PlaybookSteps")
+  executions PlaybookExecution[] @relation("PlaybookExecutions")
+
+  @@index([status])
+  @@index([disasterType])
+  @@index([region])
+  @@index([status, disasterType])
+}
+
+enum PlaybookStatus {
+  DRAFT
+  ACTIVE
+  INACTIVE
+  ARCHIVED
+}
+
+// PlaybookStep: individual step within a playbook
+model PlaybookStep {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  playbookId String
+  playbook   Playbook @relation("PlaybookSteps", fields: [playbookId], references: [id])
+
+  stepOrder      Int
+  stepType       String // SEND_NOTIFICATION / DEPLOY_VOLUNTEERS / ASSIGN_TASK / ESCALATE / etc.
+  stepConfig     Json? // Configuration specific to step type
+  timeoutMinutes Int?
+  dependsOn      Int? // stepOrder this step depends on (for sequencing)
+  description    String?
+
+  @@index([playbookId])
+  @@index([playbookId, stepOrder])
+}
+
+// PlaybookExecution: tracks active/completed execution of a playbook for an incident
+model PlaybookExecution {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  playbookId String
+  playbook   Playbook @relation("PlaybookExecutions", fields: [playbookId], references: [id])
+
+  incidentId String
+  incident   Incident @relation(fields: [incidentId], references: [id])
+
+  startedBy   String?
+  startedAt   DateTime  @default(now())
+  completedAt DateTime?
+
+  status           PlaybookExecutionStatus @default(PENDING)
+  currentStepOrder Int                     @default(0)
+  result           Json?
+  error            String?
+
+  @@index([playbookId])
+  @@index([incidentId])
+  @@index([status])
+  @@index([incidentId, status])
+  @@index([startedAt])
+}
+
+enum PlaybookExecutionStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+// ===== Escalation Models =====
+
+// EscalationRule: defines conditions and targets for auto-escalation
+model EscalationRule {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name        String
+  description String?
+
+  incidentId String?
+  incident   Incident? @relation(fields: [incidentId], references: [id])
+
+  triggerCondition Json? // Conditions that trigger escalation
+  escalationLevel  Int   @default(1)
+  timeoutMinutes   Int? // Max time before escalation fires
+
+  notifyRoles    String[] // Roles to notify on escalation
+  notifyUsers    String[] // Specific users to notify
+  autoAssignTo   String? // Auto-assign incident to this user/role
+  autoAssignRole String?
+
+  isActive Boolean @default(true)
+  priority Int     @default(0)
+
+  // Relations
+  timers EscalationTimer[] @relation("EscalationTimers")
+
+  @@index([incidentId])
+  @@index([isActive])
+  @@index([escalationLevel])
+  @@index([isActive, priority])
+}
+
+// EscalationTimer: tracks active escalation timers per incident
+model EscalationTimer {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ruleId String
+  rule   EscalationRule @relation("EscalationTimers", fields: [ruleId], references: [id])
+
+  incidentId String
+  incident   Incident @relation(fields: [incidentId], references: [id])
+
+  triggeredAt    DateTime  @default(now())
+  acknowledgedAt DateTime?
+  acknowledgedBy String?
+  timeoutAt      DateTime
+  resolvedAt     DateTime?
+
+  status EscalationTimerStatus @default(ACTIVE)
+  notes  String?
+
+  @@index([ruleId])
+  @@index([incidentId])
+  @@index([status])
+  @@index([timeoutAt])
+  @@index([incidentId, status])
+}
+
+enum EscalationTimerStatus {
+  ACTIVE
+  ACKNOWLEDGED
+  TIMEOUT
+  RESOLVED
+  CANCELLED
+}
+
+// ===== Rule Engine Models =====
+
+// RuleDefinition: generic rule engine with JSON Logic conditions and actions
+model RuleDefinition {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name        String
+  description String?
+
+  triggerEvent String? // Event name that triggers evaluation (e.g., "incident.created", "report.verified")
+  ruleGroup    String? // Category/group for organization
+  priority     Int     @default(0)
+
+  conditions Json? // JSON Logic condition tree
+  actions    Json? // Actions to execute when conditions match
+
+  isActive        Boolean   @default(true)
+  cooldownMinutes Int? // Min interval between re-triggers
+  lastTriggeredAt DateTime?
+
+  metadata Json? // Additional metadata (tags, owner, etc.)
+
+  @@index([triggerEvent])
+  @@index([ruleGroup])
+  @@index([isActive])
+  @@index([isActive, priority])
+  @@index([triggerEvent, isActive])
+}
+
+// ===== AI and Agent Models (T05) =====
+
+// AgentRun: tracks execution of an AI agent session
+model AgentRun {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  agentType    String // classifier/predictor/recommender/analyzer
+  agentName    String?
+  modelVersion String?
+  runLabel     String? // Human-readable label for the run
+
+  inputData  Json?
+  outputData Json?
+  status     AgentRunStatus @default(PENDING)
+  durationMs Int?
+
+  triggeredBy String? // userId or "system"
+  incidentId  String?
+  incident    Incident? @relation(fields: [incidentId], references: [id])
+
+  errorMessage String?
+  metadata     Json?
+
+  // Relations
+  decisions AgentDecision[] @relation("AgentDecisions")
+  auditLogs AgentAuditLog[] @relation("AgentAuditLogs")
+
+  @@index([agentType])
+  @@index([status])
+  @@index([incidentId])
+  @@index([createdAt])
+  @@index([agentType, status])
+  @@index([triggeredBy])
+}
+
+enum AgentRunStatus {
+  PENDING
+  RUNNING
+  COMPLETED
+  FAILED
+  CANCELLED
+}
+
+// AgentDecision: individual decisions made during an agent run
+model AgentDecision {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  agentRunId String
+  agentRun   AgentRun @relation("AgentDecisions", fields: [agentRunId], references: [id])
+
+  decisionType  String // classification/prediction/recommendation/action
+  decisionLabel String?
+
+  confidence     Float? // 0-1
+  reasoning      String?
+  inputSnapshot  Json? // Snapshot of input at decision point
+  outputSnapshot Json? // Snapshot of output produced
+
+  features          Json? // Feature values used for this decision
+  featureImportance Json? // Feature importance/weights
+
+  isAccepted Boolean?
+  acceptedBy String? // userId who accepted/reviewed
+  acceptedAt DateTime?
+
+  @@index([agentRunId])
+  @@index([decisionType])
+  @@index([confidence])
+  @@index([createdAt])
+  @@index([agentRunId, decisionType])
+}
+
+// AgentAuditLog: audit trail for autonomous agent actions
+model AgentAuditLog {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  agentRunId String
+  agentRun   AgentRun @relation("AgentAuditLogs", fields: [agentRunId], references: [id])
+
+  action     String // create/update/delete/escalate/notify/approve/reject
+  entityType String // incident/volunteer/mission/notification/etc.
+  entityId   String?
+
+  oldValue    Json?
+  newValue    Json?
+  description String?
+
+  performedBy String? // agent name or userId if reviewed
+  ipAddress   String?
+
+  @@index([agentRunId])
+  @@index([action])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@index([performedBy])
+}
+
+// ===== ML Model Output Models (T05) =====
+
+// ScoredEvent: events scored by ML models for risk/priority assessment
+model ScoredEvent {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  eventType   String // incident_report/social_media/news/sensor/field_report
+  eventSource String? // Original source identifier
+  sourceId    String? // ID of source record (e.g., incidentId, intelReportId)
+
+  features     Json?
+  score        Float // 0-1 risk/priority score
+  scoreLabel   String? // LOW/MEDIUM/HIGH/CRITICAL
+  modelVersion String?
+  modelName    String?
+
+  threshold    Float? // Threshold used for classification
+  isActionable Boolean?  @default(false)
+  expiresAt    DateTime?
+
+  incidentId String?
+  incident   Incident? @relation(fields: [incidentId], references: [id])
+
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  reviewNotes String?
+
+  @@index([eventType])
+  @@index([score])
+  @@index([modelVersion])
+  @@index([incidentId])
+  @@index([expiresAt])
+  @@index([createdAt])
+  @@index([eventType, score])
+  @@index([isActionable])
+  @@index([eventSource])
+}
+
+// Prediction: specific predictions made by ML models with outcome tracking
+model Prediction {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  predictionType String // severity/impact/duration/affected_area/casualty
+  predictedValue Float?
+  predictedLabel String?
+  actualValue    Float? // Filled when outcome is known
+  actualLabel    String?
+
+  confidence      Float // 0-1
+  confidenceLower Float?
+  confidenceUpper Float?
+
+  features      Json?
+  featureValues Json?
+  modelVersion  String?
+  modelName     String?
+
+  incidentId String?
+  incident   Incident? @relation(fields: [incidentId], references: [id])
+
+  targetDate     DateTime? // Date prediction applies to
+  predictionDate DateTime  @default(now())
+  outcomeDate    DateTime? // When actual outcome was observed
+
+  accuracy   Float? // Calculated after outcome: 1 - |actual - predicted|
+  feedback   String? // User feedback on prediction quality
+  feedbackBy String?
+
+  @@index([predictionType])
+  @@index([confidence])
+  @@index([modelVersion])
+  @@index([incidentId])
+  @@index([targetDate])
+  @@index([predictionDate])
+  @@index([predictionType, incidentId])
+  @@index([outcomeDate])
+}
+
+// Forecast: time-series forecasts for operational metrics
+model Forecast {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  forecastType String // incident_volume/resource_demand/volunteer_needed/weather_impact
+  forecastName String?
+  modelVersion String?
+  modelName    String?
+
+  horizon    String? // SHORT_TERM/MEDIUM_TERM/LONG_TERM
+  confidence Float? // Overall forecast confidence 0-1
+
+  region       String?
+  incidentType DisasterType?
+
+  // Forecast data
+  dataPoints Json? // Array of {date, predicted, lower, upper} objects
+  metadata   Json? // Additional forecast metadata
+
+  startDate   DateTime?
+  endDate     DateTime?
+  generatedAt DateTime  @default(now())
+
+  // Accuracy tracking
+  accuracyScore  Float?
+  lastVerifiedAt DateTime?
+
+  @@index([forecastType])
+  @@index([horizon])
+  @@index([region])
+  @@index([incidentType])
+  @@index([startDate, endDate])
+  @@index([generatedAt])
+  @@index([forecastType, region])
+}
+
+// ===== Trust and Verification Models (T05) =====
+
+// TrustScore: aggregated trust scores for entities (users, sources, reports)
+model TrustScore {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  entityType String // user/volunteer/source/report/intel_report/news_item
+  entityId   String // UUID of the entity
+
+  overallScore    Float // 0-1 aggregate trust score
+  componentScores Json? // {reliability: 0.8, accuracy: 0.7, consistency: 0.9, ...}
+
+  confidence Float? // Confidence in the trust score itself 0-1
+
+  totalReports     Int      @default(0) // Number of data points contributing
+  lastCalculatedAt DateTime @default(now())
+
+  decayFactor Float? // Rate at which score decays over time
+  expiresAt   DateTime?
+
+  calculatedBy String? // Model or algorithm used
+  metadata     Json?
+
+  @@index([entityType, entityId])
+  @@index([overallScore])
+  @@index([entityType, overallScore])
+  @@index([lastCalculatedAt])
+  @@index([expiresAt])
+}
+
+// SourceReliability: reliability metrics for information sources
+model SourceReliability {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  sourceName String?
+  sourceType SourceReliabilityType? // OFFICIAL/MEDIA/SOCIAL/CITIZEN/SENSOR/API
+  sourceUrl  String                 @unique
+
+  reliabilityScore Float? // 0-1
+  accuracyRate     Float? // Historical accuracy rate
+  responseRate     Float? // How often source provides timely info
+
+  totalReports    Int @default(0)
+  verifiedReports Int @default(0)
+  falseReports    Int @default(0)
+
+  lastActiveAt   DateTime?
+  lastVerifiedAt DateTime?
+  status         SourceReliabilityStatus @default(UNVERIFIED)
+
+  region   String?
+  category String?
+
+  notes    String?
+  metadata Json?
+
+  @@index([sourceType])
+  @@index([reliabilityScore])
+  @@index([status])
+  @@index([region])
+  @@index([sourceType, status])
+  @@index([sourceUrl])
+}
+
+enum SourceReliabilityType {
+  OFFICIAL
+  MEDIA
+  SOCIAL
+  CITIZEN
+  SENSOR
+  API
+}
+
+enum SourceReliabilityStatus {
+  UNVERIFIED
+  VERIFIED
+  TRUSTED
+  FLAGGED
+  BLOCKED
+}
+
+// VerificationResult: results of information verification processes
+model VerificationResult {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  claim      String? // The claim being verified
+  entityType String? // incident/report/intel/news/location
+  entityId   String? // UUID of the entity
+
+  status     VerificationStatus // UNVERIFIED/VERIFIED/CONFIRMED/DISPUTED/REFUTED
+  confidence Float? // 0-1 confidence in verification
+
+  verifiedBy String? // userId or "system" / "ai"
+  verifiedAt DateTime?
+
+  method   String? // cross_reference/field_report/satellite/official_statement/ai
+  evidence Json? // Array of evidence objects {source, content, url, timestamp}
+  notes    String?
+
+  reviewerId  String?
+  reviewer    User?     @relation(fields: [reviewerId], references: [id])
+  reviewedAt  DateTime?
+  reviewNotes String?
+
+  relatedIncidentId String?
+  relatedIncident   Incident? @relation(fields: [relatedIncidentId], references: [id])
+
+  expiresAt DateTime?
+  metadata  Json?
+
+  @@index([status])
+  @@index([entityType, entityId])
+  @@index([method])
+  @@index([verifiedBy])
+  @@index([relatedIncidentId])
+  @@index([createdAt])
+  @@index([status, entityType])
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  VERIFIED
+  CONFIRMED
+  DISPUTED
+  REFUTED
+}
+
+enum RegionType {
+  PROVINCE
+  DISTRICT
+  SUB_DISTRICT
+  VILLAGE
+}
+
+// ===== Region, Zone, and EvacuationRoute Models (PostGIS) =====
+
+model Region {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name         String?
+  code         String?                                  @unique
+  regionType   RegionType?
+  parentId     String?
+  parent       Region?                                  @relation("RegionHierarchy", fields: [parentId], references: [id])
+  children     Region[]                                 @relation("RegionHierarchy")
+  coverageArea Unsupported("geography(Polygon, 4326)")?
+  Zone         Zone[]
+
+  @@index([name])
+  @@index([regionType])
+  @@index([parentId])
+  @@index([coverageArea])
+}
+
+model Zone {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name         String?
+  code         String?
+  regionId     String?
+  region       Region?                                  @relation(fields: [regionId], references: [id])
+  coverageArea Unsupported("geography(Polygon, 4326)")?
+
+  @@index([name])
+  @@index([code])
+  @@index([regionId])
+  @@index([coverageArea])
+}
+
+model EvacuationRoute {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name          String?
+  description   String?
+  route         Unsupported("geography(LineString, 4326)")?
+  originId      String?
+  origin        String? // origin point name
+  destinationId String?
+  destination   String? // destination point name
+  distance      Float?
+  estimatedTime Int? // in minutes
+  status        EvacuationRouteStatus?                      @default(ACTIVE)
+  incidentId    String?
+  incident      Incident?                                   @relation(fields: [incidentId], references: [id])
+
+  @@index([name])
+  @@index([status])
+  @@index([incidentId])
+  @@index([route])
+}
+
+enum EvacuationRouteStatus {
+  ACTIVE
+  BLOCKED
+  CLOSED
+  UNDER_MAINTENANCE
+}
+
+// Federation and security models (T06)
+
+enum FederationNodeStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  DEGRADED
+}
+
+enum SyncDirection {
+  INBOUND
+  OUTBOUND
+}
+
+enum SyncStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+  FAILED
+  CONFLICT
+}
+
+enum WebhookStatus {
+  ACTIVE
+  PAUSED
+  FAILED
+}
+
+enum PiiAction {
+  ACCESSED
+  STRIPPED
+  EXPOSED
+  DELETED
+  ANONYMIZED
+}
+
+model FederationNode {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name            String
+  url             String
+  apiKeyHash      String?
+  status          FederationNodeStatus @default(ACTIVE)
+  region          String?
+  capabilities    String[]
+  lastHeartbeatAt DateTime?
+  metadata        Json?
+
+  syncLogs             SyncLog[]
+  webhookSubscriptions WebhookSubscription[]
+
+  @@index([status])
+  @@index([region])
+  @@index([name])
+}
+
+model SyncLog {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  nodeId String
+  node   FederationNode @relation(fields: [nodeId], references: [id])
+
+  direction    SyncDirection
+  entityType   String
+  entityId     String?
+  status       SyncStatus    @default(PENDING)
+  payload      Json?
+  errorMessage String?
+  completedAt  DateTime?
+  retryCount   Int           @default(0)
+
+  @@index([nodeId])
+  @@index([direction])
+  @@index([status])
+  @@index([createdAt])
+}
+
+model WebhookSubscription {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  nodeId String
+  node   FederationNode @relation(fields: [nodeId], references: [id])
+
+  url             String
+  events          String[]
+  secretHash      String?
+  status          WebhookStatus @default(ACTIVE)
+  lastTriggeredAt DateTime?
+  failureCount    Int           @default(0)
+
+  @@index([nodeId])
+  @@index([status])
+}
+
+model PiiAudit {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+
+  actorId String?
+  actor   User?   @relation(fields: [actorId], references: [id])
+
+  action      PiiAction
+  entityType  String
+  entityId    String
+  fieldName   String?
+  piiCategory String?
+  reason      String?
+  ipAddress   String?
+  metadata    Json?
+
+  @@index([actorId])
+  @@index([entityType, entityId])
+  @@index([action])
+  @@index([createdAt])
+}
+
+// =============================================================================
+// PHASE-08A ENUMS AND MODELS — CANONICAL EXPANSION FOR BLOCKED DOMAINS
+// Additive only. No modifications to existing models above.
+// =============================================================================
+
+// =============================================================================
+// WARNING ENUMS
+// =============================================================================
+
+enum WarningSeverity {
+  ADVISORY
+  WATCH
+  WARNING
+  EMERGENCY
+}
+
+enum WarningStatus {
+  ACTIVE
+  EXPIRED
+  CANCELLED
+}
+
+// =============================================================================
+// HAZARD ENUMS
+// =============================================================================
+
+enum HazardSeverity {
+  LOW
+  MODERATE
+  HIGH
+  EXTREME
+}
+
+// =============================================================================
+// EXCLUSION ZONE ENUMS
+// =============================================================================
+
+enum ExclusionZoneType {
+  DANGER
+  RESTRICTED
+  CONTROLLED
+}
+
+enum ExclusionZoneLevel {
+  LOW
+  MEDIUM
+  HIGH
+  EXTREME
+}
+
+// =============================================================================
+// DECISION ENUMS
+// =============================================================================
+
+enum DecisionImpact {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+enum DecisionUrgency {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum DecisionStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  DEFERRED
+}
+
+// =============================================================================
+// BRIEFING ENUMS
+// =============================================================================
+
+enum BriefingStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+// =============================================================================
+// TACTICAL ENUMS
+// =============================================================================
+
+enum TacticalPriority {
+  LOW
+  MEDIUM
+  HIGH
+  CRITICAL
+}
+
+// =============================================================================
+// WARNING MODEL
+// Persistence contract for early warning / peringatan dini lifecycle.
+// Scalar FKs (incidentId, regionId, createdBy) reference Incident/Region/User
+// without Prisma-level @relation — existing models cannot be modified.
+// =============================================================================
+
+model Warning {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  title         String
+  description   String
+  severity      WarningSeverity
+  status        WarningStatus     @default(ACTIVE)
+  affectedAreas String[]
+  issuedAt      DateTime
+  expiresAt     DateTime
+  source        String?
+
+  incidentId String?
+  regionId   String?
+  createdBy  String?
+
+  @@index([status])
+  @@index([severity])
+  @@index([incidentId])
+  @@index([regionId])
+  @@index([issuedAt])
+  @@index([expiresAt])
+  @@index([status, expiresAt])
+}
+
+// =============================================================================
+// HAZARD ZONE MODEL
+// Persistence contract for mapped hazard zones with polygon geometry.
+// Scalar FKs reference Incident and Region without Prisma-level @relation.
+// Child VulnerabilityAssessment and ExclusionZone reference HazardZone via scalar FKs.
+// =============================================================================
+
+model HazardZone {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name            String
+  hazardType      DisasterType
+  severity        HazardSeverity
+  polygonGeometry Unsupported("geography(Polygon, 4326)")
+  description     String?
+  population      Int?
+  area            Float?
+
+  regionId   String?
+  incidentId String?
+
+  @@index([hazardType])
+  @@index([severity])
+  @@index([regionId])
+  @@index([incidentId])
+  @@index([polygonGeometry])
+}
+
+// =============================================================================
+// VULNERABILITY ASSESSMENT MODEL
+// Persistence contract for per-zone vulnerability scoring.
+// Scalar FKs reference HazardZone, Region, User without Prisma-level @relation.
+// factors is Json because factor names and weights vary per methodology.
+// =============================================================================
+
+model VulnerabilityAssessment {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  score           Float
+  factors         Json?
+  recommendations String?
+  assessedAt      DateTime  @default(now())
+
+  hazardZoneId String
+  regionId     String?
+  assessedBy   String?
+
+  @@index([hazardZoneId])
+  @@index([regionId])
+  @@index([score])
+  @@index([assessedAt])
+}
+
+// =============================================================================
+// EXCLUSION ZONE MODEL
+// Persistence contract for danger/restricted/controlled zones.
+// Scalar FKs reference HazardZone, Incident, Region without Prisma-level @relation.
+// geometry supports arbitrary polygons; radius supports circular zones.
+// =============================================================================
+
+model ExclusionZone {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  name            String
+  geometry        Unsupported("geography(Polygon, 4326)")
+  radius          Float?
+  restrictionType ExclusionZoneType
+  level           ExclusionZoneLevel
+  description     String?
+  restrictions    String[]
+  effectiveFrom   DateTime
+  effectiveTo     DateTime?
+
+  hazardZoneId String?
+  incidentId   String?
+  regionId     String?
+
+  @@index([restrictionType])
+  @@index([level])
+  @@index([hazardZoneId])
+  @@index([incidentId])
+  @@index([regionId])
+  @@index([effectiveFrom, effectiveTo])
+  @@index([level, restrictionType])
+}
+
+// =============================================================================
+// TACTICAL DATA MODEL
+// Persistence contract for tactical per-incident operational data.
+// Scalar FK references Incident (required, 1:1) and optional Region/User.
+// metadata uses Json for flexible map overlays and resource visibility data.
+// =============================================================================
+
+model TacticalData {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  incidentId String     @unique
+  priority   TacticalPriority @default(MEDIUM)
+  perimeter  Unsupported("geography(Polygon, 4326)")?
+  description    String?
+  metadata       Json?
+  deployedUnits  Int     @default(0)
+  sheltersOccupied Int  @default(0)
+  resourcesDeployed Int @default(0)
+
+  regionId  String?
+  createdBy String?
+
+  @@index([incidentId])
+  @@index([priority])
+  @@index([regionId])
+  @@index([createdAt])
+}
+
+// =============================================================================
+// DECISION MODEL
+// Persistence contract for human command decisions with approval workflow.
+// Scalar FKs reference User (requestedBy required, decidedBy optional) and
+// optional Incident, without Prisma-level @relation.
+// alternatives is Json because option structures vary per decision template.
+// inputFactors is Json because factor names and weights are domain-specific.
+// =============================================================================
+
+model Decision {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  title       String
+  description String
+  category    String
+  impact      DecisionImpact
+  urgency     DecisionUrgency
+  status      DecisionStatus   @default(PENDING)
+
+  reasoning    String?
+  alternatives Json?
+  inputFactors Json?
+  riskLevel    DecisionImpact?
+
+  selectedOption String?
+  rationale      String?
+  requestedBy    String
+  decidedBy      String?
+  decidedAt      DateTime?
+
+  incidentId String?
+
+  @@index([status])
+  @@index([impact])
+  @@index([urgency])
+  @@index([incidentId])
+  @@index([requestedBy])
+  @@index([createdAt])
+  @@index([incidentId, status])
+  @@index([incidentId, createdAt])
+}
+
+// =============================================================================
+// EXECUTIVE BRIEFING MODEL
+// Persistence contract for generated executive briefings with aggregated metrics.
+// Scalar FKs reference Incident and User without Prisma-level @relation.
+// summary and metrics use Json because structure varies per data source availability.
+// =============================================================================
+
+model ExecutiveBriefing {
+  id        String    @id @default(uuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  title           String
+  summary         Json?
+  metrics         Json?
+  recommendations String[]
+  audience        String?
+  generatedAt     DateTime      @default(now())
+  validUntil      DateTime?
+  status          BriefingStatus @default(DRAFT)
+
+  incidentId String?
+  preparedBy String?
+
+  @@index([status])
+  @@index([incidentId])
+  @@index([generatedAt])
+  @@index([audience])
+  @@index([incidentId, generatedAt])
+}

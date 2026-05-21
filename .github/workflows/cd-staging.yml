@@ -1,0 +1,61 @@
+name: CD Staging
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: cd-staging
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: 20
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    environment: staging
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+        env:
+          TURBO_API_URL: ${{ secrets.TURBO_API_URL }}
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+
+      - name: Deploy backend to staging
+        run: |
+          echo "► Deploying backend to staging..."
+          echo "  target: ${{ secrets.STAGING_BACKEND_HOST }}"
+          echo "✅ Backend deployment complete (stub)"
+        # TODO: Replace stub with actual deploy command (e.g., rsync, docker push, serverless)
+
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    environment: staging
+    needs: [deploy-backend]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+        env:
+          TURBO_API_URL: ${{ secrets.TURBO_API_URL }}
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+
+      - name: Deploy frontend to staging
+        run: |
+          echo "► Deploying frontend to staging..."
+          echo "  target: ${{ secrets.STAGING_FRONTEND_HOST }}"
+          echo "✅ Frontend deployment complete (stub)"
+        # TODO: Replace stub with actual deploy command

@@ -1,0 +1,93 @@
+# GeoServer and STAC API services for GIS/WMS/WFS
+# Add to main compose with: docker-compose -f docker-compose.yml -f docker-compose.gis.yml up -d
+
+services:
+  geoserver:
+    image: docker.osgeo.org/geoserver:2.25.0
+    container_name: nurisk-geoserver
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      # GeoServer configuration
+      GEOSERVER_DATA_DIR: /data/geoserver_data
+      GEOSERVER_ADMIN_PASSWORD: ${GEOSERVER_PASSWORD:-geoserver}
+      # PostgreSQL/PostGIS connection
+      POSTGIS_HOST: postgres
+      POSTGIS_PORT: 5432
+      POSTGIS_DB: ${POSTGRES_DB:-nurisk}
+      POSTGIS_USER: ${POSTGRES_USER:-nurisk}
+      POSTGIS_PASSWORD: ${POSTGRES_PASSWORD:-nurisk}
+    volumes:
+      - geoserver_data:/data/geoserver_data
+      - ./docker/geoserver:/extensions.d
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - nurisk-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/geoserver/rest/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+  # STAC API for satellite imagery
+  stac-api:
+    image: stacapi/stac-fastapi:latest
+    container_name: nurisk-stac-api
+    restart: unless-stopped
+    ports:
+      - "8082:8082"
+    environment:
+      # PostgreSQL connection for pgstac
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-nurisk}
+      POSTGRES_USER: ${POSTGRES_USER:-nurisk}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nurisk}
+      # STAC configuration
+      STAC_CACHE_ENABLED: "true"
+      STAC_CACHE_EXPIRES: "3600"
+      STAC_PGSTAC_VERSION: "1.0-21"
+    volumes:
+      - stac_data:/data
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - nurisk-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8082/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+
+  # Tile server (optional - for optimized tile serving)
+  tile-server:
+    image: mease/titiler:latest
+    container_name: nurisk-tile-server
+    restart: unless-stopped
+    ports:
+      - "8083:8083"
+    environment:
+      # PostgreSQL connection
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-nurisk}
+      POSTGRES_USER: ${POSTGRES_USER:-nurisk}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-nurisk}
+      # TiPpg configuration
+      TIPPG_PG_CACHE: "true"
+      TIPPG_PG_CACHE_EXPIRE: "3600"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - nurisk-network
+
+volumes:
+  geoserver_data:
+  stac_data:

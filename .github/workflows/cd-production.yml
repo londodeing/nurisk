@@ -1,0 +1,75 @@
+name: CD Production
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Git tag to deploy
+        required: true
+
+concurrency:
+  group: cd-production
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: 20
+
+jobs:
+  deploy-backend:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref_name }}
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+        env:
+          TURBO_API_URL: ${{ secrets.TURBO_API_URL }}
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+
+      - name: Run database migrations
+        run: |
+          echo "► Running production migrations..."
+          # npx prisma migrate deploy
+          echo "✅ Migrations complete (stub)"
+
+      - name: Deploy backend to production
+        run: |
+          echo "► Deploying backend to production..."
+          echo "  target: ${{ secrets.PRODUCTION_BACKEND_HOST }}"
+          echo "✅ Backend deployment complete (stub)"
+        # TODO: Replace stub with actual deploy command
+
+  deploy-frontend:
+    runs-on: ubuntu-latest
+    environment: production
+    needs: [deploy-backend]
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref_name }}
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build
+        env:
+          TURBO_API_URL: ${{ secrets.TURBO_API_URL }}
+          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
+
+      - name: Deploy frontend to production
+        run: |
+          echo "► Deploying frontend to production..."
+          echo "  target: ${{ secrets.PRODUCTION_FRONTEND_HOST }}"
+          echo "✅ Frontend deployment complete (stub)"
+        # TODO: Replace stub with actual deploy command

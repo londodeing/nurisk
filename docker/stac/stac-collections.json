@@ -1,0 +1,131 @@
+{
+  "collections": [
+    {
+      "id": "sentinel-2",
+      "type": "Collection",
+      "title": "Sentinel-2",
+      "description": "Sentinel-2 satellite imagery from ESA Copernicus program",
+      "extent": {
+        "spatial": {
+          "bbox": [
+            [-180, -90, 180, 90]
+          ]
+        },
+        "temporal": {
+          "interval": [
+            ["2015-06-23T00:00:00Z", null]
+          ]
+        }
+      },
+      "license": "proprietary",
+      "providers": [
+        {
+          "name": "European Space Agency (ESA)",
+          "roles": ["producer"],
+          "url": "https://www.esa.int/Programs/ObservingtheEarth/Copernicus"
+        }
+      ],
+      "summaries": {
+        "eo:cloud_cover": {
+          "minimum": 0,
+          "maximum": 100
+        },
+        "platform": ["sentinel-2a", "sentinel-2b"],
+        "instruments": ["msi"],
+        "constellation": "sentinel-2"
+      },
+      "links": [
+        {
+          "rel": "child",
+          "href": "https://earth.esa.int/web/sentinel/home"
+        }
+      ]
+    },
+    {
+      "id": "landsat-c2",
+      "type": "Collection",
+      "title": "Landsat Collection 2",
+      "description": "Landsat 8/9 satellite imagery from USGS",
+      "extent": {
+        "spatial": {
+          "bbox": [
+            [-180, -90, 180, 90]
+          ]
+        },
+        "temporal": {
+          "interval": [
+            ["2013-02-11T00:00:00Z", null]
+          ]
+        }
+      },
+      "license": "proprietary",
+      "providers": [
+        {
+          "name": "USGS",
+          "roles": ["producer"],
+          "url": "https://www.usgs.gov/landsat-missions"
+        }
+      ],
+      "summaries": {
+        "eo:cloud_cover": {
+          "minimum": 0,
+          "maximum": 100
+        },
+        "platform": ["landsat-8", "landsat-9"],
+        "instruments": ["oli", "tirs"],
+        "constellation": "landsat"
+      },
+      "links": [
+        {
+          "rel": "child",
+          "href": "https://landsat.usgs.gov/"
+        }
+      ]
+    },
+    {
+      "id": "disaster-imagery",
+      "type": "Collection",
+      "title": "Disaster Response Imagery",
+      "description": "Aerial and satellite imagery captured during disaster events for response and damage assessment",
+      "extent": {
+        "spatial": {
+          "bbox": [
+            [105.0, -8.0, 115.0, -5.0]
+          ]
+        },
+        "temporal": {
+          "interval": [
+            ["2020-01-01T00:00:00Z", null]
+          ]
+        }
+      },
+      "license": "CC-BY-4.0",
+      "providers": [
+        {
+          "name": "BNPB Indonesia",
+          "roles": ["producer"],
+          "url": "https://bnpb.go.id"
+        }
+      ],
+      "summaries": {
+        "eo:cloud_cover": {
+          "minimum": 0,
+          "maximum": 100
+        },
+        "disaster:type": ["flood", "earthquake", "landslide", "volcano", "fire"],
+        "disaster:event": ["2024-flood-jateng", "2024-earthquake-jateng"]
+      },
+      "item_assets": {
+        "data": {
+          "title": "Image data",
+          "roles": ["data"],
+          "geospatial": true
+        },
+        "metadata": {
+          "title": "Metadata",
+          "roles": ["metadata"]
+        }
+      }
+    }
+  ]
+}

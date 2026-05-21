@@ -1,0 +1,63 @@
+name: Deploy Migrations
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target environment
+        required: true
+        default: staging
+        type: choice
+        options:
+          - staging
+          - production
+  push:
+    branches: [main]
+    paths:
+      - 'backend/prisma/migrations/**'
+      - 'backend/prisma/schema.prisma'
+
+concurrency:
+  group: migrations-${{ github.event.inputs.environment || 'staging' }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.environment || 'staging' }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Generate Prisma Client
+        run: npx prisma generate
+        working-directory: backend
+
+      - name: Check migration status — abort on drift
+        run: |
+          echo "► Checking migration status..."
+          STATUS=$(DATABASE_DIRECT_URL="${{ secrets.DATABASE_DIRECT_URL }}" npx prisma migrate status 2>&1) || true
+          echo "$STATUS"
+          if echo "$STATUS" | grep -q "Drift detected"; then
+            echo "❌ Drift detected! Database schema is not in sync with migration history."
+            exit 1
+          fi
+          echo "✅ Migration status OK"
+        working-directory: backend
+
+      - name: Deploy migrations
+        run: |
+          echo "► Deploying migrations..."
+          DATABASE_DIRECT_URL="${{ secrets.DATABASE_DIRECT_URL }}" npx prisma migrate deploy
+          echo "✅ Migrations deployed successfully"
+        working-directory: backend

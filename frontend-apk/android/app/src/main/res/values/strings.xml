@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Nurisk</string>
+    <string name="panic_widget_description">Emergency panic button for quick distress signal</string>
+</resources>

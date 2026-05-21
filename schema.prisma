@@ -1,0 +1,11 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Masukkan model-model Anda di sini (Incident, User, dll)
+// Berdasarkan PRD, pastikan ekstensi PostGIS aktif jika diperlukan

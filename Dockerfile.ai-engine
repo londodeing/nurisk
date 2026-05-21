@@ -1,0 +1,33 @@
+FROM python:3.12-slim AS builder
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY apps/ai-engine/requirements.txt .
+RUN pip install --user --no-cache-dir -r requirements.txt
+
+FROM python:3.12-slim AS runner
+WORKDIR /app
+
+RUN groupadd --system --gid 1001 nurisk && \
+    useradd --system --uid 1001 --gid nurisk nurisk
+
+COPY --from=builder /root/.local /home/nurisk/.local
+COPY apps/ai-engine .
+
+RUN mkdir -p /models && chown nurisk:nurisk /models
+
+ENV PATH=/home/nurisk/.local/bin:$PATH \
+    PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+USER nurisk
+
+EXPOSE 8000
+
+HEALTHCHECK --interval=30s --timeout=10s --retries=3 \
+  CMD python -c "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"
+
+CMD ["python", "main.py"]

@@ -1,0 +1,362 @@
+{
+  "name": "@nurisk/shared-types",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./analytics": {
+      "import": {
+        "types": "./dist/analytics/index.d.ts",
+        "default": "./dist/analytics/index.mjs"
+      },
+      "require": {
+        "types": "./dist/analytics/index.d.ts",
+        "default": "./dist/analytics/index.js"
+      }
+    },
+    "./api": {
+      "import": {
+        "types": "./dist/api/index.d.ts",
+        "default": "./dist/api/index.mjs"
+      },
+      "require": {
+        "types": "./dist/api/index.d.ts",
+        "default": "./dist/api/index.js"
+      }
+    },
+    "./assessment": {
+      "import": {
+        "types": "./dist/assessment/index.d.ts",
+        "default": "./dist/assessment/index.mjs"
+      },
+      "require": {
+        "types": "./dist/assessment/index.d.ts",
+        "default": "./dist/assessment/index.js"
+      }
+    },
+    "./auth": {
+      "import": {
+        "types": "./dist/auth/index.d.ts",
+        "default": "./dist/auth/index.mjs"
+      },
+      "require": {
+        "types": "./dist/auth/index.d.ts",
+        "default": "./dist/auth/index.js"
+      }
+    },
+    "./chat": {
+      "import": {
+        "types": "./dist/chat/index.d.ts",
+        "default": "./dist/chat/index.mjs"
+      },
+      "require": {
+        "types": "./dist/chat/index.d.ts",
+        "default": "./dist/chat/index.js"
+      }
+    },
+    "./audit": {
+      "import": {
+        "types": "./dist/audit/index.d.ts",
+        "default": "./dist/audit/index.mjs"
+      },
+      "require": {
+        "types": "./dist/audit/index.d.ts",
+        "default": "./dist/audit/index.js"
+      }
+    },
+    "./awareness": {
+      "import": {
+        "types": "./dist/awareness/index.d.ts",
+        "default": "./dist/awareness/index.mjs"
+      },
+      "require": {
+        "types": "./dist/awareness/index.d.ts",
+        "default": "./dist/awareness/index.js"
+      }
+    },
+    "./briefing": {
+      "import": {
+        "types": "./dist/briefing/index.d.ts",
+        "default": "./dist/briefing/index.mjs"
+      },
+      "require": {
+        "types": "./dist/briefing/index.d.ts",
+        "default": "./dist/briefing/index.js"
+      }
+    },
+    "./common": {
+      "import": {
+        "types": "./dist/common/index.d.ts",
+        "default": "./dist/common/index.mjs"
+      },
+      "require": {
+        "types": "./dist/common/index.d.ts",
+        "default": "./dist/common/index.js"
+      }
+    },
+    "./decision": {
+      "import": {
+        "types": "./dist/decision/index.d.ts",
+        "default": "./dist/decision/index.mjs"
+      },
+      "require": {
+        "types": "./dist/decision/index.d.ts",
+        "default": "./dist/decision/index.js"
+      }
+    },
+    "./early-warning": {
+      "import": {
+        "types": "./dist/early-warning/index.d.ts",
+        "default": "./dist/early-warning/index.mjs"
+      },
+      "require": {
+        "types": "./dist/early-warning/index.d.ts",
+        "default": "./dist/early-warning/index.js"
+      }
+    },
+    "./enums": {
+      "import": {
+        "types": "./dist/enums/index.d.ts",
+        "default": "./dist/enums/index.mjs"
+      },
+      "require": {
+        "types": "./dist/enums/index.d.ts",
+        "default": "./dist/enums/index.js"
+      }
+    },
+    "./forecast": {
+      "import": {
+        "types": "./dist/forecast/index.d.ts",
+        "default": "./dist/forecast/index.mjs"
+      },
+      "require": {
+        "types": "./dist/forecast/index.d.ts",
+        "default": "./dist/forecast/index.js"
+      }
+    },
+    "./hazard": {
+      "import": {
+        "types": "./dist/hazard/index.d.ts",
+        "default": "./dist/hazard/index.mjs"
+      },
+      "require": {
+        "types": "./dist/hazard/index.d.ts",
+        "default": "./dist/hazard/index.js"
+      }
+    },
+    "./incident": {
+      "import": {
+        "types": "./dist/incident/index.d.ts",
+        "default": "./dist/incident/index.mjs"
+      },
+      "require": {
+        "types": "./dist/incident/index.d.ts",
+        "default": "./dist/incident/index.js"
+      }
+    },
+    "./inventory": {
+      "import": {
+        "types": "./dist/inventory/index.d.ts",
+        "default": "./dist/inventory/index.mjs"
+      },
+      "require": {
+        "types": "./dist/inventory/index.d.ts",
+        "default": "./dist/inventory/index.js"
+      }
+    },
+    "./logistics": {
+      "import": {
+        "types": "./dist/logistics/index.d.ts",
+        "default": "./dist/logistics/index.mjs"
+      },
+      "require": {
+        "types": "./dist/logistics/index.d.ts",
+        "default": "./dist/logistics/index.js"
+      }
+    },
+    "./map": {
+      "import": {
+        "types": "./dist/map/index.d.ts",
+        "default": "./dist/map/index.mjs"
+      },
+      "require": {
+        "types": "./dist/map/index.d.ts",
+        "default": "./dist/map/index.js"
+      }
+    },
+    "./mission": {
+      "import": {
+        "types": "./dist/mission/index.d.ts",
+        "default": "./dist/mission/index.mjs"
+      },
+      "require": {
+        "types": "./dist/mission/index.d.ts",
+        "default": "./dist/mission/index.js"
+      }
+    },
+    "./notification": {
+      "import": {
+        "types": "./dist/notification/index.d.ts",
+        "default": "./dist/notification/index.mjs"
+      },
+      "require": {
+        "types": "./dist/notification/index.d.ts",
+        "default": "./dist/notification/index.js"
+      }
+    },
+    "./resource": {
+      "import": {
+        "types": "./dist/resource/index.d.ts",
+        "default": "./dist/resource/index.mjs"
+      },
+      "require": {
+        "types": "./dist/resource/index.d.ts",
+        "default": "./dist/resource/index.js"
+      }
+    },
+    "./risk": {
+      "import": {
+        "types": "./dist/risk/index.d.ts",
+        "default": "./dist/risk/index.mjs"
+      },
+      "require": {
+        "types": "./dist/risk/index.d.ts",
+        "default": "./dist/risk/index.js"
+      }
+    },
+    "./search": {
+      "import": {
+        "types": "./dist/search/index.d.ts",
+        "default": "./dist/search/index.mjs"
+      },
+      "require": {
+        "types": "./dist/search/index.d.ts",
+        "default": "./dist/search/index.js"
+      }
+    },
+    "./stream-analytics": {
+      "import": {
+        "types": "./dist/stream-analytics/index.d.ts",
+        "default": "./dist/stream-analytics/index.mjs"
+      },
+      "require": {
+        "types": "./dist/stream-analytics/index.d.ts",
+        "default": "./dist/stream-analytics/index.js"
+      }
+    },
+    "./trend-analysis": {
+      "import": {
+        "types": "./dist/trend-analysis/index.d.ts",
+        "default": "./dist/trend-analysis/index.mjs"
+      },
+      "require": {
+        "types": "./dist/trend-analysis/index.d.ts",
+        "default": "./dist/trend-analysis/index.js"
+      }
+    },
+    "./volunteer-dispatch": {
+      "import": {
+        "types": "./dist/volunteer-dispatch/index.d.ts",
+        "default": "./dist/volunteer-dispatch/index.mjs"
+      },
+      "require": {
+        "types": "./dist/volunteer-dispatch/index.d.ts",
+        "default": "./dist/volunteer-dispatch/index.js"
+      }
+    },
+    "./shelter": {
+      "import": {
+        "types": "./dist/shelter/index.d.ts",
+        "default": "./dist/shelter/index.mjs"
+      },
+      "require": {
+        "types": "./dist/shelter/index.d.ts",
+        "default": "./dist/shelter/index.js"
+      }
+    },
+    "./volunteer": {
+      "import": {
+        "types": "./dist/volunteer/index.d.ts",
+        "default": "./dist/volunteer/index.mjs"
+      },
+      "require": {
+        "types": "./dist/volunteer/index.d.ts",
+        "default": "./dist/volunteer/index.js"
+      }
+    },
+    "./weather": {
+      "import": {
+        "types": "./dist/weather/index.d.ts",
+        "default": "./dist/weather/index.mjs"
+      },
+      "require": {
+        "types": "./dist/weather/index.d.ts",
+        "default": "./dist/weather/index.js"
+      }
+    },
+    "./entities": {
+      "import": {
+        "types": "./dist/entities/index.d.ts",
+        "default": "./dist/entities/index.mjs"
+      },
+      "require": {
+        "types": "./dist/entities/index.d.ts",
+        "default": "./dist/entities/index.js"
+      }
+    },
+    "./types": {
+      "import": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/types/index.mjs"
+      },
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/types/index.js"
+      }
+    },
+    "./warehouse": {
+      "import": {
+        "types": "./dist/warehouse/index.d.ts",
+        "default": "./dist/warehouse/index.mjs"
+      },
+      "require": {
+        "types": "./dist/warehouse/index.d.ts",
+        "default": "./dist/warehouse/index.js"
+      }
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup && node build-dts.mjs",
+    "dev": "tsup --watch",
+    "lint": "tsc --noEmit",
+    "test": "vitest run",
+    "clean": "rm -rf dist",
+    "generate:openapi": "tsx scripts/generate-openapi.ts",
+    "generate:dart": "tsx scripts/generate-dart-models.ts"
+  },
+  "devDependencies": {
+    "ts-to-openapi": "^1.3.0",
+    "tsup": "^8.4.0",
+    "tsx": "^4.22.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0",
+    "yaml": "^2.9.0",
+    "zod-to-json-schema": "^3.25.2"
+  }
+}

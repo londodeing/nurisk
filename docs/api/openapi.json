@@ -1,0 +1,351 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "NURisk API",
+    "version": "1.0.0",
+    "description": "NURisk Disaster Management API - OpenAPI spec generated from Zod schemas for Flutter integration"
+  },
+  "servers": [
+    {
+      "url": "https://api.nurisk.pwnu.or.id"
+    }
+  ],
+  "paths": {
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User login",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login successful"
+          },
+          "401": {
+            "description": "Invalid credentials"
+          }
+        }
+      }
+    },
+    "/auth/register": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User registration",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Registration successful"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/incidents": {
+      "get": {
+        "tags": [
+          "Incidents"
+        ],
+        "summary": "List incidents",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "schema": {
+              "$ref": "#/components/schemas/IncidentFilter"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Incidents"
+        ],
+        "summary": "Create incident",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateIncidentRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/shelters": {
+      "get": {
+        "tags": [
+          "Shelters"
+        ],
+        "summary": "List shelters",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Shelters"
+        ],
+        "summary": "Create shelter",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateShelterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/volunteers": {
+      "get": {
+        "tags": [
+          "Volunteers"
+        ],
+        "summary": "List volunteers",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Volunteers"
+        ],
+        "summary": "Create volunteer",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateVolunteerRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/warehouses": {
+      "get": {
+        "tags": [
+          "Warehouses"
+        ],
+        "summary": "List warehouses",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Warehouses"
+        ],
+        "summary": "Create warehouse",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateWarehouseRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    },
+    "/logistics": {
+      "get": {
+        "tags": [
+          "Logistics"
+        ],
+        "summary": "List logistics requests",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Logistics"
+        ],
+        "summary": "Create logistics request",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSupplyRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LoginRequest": {
+        "type": "object"
+      },
+      "RegisterRequest": {
+        "type": "object"
+      },
+      "UserProfileRequest": {
+        "type": "object"
+      },
+      "ChangePasswordRequest": {
+        "type": "object"
+      },
+      "CreateIncidentRequest": {
+        "type": "object"
+      },
+      "UpdateIncidentRequest": {
+        "type": "object"
+      },
+      "IncidentFilter": {
+        "type": "object"
+      },
+      "CreateShelterRequest": {
+        "type": "object"
+      },
+      "UpdateShelterRequest": {
+        "type": "object"
+      },
+      "ShelterCapacity": {
+        "type": "object"
+      },
+      "ShelterCrew": {
+        "type": "object"
+      },
+      "CreateVolunteerRequest": {
+        "type": "object"
+      },
+      "UpdateVolunteerRequest": {
+        "type": "object"
+      },
+      "CreateTeamRequest": {
+        "type": "object"
+      },
+      "AssignTeamRequest": {
+        "type": "object"
+      },
+      "CheckInRequest": {
+        "type": "object"
+      },
+      "CreateWarehouseRequest": {
+        "type": "object"
+      },
+      "UpdateWarehouseRequest": {
+        "type": "object"
+      },
+      "MovementRequest": {
+        "type": "object"
+      },
+      "WarehouseCrew": {
+        "type": "object"
+      },
+      "CreateSupplyRequest": {
+        "type": "object"
+      },
+      "UpdateSupplyRequest": {
+        "type": "object"
+      },
+      "SupplyRequest": {
+        "type": "object"
+      },
+      "AllocationRequest": {
+        "type": "object"
+      },
+      "CreateNotificationRequest": {
+        "type": "object"
+      },
+      "MarkAsReadRequest": {
+        "type": "object"
+      },
+      "BulkMarkAsReadRequest": {
+        "type": "object"
+      },
+      "CreateAssessmentRequest": {
+        "type": "object"
+      },
+      "UpdateAssessmentRequest": {
+        "type": "object"
+      },
+      "CreateConversationRequest": {
+        "type": "object"
+      },
+      "SendMessageRequest": {
+        "type": "object"
+      }
+    }
+  }
+}

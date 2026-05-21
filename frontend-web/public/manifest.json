@@ -1,0 +1,84 @@
+{
+  "name": "NURisk",
+  "short_name": "NURisk",
+  "description": "Sistem Manajemen Bencana NU Peduli",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#006432",
+  "orientation": "any",
+  "scope": "/",
+  "lang": "id",
+  "categories": ["news", "social", "utilities"],
+  "share_target": {
+    "action": "/lapor",
+    "method": "GET",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "image",
+          "accept": ["image/*"]
+        }
+      ]
+    }
+  },
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Lapor Bencana",
+      "short_name": "Lapor",
+      "description": "Lapor kejadian bencana",
+      "url": "/lapor",
+      "icons": [
+        {
+          "src": "/icons/shortcut-lapor.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "Dashboard publik",
+      "url": "/dashboard",
+      "icons": [
+        {
+          "src": "/icons/shortcut-dashboard.png",
+          "sizes": "96x96"
+        }
+      ]
+    },
+    {
+      "name": "Peta",
+      "short_name": "Peta",
+      "description": "Peta kejadian bencana",
+      "url": "/map",
+      "icons": [
+        {
+          "src": "/icons/shortcut-map.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

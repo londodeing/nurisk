@@ -1,0 +1,91 @@
+import { PrismaService } from '../prisma/prisma.service';
+export declare class EarlyWarningService {
+    private readonly prisma;
+    constructor(prisma: PrismaService);
+    create(data: any): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        title: string;
+        description: string;
+        status: import("@prisma/client").$Enums.WarningStatus;
+        severity: import("@prisma/client").$Enums.WarningSeverity;
+        createdBy: string | null;
+        incidentId: string | null;
+        regionId: string | null;
+        affectedAreas: string[];
+        issuedAt: Date;
+        expiresAt: Date;
+        source: string | null;
+    }>;
+    list(filter: any): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        title: string;
+        description: string;
+        status: import("@prisma/client").$Enums.WarningStatus;
+        severity: import("@prisma/client").$Enums.WarningSeverity;
+        createdBy: string | null;
+        incidentId: string | null;
+        regionId: string | null;
+        affectedAreas: string[];
+        issuedAt: Date;
+        expiresAt: Date;
+        source: string | null;
+    }[]>;
+    getById(id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        title: string;
+        description: string;
+        status: import("@prisma/client").$Enums.WarningStatus;
+        severity: import("@prisma/client").$Enums.WarningSeverity;
+        createdBy: string | null;
+        incidentId: string | null;
+        regionId: string | null;
+        affectedAreas: string[];
+        issuedAt: Date;
+        expiresAt: Date;
+        source: string | null;
+    }>;
+    update(id: string, data: any): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        title: string;
+        description: string;
+        status: import("@prisma/client").$Enums.WarningStatus;
+        severity: import("@prisma/client").$Enums.WarningSeverity;
+        createdBy: string | null;
+        incidentId: string | null;
+        regionId: string | null;
+        affectedAreas: string[];
+        issuedAt: Date;
+        expiresAt: Date;
+        source: string | null;
+    }>;
+    remove(id: string): Promise<{
+        id: string;
+        createdAt: Date;
+        updatedAt: Date;
+        deletedAt: Date | null;
+        title: string;
+        description: string;
+        status: import("@prisma/client").$Enums.WarningStatus;
+        severity: import("@prisma/client").$Enums.WarningSeverity;
+        createdBy: string | null;
+        incidentId: string | null;
+        regionId: string | null;
+        affectedAreas: string[];
+        issuedAt: Date;
+        expiresAt: Date;
+        source: string | null;
+    }>;
+}
+//# sourceMappingURL=early-warning.service.d.ts.map

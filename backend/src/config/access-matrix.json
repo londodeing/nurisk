@@ -1,0 +1,41 @@
+{
+  "permissions": {
+    "incidents": {
+      "read_all": ["SUPER_ADMIN", "ADMIN_PWNU", "PWNU", "STAFF_PWNU", "COMMANDER"],
+      "read_regional": ["ADMIN_PCNU", "STAFF_PCNU", "FIELD_STAFF", "RELAWAN"],
+      "create": ["SUPER_ADMIN", "ADMIN_PWNU", "PWNU", "STAFF_PWNU", "COMMANDER", "ADMIN_PCNU", "STAFF_PCNU", "FIELD_STAFF", "RELAWAN"],
+      "update": ["SUPER_ADMIN", "ADMIN_PWNU", "PWNU", "STAFF_PWNU", "COMMANDER", "ADMIN_PCNU", "STAFF_PCNU", "FIELD_STAFF"],
+      "delete": ["SUPER_ADMIN", "ADMIN_PWNU"],
+      "assess": ["SUPER_ADMIN", "ADMIN_PWNU", "PWNU", "STAFF_PWNU", "COMMANDER", "ADMIN_PCNU", "FIELD_STAFF"]
+    },
+    "volunteers": {
+      "read_all": ["SUPER_ADMIN", "ADMIN_PWNU", "PWNU", "STAFF_PWNU", "COMMANDER"],
+      "read_regional": ["ADMIN_PCNU", "STAFF_PCNU"],
+      "create": ["SUPER_ADMIN", "ADMIN_PWNU", "ADMIN_PCNU"],
+      "update": ["SUPER_ADMIN", "ADMIN_PWNU", "ADMIN_PCNU", "FIELD_STAFF", "RELAWAN"],
+      "delete": ["SUPER_ADMIN", "ADMIN_PWNU", "ADMIN_PCNU"]
+    },
+    "emergency": {
+      "broadcast": ["PWNU"],
+      "alerts": ["SUPER_ADMIN", "ADMIN_PWNU"],
+      "chat_broadcast": ["PWNU"]
+    },
+    "audit": {
+      "read": ["SUPER_ADMIN", "ADMIN_PWNU"],
+      "create": ["*"]
+    },
+    "analytics": {
+      "read": ["SUPER_ADMIN", "ADMIN_PWNU", "PWNU", "STAFF_PWNU", "COMMANDER", "ADMIN_PCNU"]
+    },
+    "public": {
+      "report": ["*"],
+      "map_view": ["*"],
+      "historical_data": ["*"]
+    }
+  },
+  "regional_filters": {
+    "all_regions": ["SUPER_ADMIN", "ADMIN_PWNU", "PWNU", "STAFF_PWNU", "COMMANDER"],
+    "user_region_only": ["ADMIN_PCNU", "STAFF_PCNU", "FIELD_STAFF", "RELAWAN"],
+    "no_filter": ["PUBLIC"]
+  }
+}
