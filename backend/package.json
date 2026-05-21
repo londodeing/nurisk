@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "@nestjs/common": "^11.1.20",
+    "@nestjs/common": "^11.1.22",
     "@nestjs/core": "^11.1.20",
     "@nestjs/jwt": "^11.0.2",
     "@nestjs/passport": "^11.0.5",
