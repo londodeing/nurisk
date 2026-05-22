@@ -1,4 +1,4 @@
-import { PublicDashboard } from '@/components/dashboard/PublicDashboard';
+import PublicDashboard from './PublicDashboard';
 
 export default function Page() {
   return <PublicDashboard />;

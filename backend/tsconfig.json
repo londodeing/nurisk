@@ -16,11 +16,13 @@
     "baseUrl": ".",
     "outDir": "./dist",
     "paths": {
-      "@nurisk/validation": ["../packages/validation/dist/index.d.ts"],
-      "@nurisk/validation/*": ["../packages/validation/dist/*/index.d.ts"],
-      "@nurisk/shared-types": ["../packages/shared-types/dist/index.d.ts"],
-      "@nurisk/shared-types/*": ["../packages/shared-types/dist/*/index.d.ts"]
-    }
+       "@nurisk/validation": ["../packages/validation/dist/index.d.ts"],
+       "@nurisk/validation/*": ["../packages/validation/dist/*/index.d.ts"],
+       "@nurisk/shared-types": ["../packages/shared-types/dist/index.d.ts"],
+       "@nurisk/shared-types/incident": ["../packages/shared-types/dist/incident/index.d.ts"],
+       "@nurisk/shared-types/api": ["../packages/shared-types/dist/api/index.d.ts"],
+       "@nurisk/shared-types/*": ["../packages/shared-types/dist/*/index.d.ts"]
+     }
   },
   "include": [
     "src"

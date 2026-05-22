@@ -11,8 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 
-import { IncidentFilter, IncidentStatus, DisasterType, PriorityLevel } from '@nurisk/shared-types/incident';
-import { PaginationRequest } from '@nurisk/shared-types/api';
+import { IncidentFilter, IncidentStatus, DisasterType, PriorityLevel, PaginationRequest } from './incident.types';
 import {
   CreateIncidentDTO,
   createIncidentSchema,
@@ -57,13 +56,13 @@ export class IncidentController {
       page: page ? parseInt(page, 10) : 1,
       limit: limit ? parseInt(limit, 10) : 20,
       sortBy,
-      sortOrder: (sortOrder as 'asc' | 'desc') ?? 'desc',
+      sortOrder: (sortOrder?.toLowerCase() === 'asc' ? 'asc' : 'desc'),
     };
 
-    const filters: IncidentFilter = {
-      status: status as any,
-      severity: priority as any,
-      type: disasterType as any,
+    const filters: any = {
+      status: status?.toUpperCase() as any,
+      severity: priority?.toUpperCase() as any,
+      type: disasterType?.toUpperCase() as any,
       province: region,
       startDate,
       endDate,
@@ -74,7 +73,13 @@ export class IncidentController {
 
     const result = await this.incidentService.findAll(options, filters, include);
 
-    return result;
+    return {
+      success: true,
+      data: result.items,
+      items: result.items,
+      pagination: result.pagination,
+      total: result.pagination.total,
+    };
   }
 
   /**
@@ -84,15 +89,19 @@ export class IncidentController {
   async findAllGeoJSON(
     @Query('status') status?: string,
     @Query('priority') priority?: string,
-    @Query('disaster_type') disasterType?: string
+    @Query('disaster_type') disasterType?: string,
+    @Query('region') region?: string
   ) {
-    const filters: IncidentFilter = {
-      status: status as IncidentStatus | undefined,
-      severity: priority as PriorityLevel | undefined,
-      type: disasterType as DisasterType | undefined,
+    const filters: any = {
+      status: status?.toUpperCase() as IncidentStatus | undefined,
+      severity: priority?.toUpperCase() as PriorityLevel | undefined,
+      type: disasterType?.toUpperCase() as DisasterType | undefined,
+      province: region,
     };
 
-    return this.incidentService.findAllGeoJSON(filters);
+    const geojson = await this.incidentService.findAllGeoJSON(filters);
+    // Return raw geojson for map compatibility
+    return geojson;
   }
 
   /**

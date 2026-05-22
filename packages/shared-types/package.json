@@ -159,12 +159,12 @@
     },
     "./incident": {
       "import": {
-        "types": "./dist/incident/index.d.ts",
-        "default": "./dist/incident/index.mjs"
+        "types": "./dist/incident.d.ts",
+        "default": "./dist/incident.mjs"
       },
       "require": {
-        "types": "./dist/incident/index.d.ts",
-        "default": "./dist/incident/index.js"
+        "types": "./dist/incident.d.ts",
+        "default": "./dist/incident.js"
       }
     },
     "./inventory": {

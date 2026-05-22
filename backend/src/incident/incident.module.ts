@@ -1,19 +1,16 @@
 import { Module } from '@nestjs/common';
-import { EventEmitter2 } from 'eventemitter2';
+import { PrismaModule } from '../prisma/prisma.module';
 
 import { IncidentController } from './incident.controller';
 import { IncidentService } from './incident.service';
 import { IncidentRepository } from './incident.repository';
 
 @Module({
+  imports: [PrismaModule],
   controllers: [IncidentController],
   providers: [
     IncidentService,
     IncidentRepository,
-    {
-      provide: 'EventEmitter2',
-      useValue: new EventEmitter2(),
-    },
   ],
   exports: [IncidentService, IncidentRepository],
 })

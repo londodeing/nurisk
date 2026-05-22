@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma, Incident } from '@prisma/client';
-import { IncidentFilter } from '@nurisk/shared-types/incident';
-import { PaginationRequest, ListResponse } from '@nurisk/shared-types/api';
+import { IncidentFilter, PaginationRequest, ListResponse } from './incident.types';
 import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
@@ -55,8 +54,10 @@ export class IncidentRepository {
         description: data.description,
         status: 'REPORTED' as any,
         reporterName: data.reportedBy ? String(data.reportedBy) : undefined,
-        // Note: location field uses PostGIS geography type
-        // This would need special handling or conversion
+        location: {
+          type: 'Point',
+          coordinates: [data.location.lng, data.location.lat]
+        } as any,
       },
     });
 
@@ -128,7 +129,7 @@ export class IncidentRepository {
 
     // Get paginated data
     const skip = (page - 1) * limit;
-    const validSortFields = ['id', 'incidentCode', 'status', 'priorityLevel', 'disasterType', 'createdAt', 'updatedAt'];
+    const validSortFields = ['id', 'incidentCode', 'status', 'priorityLevel', 'disasterType', 'createdAt', 'updatedAt', 'created_at'];
     const safeSortBy = validSortFields.includes(sortBy) ? sortBy : 'createdAt';
 
     const data = await this.prisma.incident.findMany({
@@ -211,18 +212,19 @@ export class IncidentRepository {
     const features = incidents
       .filter((incident) => incident.location)
       .map((incident) => {
-        // Location is PostGIS geography - needs ST_X/ST_Y extraction
-        // This is simplified - actual implementation would use raw SQL for PostGIS
+        // Extract coordinates from PostGIS geography object returned by Prisma
+        const loc = incident.location as any;
+        const coordinates = loc?.coordinates || [0, 0];
         return {
           type: 'Feature',
           geometry: {
             type: 'Point',
-            coordinates: [0, 0], // Would extract from PostGIS geography
+            coordinates: coordinates,
           },
           properties: {
             id: incident.id,
-            incidentCode: incident.incidentCode,
-            disasterType: incident.disasterType,
+            incident_number: incident.incidentCode,
+            disaster_type: incident.disasterType,
             priorityLevel: incident.priorityLevel,
             status: incident.status,
             description: incident.description,

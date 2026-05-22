@@ -1,10 +1,10 @@
-import { BadRequestException,NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { EventEmitter2 } from 'eventemitter2';
 import { z } from 'zod';
-import type { Incident, IncidentFilter, IncidentStatistics, IncidentTimelineEvent } from '@nurisk/shared-types';
+import { Incident } from '@prisma/client';
+import { IncidentFilter, PaginationRequest, ListResponse } from './incident.types';
 
 import { IncidentRepository } from './incident.repository';
-import { PaginationRequest, ListResponse } from '@nurisk/shared-types/api';
 import { createIncidentSchema, updateIncidentSchema } from '@nurisk/validation/incident';
 export { createIncidentSchema, updateIncidentSchema };
 
@@ -82,6 +82,7 @@ const STATUS_TRANSITIONS: Record<string, string[]> = {
   DISMISSED: [],
 };
 
+@Injectable()
 export class IncidentService {
   constructor(
     public incidentRepository: IncidentRepository,
@@ -132,7 +133,11 @@ export class IncidentService {
 
     return {
       success: true,
-      data: incident,
+      data: {
+        ...incident,
+        incident_number: incident.incidentCode,
+        priority: incident.priorityLevel,
+      },
     };
   }
 
@@ -144,19 +149,26 @@ export class IncidentService {
     filters: IncidentFilter = {},
     includeDeleted = false
   ): Promise<ListResponse<any>> {
-    return this.incidentRepository.findAll(options, filters, includeDeleted);
+    const result = await this.incidentRepository.findAll(options, filters, includeDeleted);
+    return {
+      ...result,
+      items: result.items.map(item => ({
+        ...item,
+        incident_number: item.incidentCode,
+        priority: item.priorityLevel,
+        disaster_type: item.disasterType,
+        // Map location for frontend compatibility
+        latitude: ((item as any).location as any)?.coordinates?.[1] || 0,
+        longitude: ((item as any).location as any)?.coordinates?.[0] || 0,
+      })),
+    };
   }
 
   /**
    * Get all incidents as GeoJSON
    */
   async findAllGeoJSON(filters: IncidentFilter = {}): Promise<any> {
-    const geojson = await this.incidentRepository.findAllGeoJSON(filters);
-
-    return {
-      success: true,
-      data: geojson,
-    };
+    return this.incidentRepository.findAllGeoJSON(filters);
   }
 
   /**

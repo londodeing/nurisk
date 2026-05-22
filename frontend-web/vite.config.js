@@ -187,7 +187,7 @@ export default defineConfig({
     port: 5173,
     host: true, // Bisa diakses dari luar (misal via HP di LAN yang sama)
     proxy: {
-      '/api': { target: 'http://localhost:3000', changeOrigin: true, secure: false, rewrite: (path) => path.replace(/^\/api/, '') },
+      '/api': { target: 'http://localhost:3000', changeOrigin: true, secure: false },
       '/socket.io': { target: 'http://localhost:3000', ws: true, changeOrigin: true }
     }
   },

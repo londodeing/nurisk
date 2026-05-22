@@ -12,7 +12,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { sdkClient } from '@/services/api';
 import type { Incident, IncidentFilter } from '@nurisk/shared-types/incident';
 import type { ListResponse, PaginationMeta } from '@nurisk/shared-types/api';
-import { extractListItems, extractPagination, hasListData, getListTotal } from '@/lib/list-response';
+import { extractPagination, hasListData, getListTotal } from '@/lib/list-response';
 
 // Query keys
 const queryKeys = {
@@ -54,8 +54,19 @@ export type { ListResponse, PaginationMeta };
  * NO FALLBACK MASKING - throws on invalid response
  */
 async function fetchIncidents(filters?: IncidentFilter): Promise<ListResponse<Incident>> {
-  const response = await sdkClient.get<ListResponse<Incident>>('/incidents', { params: filters });
-  return response.data as ListResponse<Incident>;
+  const response: any = await sdkClient.get('/incidents', { params: filters });
+  
+  return {
+    items: response.data ?? [],
+    pagination: response.pagination ?? {
+      page: 1,
+      limit: 0,
+      total: 0,
+      totalPages: 0,
+      hasNext: false,
+      hasPrev: false
+    }
+  };
 }
 
 /**

@@ -1,4 +1,4 @@
-import React from 'react';
+import { Outlet } from 'react-router-dom';
 import { cn } from '@/lib/utils';
 import { BottomNav, PUBLIC_BOTTOM_NAV_ITEMS } from './BottomNav';
 import { Menu, Bell, Wifi, WifiOff } from 'lucide-react';
@@ -9,14 +9,12 @@ import { Menu, Bell, Wifi, WifiOff } from 'lucide-react';
 
 interface PublicLayoutProps {
   className?: string;
-  children: React.ReactNode;
   isOnline?: boolean;
   notificationCount?: number;
 }
 
 export function PublicLayout({
   className,
-  children,
   isOnline = true,
   notificationCount = 0,
 }: PublicLayoutProps) {
@@ -74,7 +72,7 @@ export function PublicLayout({
 
       {/* Page Content - With top padding for fixed header */}
       <main className="pt-14 pb-24 px-4 md:px-6">
-        {children}
+        <Outlet />
       </main>
 
       {/* Mobile Bottom Navigation */}

@@ -236,3 +236,273 @@ Database Connected Successfully
       
 [STATUS] Active runtime: NestJS ONLY
 [WARNING] Express (app.js) is DEPRECATED
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:53 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 308 - 39ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:53 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 15ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:54 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 306 - 14ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:55 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 15ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:55 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 14ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:55 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 14ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:56 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 13ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:56 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 306 - 13ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:56 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 14ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:57 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 14ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:13:57 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 14ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:16:53 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 15ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:16:53 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 13ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[32m[Nest] 12084  - [39m05/21/2026, 11:16:53 PM [32m    LOG[39m [38;5;3m[HTTP] [39m[32mGET /api/health 200 307 - 13ms - ::ffff:127.0.0.1 Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:151.0) Gecko/20100101 Firefox/151.0[39m
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/main.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/main.ts`[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[31m[nodemon] Could not shutdown sub process cleanly[39m
+
+<--- Last few GCs --->
+
+[19700:000001EFC2995000]      720 ms: Mark-Compact 36.0 (46.6) -> 25.5 (37.1) MB, pooled: 0.5 MB, 5.91 / 0.01 ms (+ 0.2 ms in 10 steps since start of marking, biggest step 0.1 ms, walltime since start of marking 26 ms) (average mu = 0.992, current mu = 0.[19700:000001EFC2995000]      893 ms: Scavenge (during sweeping) 34.3 (37.1) -> 29.4 (38.8) MB, pooled: 0.0 MB, 2.51 / 0.00 ms (average mu = 0.992, current mu = 0.992) allocation failure; 
+
+FATAL ERROR: Zone Allocation failed - process out of memory
+----- Native stack trace -----
+
+[32m[nodemon] restarting due to changes...[39m
+ 1: 00007FF733C39706 
+ 2: 00007FF7347D94C7 
+ 3: 00007FF734198883 
+ 4: 00007FF735979ADA 
+ 5: 00007FF735979940 
+ 6: 00007FF73545067D 
+ 7: 00007FF735351359 
+ 8: 00007FF735450F28 
+ 9: 00007FF735450BEC 
+10: 00007FF735450958 
+11: 00007FF735352004 
+12: 00007FF73532748D 
+13: 00007FF7353241E7 
+14: 00007FF735323AD1 
+15: 00007FF734766DBF 
+16: 00007FF734728063 
+17: 00007FF73472960E 
+18: 00007FF73505CA2F 
+19: 00007FF733B833EE 
+20: 00007FF73482FE16 
+21: 00007FF735D9AFB3 
+22: 00007FFED9B07374 
+23: 00007FFEDA81CC91 
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[31m[nodemon] Could not shutdown sub process cleanly[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[31m[nodemon] Could not shutdown sub process cleanly[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[31m[nodemon] Could not shutdown sub process cleanly[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[31m[nodemon] Could not shutdown sub process cleanly[39m
+[32m[nodemon] restarting due to changes...[39m
+[31m[nodemon] Could not shutdown sub process cleanly[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] restarting due to changes...[39m
+[32m[nodemon] starting `ts-node src/main.ts`[39m
+C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/incident/incident.controller.ts(14,77): error TS2307: Cannot find module '@nurisk/shared-types/incident' or its corresponding type declarations.
+src/incident/incident.controller.ts(15,35): error TS2307: Cannot find module '@nurisk/shared-types/api' or its corresponding type declarations.
+
+    at createTSError (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:859:12)
+    at reportTSError (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:863:19)
+    at getOutput (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:1077:36)
+    at Object.compile (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:1433:41)
+    at Module.m._compile (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1969:10
+    at Object.require.extensions.<computed> [as .ts] (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1552:32)
+    at Module._load (node:internal/modules/cjs/loader:1354:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19) {
+  diagnosticCodes: [ 2307, 2307 ]
+}
+[31m[nodemon] app crashed - waiting for file changes before starting...[39m
+[32m[nodemon] restarting child process[39m
+[32m[nodemon] starting `ts-node src/main.ts`[39m
+^CC:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:859
+    return new TSError(diagnosticText, diagnosticCodes, diagnostics);
+           ^
+TSError: ⨯ Unable to compile TypeScript:
+src/incident/incident.controller.ts(14,77): error TS2307: Cannot find module '@nurisk/shared-types/incident' or its corresponding type declarations.
+src/incident/incident.controller.ts(15,35): error TS2307: Cannot find module '@nurisk/shared-types/api' or its corresponding type declarations.
+
+    at createTSError (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:859:12)
+    at reportTSError (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:863:19)
+    at getOutput (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:1077:36)
+    at Object.compile (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:1433:41)
+    at Module.m._compile (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:1617:30)
+    at node:internal/modules/cjs/loader:1969:10
+    at Object.require.extensions.<computed> [as .ts] (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1552:32)
+    at Module._load (node:internal/modules/cjs/loader:1354:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19) {
+  diagnosticCodes: [ 2307, 2307 ]
+}

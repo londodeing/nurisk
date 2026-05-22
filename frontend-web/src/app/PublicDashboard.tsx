@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { AlertTriangle, Users, Home, RefreshCw } from 'lucide-react';
+import { AlertTriangle, Users, Home } from 'lucide-react';
 import { KpiCard } from '@/components/dashboard/KpiCard';
 import { DashboardSkeleton } from '@/components/dashboard/DashboardSkeleton';
 import { WeatherWidget } from '@/components/dashboard/WeatherWidget';
@@ -13,15 +13,9 @@ import { useIncidents } from '@/hooks/use-incidents';
 import api from '@/services/api';
 
 export default function PublicDashboard() {
-  const [autoRefresh, setAutoRefresh] = useState(false);
-  const [refreshInterval, setRefreshInterval] = useState(30); // seconds
   
-  const { data: incidentsData, isLoading, refetch } = useIncidents({ status: 'active' });
-  const [stats, setStats] = useState({
-    activeIncidents: 0,
-    volunteers: 0,
-    shelters: 0,
-  });
+  const { data: incidentsData, isLoading } = useIncidents({ status: 'active' });
+  const [stats, setStats] = useState({ activeIncidents: 0, volunteers: 0, shelters: 0 });
   const [alerts, setAlerts] = useState([]);
 
   // Fetch stats
@@ -50,17 +44,6 @@ export default function PublicDashboard() {
     fetchAlerts();
   }, []);
 
-  // Auto-refresh
-  useEffect(() => {
-    if (!autoRefresh) return;
-    
-    const interval = setInterval(() => {
-      refetch();
-    }, refreshInterval * 1000);
-    
-    return () => clearInterval(interval);
-  }, [autoRefresh, refreshInterval, refetch]);
-
   const handleDismissAlert = useCallback((id: string) => {
     setAlerts(prev => prev.filter(a => a.id !== id));
   }, []);
@@ -77,38 +60,13 @@ export default function PublicDashboard() {
           <h1 className="text-xl font-bold">NU PEDULI Jawa Tengah</h1>
           <nav className="flex gap-4">
             <Link to="/map" className="hover:underline">Peta</Link>
-            <Link to="/report" className="hover:underline">Lapor</Link>
+            <Link to="/lapor" className="hover:underline">Lapor</Link>
             <Link to="/login" className="hover:underline">Masuk</Link>
           </nav>
         </div>
       </header>
 
       <main className="container mx-auto py-6 px-4 space-y-6">
-        {/* Auto-refresh toggle */}
-        <div className="flex justify-end">
-          <div className="flex items-center gap-2">
-            <Button
-              variant={autoRefresh ? 'default' : 'outline'}
-              size="sm"
-              onClick={() => setAutoRefresh(!autoRefresh)}
-            >
-              <RefreshCw className={`w-4 h-4 mr-2 ${autoRefresh ? 'animate-spin' : ''}`} />
-              {autoRefresh ? 'Auto-refresh ON' : 'Auto-refresh OFF'}
-            </Button>
-            {autoRefresh && (
-              <select
-                value={refreshInterval}
-                onChange={(e) => setRefreshInterval(Number(e.target.value))}
-                className="rounded border p-1 text-sm"
-              >
-                <option value={15}>15s</option>
-                <option value={30}>30s</option>
-                <option value={60}>60s</option>
-              </select>
-            )}
-          </div>
-        </div>
-
         {/* KPI Cards Row */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           <KpiCard
@@ -133,7 +91,7 @@ export default function PublicDashboard() {
           />
           <KpiCard
             title="Total Kejadian"
-            value={incidentsData?.total || 0}
+            value={incidentsData?.pagination?.total || 0}
             icon={<AlertTriangle className="w-6 h-6" />}
           />
         </div>
@@ -185,7 +143,7 @@ export default function PublicDashboard() {
             <h2 className="text-3xl font-bold mb-4">Sistem Tanggap Bencana</h2>
             <p className="text-lg mb-6">NU PEDULI Jawa Tengah</p>
             <div className="flex justify-center gap-4">
-              <Link to="/report">
+              <Link to="/lapor">
                 <Button variant="emergency" size="lg">LAPOR BENCANA</Button>
               </Link>
               <Link to="/map">

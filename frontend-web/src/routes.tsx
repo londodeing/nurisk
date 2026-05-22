@@ -8,7 +8,6 @@ import { ProtectedRoute } from '@/components/layout/ProtectedRoute';
 import { RoleBasedRoute } from '@/components/layout/RoleBasedRoute';
 import { RoleBasedRedirect } from '@/components/layout/RoleBasedRedirect';
 import { ScrollToTop } from '@/components/layout/ScrollToTop';
-import { PageTransition } from '@/components/layout/PageTransition';
 
 const PublicDashboard = lazy(() => import('./app/page'));
 const PublicMap = lazy(() => import('./app/PublicMap'));
@@ -47,6 +46,17 @@ const AdminOrgChartPage = lazy(() => import('./app/admin/OrgChartPage'));
 const FieldDashboardPage = lazy(() => import('./app/dashboard/field/page'));
 const AdminDashboardPage = lazy(() => import('./app/dashboard/admin/page'));
 
+function MapErrorFallback() {
+  return (
+    <div className="flex flex-col items-center justify-center h-[calc(100vh-64px)] gap-4 p-4">
+      <div className="text-4xl">🗺️</div>
+      <h2 className="text-xl font-bold text-slate-800">Peta tidak dapat dimuat</h2>
+      <p className="text-slate-500 text-sm text-center">Terjadi kesalahan saat memuat peta. Silakan refresh halaman.</p>
+      <a href="/map" className="text-nu-green hover:underline text-sm">Coba lagi</a>
+    </div>
+  );
+}
+
 function NotFound() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen gap-4">
@@ -63,9 +73,7 @@ export const router = createBrowserRouter([
   {
     element: (
       <ScrollToTop>
-        <PageTransition type="fade" duration={150}>
-          <Outlet />
-        </PageTransition>
+        <Outlet />
       </ScrollToTop>
     ),
     children: [
@@ -74,7 +82,7 @@ export const router = createBrowserRouter([
         element: <PublicLayout />,
         children: [
           { path: '/', element: <PublicDashboard /> },
-          { path: '/map', element: <PublicMap /> },
+          { path: '/map', element: <PublicMap />, errorElement: <MapErrorFallback /> },
           { path: '/lapor', element: <PublicReport /> },
           { path: '/resource', element: <ResourcePage /> },
         ],

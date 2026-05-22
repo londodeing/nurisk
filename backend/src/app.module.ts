@@ -69,14 +69,7 @@ import { BriefingModule } from './briefing/briefing.module';
     HealthModule,
   ],
   providers: [
-    {
-      provide: 'EventEmitter2',
-      useValue: new EventEmitter2({
-        wildcard: false,
-        delimiter: '.',
-        maxListeners: 1000,
-      }),
-    },
+    EventEmitter2,
   ],
 })
 export class AppModule implements NestModule {

@@ -28,7 +28,7 @@ const resourceTypeLabels = {
 };
 
 export function ResourceOverview() {
-  const { stats, loading, error, refetch } = useResourceStats();
+  const { data: stats, isLoading: loading, error, refetch } = useResourceStats();
 
   if (loading) {
     return (
@@ -36,7 +36,7 @@ export function ResourceOverview() {
         {[...Array(4)].map((_, i) => (
           <Card key={i}>
             <CardContent className="pt-6">
-              <div className="animate-pulse">
+              <div>
                 <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
                 <div className="h-8 bg-gray-200 rounded w-1/3"></div>
               </div>
@@ -51,7 +51,7 @@ export function ResourceOverview() {
     return (
       <Card>
         <CardContent className="pt-6">
-          <p className="text-red-500">Error: {error}</p>
+          <p className="text-red-500">Error: {error instanceof Error ? error.message : String(error)}</p>
           <button onClick={refetch} className="text-blue-500 underline">Retry</button>
         </CardContent>
       </Card>

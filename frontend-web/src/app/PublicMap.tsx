@@ -1,27 +1,15 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
-import { divIcon } from 'leaflet';
+import * as L from 'leaflet';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
+
 import { Input } from '@/components/ui/input';
 import { Layers, Home, Cloud, Flame, AlertTriangle, MapPin, Search, Crosshair, X } from 'lucide-react';
 import { useIncidents } from '@/hooks/use-incidents';
 import api from '@/services/api';
 import type { Incident, PriorityLevel } from '@nurisk/shared-types/incident';
 import 'leaflet/dist/leaflet.css';
-
-// Types
-interface MapShelter {
-  id: string;
-  name: string;
-  location: string;
-  latitude: number;
-  longitude: number;
-  capacity: number;
-  currentOccupancy: number;
-}
 
 // Canonical severity colors
 const severityColors: Record<PriorityLevel, string> = {
@@ -46,25 +34,73 @@ export default function PublicMap() {
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<{lat: number; lng: number; name: string}[]>([]);
   const [showSearch, setShowSearch] = useState(false);
-  const mapRef = useRef<L.Map>(null);
-  
-  const { data: incidentsData, isLoading } = useIncidents({ status: 'REPORTED' });
-  const [shelters, setShelters] = useState<MapShelter[]>([]);
+  const mapDivRef = useRef<HTMLDivElement>(null);
+  const mapInstanceRef = useRef<L.Map | null>(null);
+  const markerLayerRef = useRef<L.LayerGroup | null>(null);
 
-  // Fetch shelters
+  const { data: incidentsData, isLoading } = useIncidents({ status: 'REPORTED' });
+
+  // Initialize Leaflet map (only once, guarded by ref)
   useEffect(() => {
-    async function fetchShelters() {
-      try {
-        const res = await api.get('/shelters');
-        setShelters(res.data.data || []);
-      } catch (error) {
-        console.error('Shelters fetch error:', error);
-      }
+    if (!mapDivRef.current || mapInstanceRef.current) return;
+
+    const map = L.map(mapDivRef.current, {
+      center: INDONESIA_CENTER,
+      zoom: DEFAULT_ZOOM,
+      scrollWheelZoom: true,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    mapInstanceRef.current = map;
+
+    // Cleanup: destroy map on unmount to prevent memory leaks
+    return () => {
+      map.remove();
+      mapInstanceRef.current = null;
+    };
+  }, []);
+
+  // Update markers when incident data changes
+  useEffect(() => {
+    const map = mapInstanceRef.current;
+    if (!map || !layers.incidents) return;
+
+    if (markerLayerRef.current) {
+      markerLayerRef.current.clearLayers();
+    } else {
+      markerLayerRef.current = L.layerGroup().addTo(map);
     }
-    if (layers.shelters) {
-      fetchShelters();
-    }
-  }, [layers.shelters]);
+
+    const incidents = incidentsData?.items || [];
+    incidents.forEach(incident => {
+      const color = severityColors[incident.severity] || '#6b7280';
+      const marker = L.circleMarker([incident.location.lat, incident.location.lng], {
+        radius: 8,
+        fillColor: color,
+        color: '#ffffff',
+        weight: 2,
+        fillOpacity: 1,
+      });
+
+      marker.bindPopup(`
+        <div style="min-width:180px">
+          <h3 style="font-weight:600;margin-bottom:4px">${incident.title}</h3>
+          <p style="font-size:13px;color:#64748b">${incident.location.address ?? `${incident.location.lat}, ${incident.location.lng}`}</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:4px">
+            <span style="background:${color};color:white;padding:2px 8px;border-radius:4px;font-size:12px">${incident.severity}</span>
+            <span style="font-size:12px">${incident.type}</span>
+          </div>
+          <a href="/incidents/${incident.id}" style="color:#006432;font-size:13px;margin-top:8px;display:block">Lihat Detail →</a>
+        </div>
+      `);
+
+      marker.on('click', () => setSelectedIncident(incident));
+      markerLayerRef.current?.addLayer(marker);
+    });
+  }, [incidentsData, layers.incidents]);
 
   const toggleFullscreen = useCallback(() => {
     setIsFullscreen(prev => !prev);
@@ -94,7 +130,7 @@ export default function PublicMap() {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          mapRef.current?.flyTo([latitude, longitude], 14);
+          mapInstanceRef.current?.flyTo([latitude, longitude], 14);
         },
         (error) => {
           console.error('Geolocation error:', error);
@@ -111,8 +147,6 @@ export default function PublicMap() {
     return () => clearTimeout(timer);
   }, [searchQuery, handleSearch]);
 
-  const incidents = incidentsData?.data || [];
-
   return (
     <div className={`${isFullscreen ? 'fixed inset-0 z-50' : 'min-h-screen'} bg-slate-50`}>
       {/* Header */}
@@ -123,7 +157,7 @@ export default function PublicMap() {
             <h1 className="text-xl font-bold">Peta Wilayah Jawa Tengah</h1>
           </div>
           <nav className="flex gap-4">
-            <Link to="/report" className="hover:underline">Lapor</Link>
+            <Link to="/lapor" className="hover:underline">Lapor</Link>
             <Link to="/login" className="hover:underline">Masuk</Link>
           </nav>
         </div>
@@ -131,87 +165,7 @@ export default function PublicMap() {
 
       {/* Map Container */}
       <div className="relative h-[calc(100vh-64px)]">
-        <MapContainer 
-          center={INDONESIA_CENTER} 
-          zoom={DEFAULT_ZOOM} 
-          className="h-full w-full"
-          scrollWheelZoom={true}
-          whenReady={(map: any) => { mapRef.current = map.target; }}
-        >
-          <TileLayer
-            attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          
-          {/* Incident Markers */}
-          {layers.incidents && incidents.map(incident => {
-            const color = severityColors[incident.severity] || '#6b7280';
-            const icon = divIcon({
-              className: 'custom-marker',
-              html: `<div style="width:20px;height:20px;background:${color};border:3px solid white;border-radius:50%;box-shadow:0 2px 6px rgba(0,0,0,0.3)"></div>`,
-              iconSize: [20, 20],
-              iconAnchor: [10, 10],
-            });
-            
-            return (
-              <Marker
-                key={incident.id}
-                position={[incident.location.lat, incident.location.lng]}
-                icon={icon}
-                eventHandlers={{
-                  click: () => setSelectedIncident(incident),
-                }}
-              >
-                <Popup>
-                  <div className="min-w-[180px]">
-                    <h3 className="font-semibold">{incident.title}</h3>
-                    <p className="text-sm text-slate-600">{incident.location.address ?? `${incident.location.lat}, ${incident.location.lng}`}</p>
-                    <div className="flex items-center gap-2 mt-1">
-                      <Badge variant={incident.severity === 'CRITICAL' ? 'destructive' : 'default'}>
-                        {incident.severity}
-                      </Badge>
-                      <span className="text-xs">{incident.type}</span>
-                    </div>
-                    <Link 
-                      to={`/incidents/${incident.id}`}
-                      className="text-sm text-nu-green hover:underline mt-2 block"
-                    >
-                      Lihat Detail →
-                    </Link>
-                  </div>
-                </Popup>
-              </Marker>
-            );
-          })}
-          
-          {/* Shelter Markers */}
-          {layers.shelters && shelters.map(shelter => {
-            const icon = divIcon({
-              className: 'custom-shelter-marker',
-              html: `<div style="width:20px;height:20px;background:#3b82f6;border:3px solid white;border-radius:3px;box-shadow:0 2px 6px rgba(0,0,0,0.3)"></div>`,
-              iconSize: [20, 20],
-              iconAnchor: [10, 10],
-            });
-            
-            return (
-              <Marker
-                key={shelter.id}
-                position={[shelter.latitude, shelter.longitude]}
-                icon={icon}
-              >
-                <Popup>
-                  <div className="min-w-[180px]">
-                    <h3 className="font-semibold">{shelter.name}</h3>
-                    <p className="text-sm text-slate-600">{shelter.location}</p>
-                    <p className="text-sm mt-1">
-                      Kapasitas: {shelter.currentOccupancy}/{shelter.capacity}
-                    </p>
-                  </div>
-                </Popup>
-              </Marker>
-            );
-          })}
-        </MapContainer>
+        <div ref={mapDivRef} className="h-full w-full" />
 
         {/* Layer Controls */}
         <Card className="absolute top-4 right-4 z-[1000] w-36">
@@ -268,8 +222,8 @@ export default function PublicMap() {
             <div className="space-y-1">
               {Object.entries(severityColors).map(([severity, color]) => (
                 <div key={severity} className="flex items-center gap-2">
-                  <div 
-                    className="w-3 h-3 rounded-full" 
+                  <div
+                    className="w-3 h-3 rounded-full"
                     style={{ backgroundColor: color }}
                   />
                   <span className="text-sm">{severity}</span>
@@ -307,7 +261,7 @@ export default function PublicMap() {
                     <button
                       key={i}
                       onClick={() => {
-                        mapRef.current?.flyTo([result.lat, result.lng], 14);
+                        mapInstanceRef.current?.flyTo([result.lat, result.lng], 14);
                         setShowSearch(false);
                         setSearchQuery(result.name);
                         setSearchResults([]);
@@ -340,17 +294,16 @@ export default function PublicMap() {
           {isFullscreen ? 'Exit' : 'Fullscreen'}
         </button>
 
-        {/* Loading overlay */}
         {isLoading && (
-          <div className="absolute inset-0 z-[1000] bg-white/50 flex items-center justify-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-nu-green"></div>
+          <div className="absolute inset-0 z-[1000] bg-white/50 flex items-center justify-center text-sm text-slate-500">
+            Memuat data...
           </div>
         )}
       </div>
 
       {/* Report CTA */}
       <div className="fixed bottom-6 right-6 z-[1000]">
-        <Link to="/report">
+        <Link to="/lapor">
           <Button size="lg" className="bg-nu-green hover:bg-nu-green/90">
             <AlertTriangle className="w-5 h-5 mr-2" />
             LAPOR BENCANA

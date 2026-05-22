@@ -6,7 +6,7 @@ interface DashboardSkeletonProps {
 
 export function DashboardSkeleton({ variant = 'full' }: DashboardSkeletonProps) {
   return (
-    <div className="animate-pulse space-y-4">
+    <div className="space-y-4">
       {/* KPI Cards Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map(i => (
