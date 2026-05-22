@@ -48,7 +48,7 @@
     "leaflet": "^1.9.4",
     "leaflet.heat": "^0.2.0",
     "leaflet.markercluster": "^1.5.3",
-    "lucide-react": "^0.378.0",
+    "lucide-react": "^1.16.0",
     "papaparse": "^5.5.3",
     "react": "^19.0.0",
     "react-chartjs-2": "^5.3.1",
