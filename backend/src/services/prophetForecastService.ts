@@ -83,8 +83,8 @@ export class ProphetForecastService {
 
       return result.rows.map((row) => parseInt(row.count));
     } catch (error) {
-      this.logger.warn(`Failed to get historical data: ${error}`);
-      return this.generateMockData(90);
+      this.logger.error(`Failed to get historical data: ${error}`);
+      throw error;
     }
   }
 
@@ -184,21 +184,5 @@ export class ProphetForecastService {
     return Math.sqrt(variance);
   }
 
-  /**
-   * Generate mock data
-   */
-  private generateMockData(days: number): number[] {
-    const data: number[] = [];
-    const baseValue = 10;
 
-    for (let i = 0; i < days; i++) {
-      // Add some variation
-      const dayOfWeek = i % 7;
-      const weekendBoost = dayOfWeek === 0 || dayOfWeek === 6 ? 1.3 : 1;
-      const value = baseValue * weekendBoost * (0.8 + Math.random() * 0.4);
-      data.push(Math.round(value));
-    }
-
-    return data;
-  }
 }

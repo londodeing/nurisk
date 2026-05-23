@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { TrendingUp, TrendingDown, Minus } from 'lucide-react';
@@ -10,6 +11,7 @@ interface KpiCardProps {
   variant?: 'default' | 'success' | 'warning' | 'danger';
   to?: string;
   onClick?: () => void;
+  className?: string;
 }
 
 const variantStyles = {
@@ -19,17 +21,18 @@ const variantStyles = {
   danger: 'border-l-danger-red',
 };
 
-export function KpiCard({ 
+export const KpiCard = memo(function KpiCard({ 
   title, 
   value, 
   icon, 
   trend, 
   variant = 'default',
   to,
-  onClick 
+  onClick,
+  className,
 }: KpiCardProps) {
   const content = (
-    <Card className={`border-l-4 ${variantStyles[variant]} hover:shadow-md transition-shadow cursor-pointer`}>
+    <Card className={`border-l-4 ${variantStyles[variant]} hover:shadow-md transition-shadow cursor-pointer ${className || ''}`}>
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex-1">
@@ -57,6 +60,6 @@ export function KpiCard({
   }
   
   return <div onClick={onClick}>{content}</div>;
-}
+});
 
 export default KpiCard;

@@ -50,7 +50,7 @@ async function fetchVolunteers(): Promise<Volunteer[]> {
 
 export function VolunteerMarkers({ enabled = true }: VolunteerMarkersProps) {
   const { data: volunteers, isLoading } = useQuery({
-    queryKey: ['volunteers'],
+    queryKey: ['volunteers', 'list', undefined],
     queryFn: fetchVolunteers,
     refetchInterval: 30000, // 30 seconds
     enabled: enabled,

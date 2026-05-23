@@ -12,8 +12,6 @@ import {
   broadcastWarning,
   getBmkgFeed,
   getHistoricalEvents,
-  MOCK_WARNINGS,
-  MOCK_ACTIVE_WARNINGS,
   type WarningCreateRequest,
 } from '@/services/earlyWarningService';
 import type { Warning, WarningFilter } from '@nurisk/shared-types/early-warning';
@@ -166,10 +164,9 @@ export function useAllWarningData(filters?: WarningFilter) {
   const activeWarnings = useActiveWarnings();
   const bmkgFeed = useBmkgFeed();
 
-  // Use mock data in development if API fails
-  const data: Warning[] = warnings.data ?? MOCK_WARNINGS;
-  const active: Warning[] = activeWarnings.data ?? MOCK_ACTIVE_WARNINGS;
-  const bmkg: Warning[] = bmkgFeed.data ?? MOCK_ACTIVE_WARNINGS;
+  const data: Warning[] = warnings.data ?? [];
+  const active: Warning[] = activeWarnings.data ?? [];
+  const bmkg: Warning[] = bmkgFeed.data ?? [];
 
   const isLoading = warnings.isLoading || activeWarnings.isLoading;
   const isError = warnings.isError || activeWarnings.isError;

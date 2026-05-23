@@ -1,4 +1,4 @@
-import { Controller, Get, Query } from '@nestjs/common';
+import { Controller, Get, Param, Query } from '@nestjs/common';
 
 import { AnalyticsService } from './analytics.service';
 
@@ -16,7 +16,7 @@ export class AnalyticsController {
   }
 
   @Get('regional/:region')
-  async getRegionalStats(@Query('region') region: string) {
+  async getRegionalStats(@Param('region') region: string) {
     return this.analyticsService.getRegionalStats(region);
   }
 

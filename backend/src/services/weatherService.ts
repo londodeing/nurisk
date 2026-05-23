@@ -1,339 +1,352 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { EventEmitter2 } from 'eventemitter2';
 
-export interface WeatherData {
-  location: { lat: number; lng: number };
-  temperature: number;
-  humidity: number;
-  windSpeed: number;
-  windDirection: number;
-  precipitation: number;
-  pressure: number;
-  visibility: number;
-  condition: string;
-  timestamp: Date;
+const OPEN_METEO_BASE = 'https://api.open-meteo.com/v1/forecast';
+
+const CURRENT_PARAMS = [
+  'temperature_2m',
+  'relative_humidity_2m',
+  'apparent_temperature',
+  'precipitation',
+  'weather_code',
+  'wind_speed_10m',
+  'wind_direction_10m',
+  'surface_pressure',
+  'visibility',
+  'uv_index',
+].join(',');
+
+const DAILY_PARAMS = [
+  'temperature_2m_max',
+  'temperature_2m_min',
+  'precipitation_sum',
+  'weather_code',
+  'wind_speed_10m_max',
+  'relative_humidity_2m_max',
+  'uv_index_max',
+].join(',');
+
+const WMO_CONDITION_MAP: Record<number, string> = {
+  0: 'clear',
+  1: 'partly_cloudy',
+  2: 'partly_cloudy',
+  3: 'partly_cloudy',
+  45: 'fog',
+  48: 'fog',
+  51: 'rain',
+  53: 'rain',
+  55: 'rain',
+  56: 'rain',
+  57: 'rain',
+  61: 'rain',
+  63: 'rain',
+  65: 'rain',
+  66: 'rain',
+  67: 'rain',
+  71: 'snow',
+  73: 'snow',
+  75: 'snow',
+  77: 'snow',
+  80: 'rain',
+  81: 'rain',
+  82: 'rain',
+  85: 'snow',
+  86: 'snow',
+  95: 'thunderstorm',
+  96: 'thunderstorm',
+  99: 'thunderstorm',
+};
+
+function wmoToCondition(code: number): string {
+  return WMO_CONDITION_MAP[code] || 'unknown';
 }
 
-export interface WeatherAlert {
-  id: string;
-  type: 'rain' | 'storm' | 'flood' | 'heat' | 'cold' | 'wind';
-  severity: 'low' | 'medium' | 'high' | 'extreme';
-  message: string;
-  startTime: Date;
-  endTime: Date;
-  affectedAreas: string[];
+function wmoToConditionText(code: number): string {
+  if (code === 0) return 'Cerah';
+  if (code <= 3) return 'Cerah Berawan';
+  if (code <= 48) return 'Berkabut';
+  if (code <= 57) return 'Gerimis';
+  if (code <= 67) return 'Hujan';
+  if (code <= 77) return 'Salju';
+  if (code <= 82) return 'Hujan Deras';
+  if (code <= 86) return 'Salju Deras';
+  if (code >= 95) return 'Badai Petir';
+  return 'Tidak Diketahui';
 }
-
-export interface ImpactAssessment {
-  location: { lat: number; lng: number };
-  riskLevel: 'low' | 'medium' | 'high' | 'critical';
-  factors: ImpactFactor[];
-  recommendation: string;
-}
-
-export interface ImpactFactor {
-  factor: string;
-  value: number;
-  impact: 'positive' | 'negative' | 'neutral';
-  description: string;
-}
-
-const BMKG_API_KEY = process.env.BMKG_API_KEY;
-const BMKG_BASE_URL = 'https://api.bmkg.go.id';
 
 @Injectable()
 export class WeatherService {
   private readonly logger = new Logger(WeatherService.name);
-  private readonly cache = new Map<string, { data: WeatherData; timestamp: number }>();
-  private readonly CACHE_TTL = 300000; // 5 minutes
+  private readonly cache = new Map<string, { data: any; timestamp: number }>();
+  private readonly CACHE_TTL = 300_000;
 
-  constructor(private eventEmitter: EventEmitter2) {}
+  constructor() {}
 
-  /**
-   * Get current weather
-   */
-  async getCurrentWeather(location: { lat: number; lng: number }): Promise<WeatherData> {
-    const cacheKey = `${location.lat},${location.lng}`;
+  async getCurrentWeather(location: { lat: number; lng: number }): Promise<{
+    location: { lat: number; lng: number };
+    temperature: number;
+    feelsLike: number;
+    humidity: number;
+    windSpeed: number;
+    windDirection: number;
+    precipitation: number;
+    pressure: number;
+    visibility: number;
+    uvIndex: number;
+    condition: string;
+    conditionText: string;
+    updatedAt: string;
+  }> {
+    const cacheKey = `current:${location.lat},${location.lng}`;
     const cached = this.cache.get(cacheKey);
-
     if (cached && Date.now() - cached.timestamp < this.CACHE_TTL) {
       return cached.data;
     }
 
-    try {
-      // Try BMKG API first
-      if (BMKG_API_KEY) {
-        const data = await this.fetchBMKGWeather(location);
-        this.cache.set(cacheKey, { data, timestamp: Date.now() });
-        return data;
-      }
-    } catch (error) {
-      this.logger.warn(`BMKG API error: ${error}`);
+    const url = `${OPEN_METEO_BASE}?latitude=${location.lat}&longitude=${location.lng}&current=${CURRENT_PARAMS}&timezone=auto`;
+    this.logger.log(`[WeatherProvider] request=current url=${url}`);
+
+    const res = await fetch(url, { signal: AbortSignal.timeout(10_000) });
+    this.logger.log(`[WeatherProvider] request=current status=${res.status}`);
+
+    if (!res.ok) {
+      throw new Error(`Open-Meteo current error: ${res.status} ${res.statusText}`);
     }
 
-    // Fallback to mock data
-    const mockData = this.generateMockWeather(location);
-    this.cache.set(cacheKey, { data: mockData, timestamp: Date.now() });
-    return mockData;
+    const json = await res.json() as {
+      current: Record<string, unknown>;
+      current_units?: Record<string, string>;
+    };
+    const c = json.current;
+    const code = Number(c.weather_code ?? 0);
+
+    const n = (v: unknown): number => (v == null ? 0 : Number(v));
+    const data = {
+      location: { lat: location.lat, lng: location.lng },
+      temperature: n(c.temperature_2m),
+      feelsLike: n(c.apparent_temperature) || n(c.temperature_2m),
+      humidity: n(c.relative_humidity_2m),
+      windSpeed: n(c.wind_speed_10m),
+      windDirection: n(c.wind_direction_10m),
+      precipitation: n(c.precipitation),
+      pressure: n(c.surface_pressure),
+      visibility: n(c.visibility) / 1000,
+      uvIndex: n(c.uv_index),
+      condition: wmoToCondition(code),
+      conditionText: wmoToConditionText(code),
+      updatedAt: new Date().toISOString(),
+    };
+
+    this.cache.set(cacheKey, { data, timestamp: Date.now() });
+    return data;
   }
 
-  /**
-   * Fetch weather from BMKG
-   */
-  private async fetchBMKGWeather(
-    location: { lat: number; lng: number }
-  ): Promise<WeatherData> {
-    const url = `${BMKG_BASE_URL}/weather/v1/current?lat=${location.lat}&lon=${location.lng}`;
-    const response = await fetch(url, {
-      headers: { Authorization: `Bearer ${BMKG_API_KEY}` },
+  async getForecast(
+    location: { lat: number; lng: number },
+    days = 3,
+  ): Promise<Array<{
+    date: string;
+    dayName: string;
+    highTemp: number;
+    lowTemp: number;
+    condition: string;
+    conditionText: string;
+    humidity: number;
+    windSpeed: number;
+    precipitation: number;
+    uvIndex: number;
+  }>> {
+    const cacheKey = `forecast:${location.lat},${location.lng}:${days}`;
+    const cached = this.cache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < this.CACHE_TTL) {
+      return cached.data;
+    }
+
+    const url = `${OPEN_METEO_BASE}?latitude=${location.lat}&longitude=${location.lng}&daily=${DAILY_PARAMS}&timezone=auto&forecast_days=${days}`;
+    this.logger.log(`[WeatherProvider] request=forecast url=${url}`);
+
+    const res = await fetch(url, { signal: AbortSignal.timeout(10_000) });
+    this.logger.log(`[WeatherProvider] request=forecast status=${res.status}`);
+
+    if (!res.ok) {
+      throw new Error(`Open-Meteo forecast error: ${res.status} ${res.statusText}`);
+    }
+
+    const json = await res.json() as {
+      daily: Record<string, unknown[]>;
+    };
+    const d = json.daily;
+
+    const dayNames = ['Min', 'Sen', 'Sel', 'Rab', 'Kam', 'Jum', 'Sab'];
+    const forecast = ((d.time ?? []) as string[]).map((dateStr: string, i: number) => {
+      const code = Number((d.weather_code as number[])?.[i] ?? 0);
+      const dt = new Date(dateStr);
+      return {
+        date: dateStr,
+        dayName: dayNames[dt.getDay()],
+        highTemp: (d.temperature_2m_max as number[])?.[i] ?? 0,
+        lowTemp: (d.temperature_2m_min as number[])?.[i] ?? 0,
+        condition: wmoToCondition(code),
+        conditionText: wmoToConditionText(code),
+        humidity: (d.relative_humidity_2m_max as number[])?.[i] ?? 0,
+        windSpeed: (d.wind_speed_10m_max as number[])?.[i] ?? 0,
+        precipitation: (d.precipitation_sum as number[])?.[i] ?? 0,
+        uvIndex: (d.uv_index_max as number[])?.[i] ?? 0,
+      };
     });
 
-    if (!response.ok) {
-      throw new Error(`BMKG API error: ${response.status}`);
+    this.cache.set(cacheKey, { data: forecast, timestamp: Date.now() });
+    return forecast;
+  }
+
+  async getAlerts(location: { lat: number; lng: number }): Promise<Array<{
+    id: string;
+    title: string;
+    description: string;
+    severity: string;
+    area: string;
+    source: string;
+    startTime: string;
+    endTime: string;
+  }>> {
+    const cacheKey = `alerts:${location.lat},${location.lng}`;
+    const cached = this.cache.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < this.CACHE_TTL) {
+      return cached.data;
     }
 
-    const json = await response.json();
-    return this.parseBMKGResponse(json, location);
-  }
+    const url = `${OPEN_METEO_BASE}?latitude=${location.lat}&longitude=${location.lng}&daily=weather_code,precipitation_sum,wind_speed_10m_max,temperature_2m_max&timezone=auto&forecast_days=1`;
+    this.logger.log(`[WeatherProvider] request=alerts url=${url}`);
 
-  /**
-   * Parse BMKG response
-   */
-  private parseBMKGResponse(
-    data: any,
-    location: { lat: number; lng: number }
-  ): WeatherData {
-    return {
-      location,
-      temperature: data.temperature || 25,
-      humidity: data.humidity || 70,
-      windSpeed: data.wind_speed || 5,
-      windDirection: data.wind_direction || 0,
-      precipitation: data.precipitation || 0,
-      pressure: data.pressure || 1013,
-      visibility: data.visibility || 10,
-      condition: data.condition || 'clear',
-      timestamp: new Date(),
-    };
-  }
+    const res = await fetch(url, { signal: AbortSignal.timeout(10_000) });
+    this.logger.log(`[WeatherProvider] request=alerts status=${res.status}`);
 
-  /**
-   * Generate mock weather data
-   */
-  private generateMockWeather(location: { lat: number; lng: number }): WeatherData {
-    const hour = new Date().getHours();
-    const isDay = hour >= 6 && hour <= 18;
-
-    return {
-      location,
-      temperature: isDay ? 28 + Math.random() * 4 : 24 + Math.random() * 2,
-      humidity: 70 + Math.random() * 20,
-      windSpeed: 5 + Math.random() * 10,
-      windDirection: Math.random() * 360,
-      precipitation: Math.random() > 0.7 ? Math.random() * 20 : 0,
-      pressure: 1010 + Math.random() * 10,
-      visibility: 8 + Math.random() * 4,
-      condition: Math.random() > 0.5 ? 'clear' : 'cloudy',
-      timestamp: new Date(),
-    };
-  }
-
-  /**
-   * Get weather alerts
-   */
-  async getAlerts(location?: { lat: number; lng: number }): Promise<WeatherAlert[]> {
-    const alerts: WeatherAlert[] = [];
-
-    try {
-      // Get current weather
-      const weather = location
-        ? await this.getCurrentWeather(location)
-        : await this.getCurrentWeather({ lat: -6.2, lng: 106.8 });
-
-      // Check for rain alert
-      if (weather.precipitation > 10) {
-        alerts.push({
-          id: `alert-rain-${Date.now()}`,
-          type: 'rain',
-          severity: weather.precipitation > 50 ? 'high' : 'medium',
-          message: `Heavy rainfall: ${Math.round(weather.precipitation)}mm/h`,
-          startTime: new Date(),
-          endTime: new Date(Date.now() + 3600000),
-          affectedAreas: [],
-        });
-      }
-
-      // Check for wind alert
-      if (weather.windSpeed > 20) {
-        alerts.push({
-          id: `alert-wind-${Date.now()}`,
-          type: 'wind',
-          severity: weather.windSpeed > 40 ? 'extreme' : 'high',
-          message: `Strong winds: ${Math.round(weather.windSpeed)}km/h`,
-          startTime: new Date(),
-          endTime: new Date(Date.now() + 7200000),
-          affectedAreas: [],
-        });
-      }
-
-      // Check for heat alert
-      if (weather.temperature > 35) {
-        alerts.push({
-          id: `alert-heat-${Date.now()}`,
-          type: 'heat',
-          severity: weather.temperature > 40 ? 'high' : 'medium',
-          message: `High temperature: ${Math.round(weather.temperature)}°C`,
-          startTime: new Date(),
-          endTime: new Date(Date.now() + 14400000),
-          affectedAreas: [],
-        });
-      }
-
-      // Emit alerts
-      for (const alert of alerts) {
-        this.eventEmitter.emit('weather.alert', alert);
-      }
-    } catch (error) {
-      this.logger.warn(`Failed to get alerts: ${error}`);
+    if (!res.ok) {
+      throw new Error(`Open-Meteo alerts error: ${res.status} ${res.statusText}`);
     }
 
+    const json = await res.json() as {
+      daily: Record<string, unknown[]>;
+    };
+    const d = json.daily;
+    const alerts: Array<{
+      id: string;
+      title: string;
+      description: string;
+      severity: string;
+      area: string;
+      source: string;
+      startTime: string;
+      endTime: string;
+    }> = [];
+
+    const code = Number((d.weather_code as number[])?.[0] ?? 0);
+    const precip = Number((d.precipitation_sum as number[])?.[0] ?? 0);
+    const wind = Number((d.wind_speed_10m_max as number[])?.[0] ?? 0);
+    const temp = Number((d.temperature_2m_max as number[])?.[0] ?? 0);
+
+    if (code >= 95) {
+      alerts.push({
+        id: `alert-storm-${Date.now()}`,
+        title: 'Peringatan Badai Petir',
+        description: 'Potensi badai petir dengan angin kencang dan petir.',
+        severity: 'warning',
+        area: `Lat ${location.lat.toFixed(2)}, Lon ${location.lng.toFixed(2)}`,
+        source: 'Open-Meteo',
+        startTime: new Date().toISOString(),
+        endTime: new Date(Date.now() + 86_400_000).toISOString(),
+      });
+    } else if (code >= 61 && precip > 20) {
+      alerts.push({
+        id: `alert-rain-${Date.now()}`,
+        title: 'Peringatan Hujan Lebat',
+        description: `Curah hujan ${precip.toFixed(1)} mm diperkirakan dalam 24 jam ke depan.`,
+        severity: 'warning',
+        area: `Lat ${location.lat.toFixed(2)}, Lon ${location.lng.toFixed(2)}`,
+        source: 'Open-Meteo',
+        startTime: new Date().toISOString(),
+        endTime: new Date(Date.now() + 86_400_000).toISOString(),
+      });
+    }
+
+    if (wind > 50) {
+      alerts.push({
+        id: `alert-wind-${Date.now()}`,
+        title: 'Peringatan Angin Kencang',
+        description: `Kecepatan angin mencapai ${wind.toFixed(0)} km/jam.`,
+        severity: wind > 70 ? 'high' : 'medium',
+        area: `Lat ${location.lat.toFixed(2)}, Lon ${location.lng.toFixed(2)}`,
+        source: 'Open-Meteo',
+        startTime: new Date().toISOString(),
+        endTime: new Date(Date.now() + 86_400_000).toISOString(),
+      });
+    }
+
+    if (temp > 37) {
+      alerts.push({
+        id: `alert-heat-${Date.now()}`,
+        title: 'Peringatan Suhu Tinggi',
+        description: `Suhu maksimum ${temp.toFixed(0)}°C.`,
+        severity: temp > 40 ? 'high' : 'medium',
+        area: `Lat ${location.lat.toFixed(2)}, Lon ${location.lng.toFixed(2)}`,
+        source: 'Open-Meteo',
+        startTime: new Date().toISOString(),
+        endTime: new Date(Date.now() + 86_400_000).toISOString(),
+      });
+    }
+
+    this.cache.set(cacheKey, { data: alerts, timestamp: Date.now() });
     return alerts;
   }
 
-  /**
-   * Assess weather impact
-   */
-  async assessImpact(location: { lat: number; lng: number }): Promise<ImpactAssessment> {
+  async assessImpact(location: { lat: number; lng: number }) {
     const weather = await this.getCurrentWeather(location);
-    const factors: ImpactFactor[] = [];
+    const factors: Array<{
+      factor: string;
+      value: number;
+      impact: string;
+      description: string;
+    }> = [];
 
-    // Temperature impact
     if (weather.temperature > 35) {
-      factors.push({
-        factor: 'temperature',
-        value: weather.temperature,
-        impact: 'negative',
-        description: 'High temperature may cause heat-related incidents',
-      });
+      factors.push({ factor: 'temperature', value: weather.temperature, impact: 'negative', description: 'Suhu tinggi berpotensi menyebabkan kejadian terkait panas' });
     } else if (weather.temperature < 20) {
-      factors.push({
-        factor: 'temperature',
-        value: weather.temperature,
-        impact: 'neutral',
-        description: 'Low temperature reduces certain risks',
-      });
+      factors.push({ factor: 'temperature', value: weather.temperature, impact: 'neutral', description: 'Suhu rendah mengurangi beberapa risiko' });
     } else {
-      factors.push({
-        factor: 'temperature',
-        value: weather.temperature,
-        impact: 'positive',
-        description: 'Normal temperature range',
-      });
+      factors.push({ factor: 'temperature', value: weather.temperature, impact: 'positive', description: 'Kisaran suhu normal' });
     }
 
-    // Precipitation impact
     if (weather.precipitation > 20) {
-      factors.push({
-        factor: 'precipitation',
-        value: weather.precipitation,
-        impact: 'negative',
-        description: 'Heavy rain may cause flooding',
-      });
+      factors.push({ factor: 'precipitation', value: weather.precipitation, impact: 'negative', description: 'Hujan deras berpotensi menyebabkan banjir' });
     } else if (weather.precipitation > 5) {
-      factors.push({
-        factor: 'precipitation',
-        value: weather.precipitation,
-        impact: 'neutral',
-        description: 'Moderate rain possible',
-      });
+      factors.push({ factor: 'precipitation', value: weather.precipitation, impact: 'neutral', description: 'Hujan sedang mungkin terjadi' });
     }
 
-    // Wind impact
     if (weather.windSpeed > 30) {
-      factors.push({
-        factor: 'wind',
-        value: weather.windSpeed,
-        impact: 'negative',
-        description: 'Strong winds may cause damage',
-      });
+      factors.push({ factor: 'wind', value: weather.windSpeed, impact: 'negative', description: 'Angin kencang berpotensi menyebabkan kerusakan' });
     }
 
-    // Humidity impact
     if (weather.humidity > 85) {
-      factors.push({
-        factor: 'humidity',
-        value: weather.humidity,
-        impact: 'negative',
-        description: 'High humidity may indicate rain',
-      });
+      factors.push({ factor: 'humidity', value: weather.humidity, impact: 'negative', description: 'Kelembaban tinggi mengindikasikan hujan' });
     }
 
-    // Calculate risk level
-    const negativeFactors = factors.filter((f) => f.impact === 'negative').length;
-    let riskLevel: 'low' | 'medium' | 'high' | 'critical';
-
+    const negativeFactors = factors.filter(f => f.impact === 'negative').length;
+    let riskLevel: string;
     if (negativeFactors >= 3) riskLevel = 'critical';
     else if (negativeFactors >= 2) riskLevel = 'high';
     else if (negativeFactors >= 1) riskLevel = 'medium';
     else riskLevel = 'low';
 
-    // Generate recommendation
     let recommendation: string;
     switch (riskLevel) {
-      case 'critical':
-        recommendation = 'Monitor closely; prepare for potential incidents';
-        break;
-      case 'high':
-        recommendation = 'Increased vigilance recommended';
-        break;
-      case 'medium':
-        recommendation = 'Standard monitoring';
-        break;
-      default:
-        recommendation = 'Normal operations';
+      case 'critical': recommendation = 'Pantau terus; bersiap untuk potensi kejadian'; break;
+      case 'high': recommendation = 'Kewaspadaan ditingkatkan'; break;
+      case 'medium': recommendation = 'Pemantauan standar'; break;
+      default: recommendation = 'Operasi normal';
     }
 
-    return {
-      location,
-      riskLevel,
-      factors,
-      recommendation,
-    };
+    return { location, riskLevel, factors, recommendation };
   }
 
-  /**
-   * Get forecast
-   */
-  async getForecast(
-    location: { lat: number; lng: number },
-    days = 3
-  ): Promise<WeatherData[]> {
-    const forecast: WeatherData[] = [];
-
-    for (let i = 0; i < days * 24; i += 6) {
-      const date = new Date();
-      date.setHours(date.getHours() + i);
-
-      forecast.push({
-        location,
-        temperature: 25 + Math.random() * 10,
-        humidity: 60 + Math.random() * 30,
-        windSpeed: 5 + Math.random() * 15,
-        windDirection: Math.random() * 360,
-        precipitation: Math.random() > 0.6 ? Math.random() * 30 : 0,
-        pressure: 1008 + Math.random() * 12,
-        visibility: 5 + Math.random() * 10,
-        condition: Math.random() > 0.4 ? 'clear' : 'rain',
-        timestamp: date,
-      });
-    }
-
-    return forecast;
-  }
-
-  /**
-   * Clear cache
-   */
   clearCache(): void {
     this.cache.clear();
   }

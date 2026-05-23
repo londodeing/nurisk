@@ -1,7 +1,7 @@
 // Prophet Service - SDK wrapper for backward compatibility
 // Uses canonical types from @nurisk/shared-types and SDK from @nurisk/sdk
 
-import { ProphetApi } from '@nurisk/sdk/prophet'
+import { ProphetApi } from '@nurisk/sdk'
 import type { ForecastDataPoint, AnomalyPoint, SeasonalComponent } from '@nurisk/shared-types/forecast'
 
 export type { ForecastDataPoint, AnomalyPoint, SeasonalComponent }

@@ -249,6 +249,7 @@ export function BaseMap({
 }: BaseMapProps) {
   return (
     <MapContainer 
+      key="base-map"
       center={center} 
       zoom={zoom} 
       className={className}

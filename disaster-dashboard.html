@@ -4,378 +4,316 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>NURisk - Pusdatin NU Peduli Jateng</title>
+<!-- Import Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; }
-
 :root {
-  --red: #DC2626;
-  --red-light: #FEE2E2;
-  --orange: #F97316;
-  --orange-light: #FFEDD5;
-  --blue: #3B82F6;
-  --blue-light: #DBEAFE;
-  --green: #16A34A;
-  --green-light: #DCFCE7;
-  --gray-50: #F9FAFB;
-  --gray-100: #F3F4F6;
-  --gray-200: #E5E7EB;
-  --gray-700: #374151;
-  --gray-900: #111827;
-  --radius: 14px;
-  --shadow: 0 2px 8px rgba(0,0,0,0.08);
+  /* NU Themed Palette */
+  --nu-green: #006837; /* Primary Green (Tua) */
+  --nu-green-light: #EBF5EF; /* Light Green for backgrounds */
+  --nu-gold: #D4AF37; /* Accent Gold */
+  --nu-gold-light: #FFF8E1; /* Lighter Gold for backgrounds */
+  --nu-white: #FFFFFF;
+  --nu-bg: #F8FAF8; /* Overall page background */
+  
+  /* General UI Variables */
+  --radius-lg: 32px; /* Large border radius for cards */
+  --radius-md: 20px; /* Medium border radius */
+  --shadow-soft: 0 15px 35px rgba(0, 104, 55, 0.08); /* Soft, subtle shadow */
+  --shadow-gold-accent: 0 8px 20px rgba(212, 175, 55, 0.2); /* Gold-tinted shadow */
+  --text-dark: #1A1A1A;
+  --text-muted: #6B7280;
 }
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background: var(--gray-100);
-  color: var(--gray-900);
-  max-width: 420px;
-  margin: 0 auto;
-  padding-bottom: 100px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--nu-bg);
+  color: var(--text-dark);
+  max-width: 450px; /* Constrain width for mobile-first design */
+  margin: 0 auto; /* Center the content */
+  padding-bottom: 120px; /* Space for fixed bottom navigation */
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  line-height: 1.6;
 }
 
+/* Header - Prominent Green with Gold Accent */
 .header {
-  background: var(--gray-900);
-  color: white;
-  padding: 12px 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
+  background: var(--nu-green);
+  padding: 30px 24px 50px; /* Extra padding bottom to make space for KPI cards to overlap */
+  color: var(--nu-white);
+  border-bottom-left-radius: var(--radius-lg);
+  border-bottom-right-radius: var(--radius-lg);
+  position: relative;
+  box-shadow: 0 10px 30px rgba(0, 77, 41, 0.3);
 }
 
-.header-brand { display: flex; align-items: center; gap: 10px; }
-.logo { font-size: 28px; }
-.header h1 { font-size: 18px; font-weight: 700; margin-bottom: 2px; }
-.header-subtitle { font-size: 11px; opacity: 0.8; }
-.header-status {
-  background: var(--green);
-  color: white;
-  padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.header-brand { display: flex; align-items: center; gap: 12px; }
+.logo-box {
+  width: 45px; height: 45px; background: var(--nu-gold);
+  border-radius: 12px; display: flex; align-items: center; justify-content: center;
+  font-size: 24px; box-shadow: var(--shadow-gold-accent);
 }
 
-.section {
-  padding: 16px 12px 8px;
+.header h1 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 2px;}
+.header-subtitle { font-size: 11px; opacity: 0.8; letter-spacing: 1px; text-transform: uppercase; }
+
+/* KPI Section - Overlapping & Balanced 4-Column Grid */
+.section-kpi {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  padding: 0 16px;
+  margin-top: -30px; /* Overlap with header */
+  position: relative; /* For z-index to be above potential elements */
+  z-index: 10; /* Ensure KPIs are on top */
 }
+
+.kpi-card {
+  background: var(--nu-white);
+  padding: 15px 10px;
+  border-radius: var(--radius-md);
+  text-align: center;
+  box-shadow: var(--shadow-soft);
+  border-bottom: 3px solid var(--nu-gold); /* Gold underline for accent */
+}
+
+.kpi-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--nu-green);
+  display: block;
+  margin-bottom: 2px;
+}
+
+.kpi-label { font-size: 9px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
+
+/* General Section Styling */
+.section { padding: 25px 20px 5px; } /* Consistent section padding */
 
 .section-title {
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  color: var(--gray-700);
-  margin-bottom: 10px;
-  padding: 0 4px;
-}
-
-.card {
-  background: white;
-  border-radius: var(--radius);
-  padding: 16px;
-  margin-bottom: 10px;
-  box-shadow: var(--shadow);
-}
-
-.stats-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  font-family: 'Playfair Display', serif;
+  font-size: 20px;
+  color: var(--nu-green);
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
   gap: 10px;
 }
+.section-title::after { content: ""; flex: 1; height: 1px; background: #E0E0E0; } /* Decorative line */
 
-.stat-card {
-  background: white;
-  border-radius: var(--radius);
-  padding: 14px 10px;
-  text-align: center;
-  box-shadow: var(--shadow);
-}
-
-.stat-number {
-  font-size: 24px;
-  font-weight: 800;
-  color: var(--red);
-}
-
-.stat-label {
-  font-size: 11px;
-  color: var(--gray-700);
-  font-weight: 600;
-  margin-top: 2px;
-}
-
-/* Weather Scroll */
+/* Weather Forecast - Hourly & Daily Scroll */
 .weather-scroll {
   display: flex;
-  gap: 10px;
+  gap: 12px;
   overflow-x: auto;
-  padding: 0 4px;
-  scrollbar-width: none;
+  padding: 5px 0 15px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
 }
-.weather-scroll::-webkit-scrollbar { display: none; }
-.weather-item, .weather-day {
-  min-width: 70px;
+.weather-scroll::-webkit-scrollbar { display: none; } /* Chrome, Safari, Opera */
+
+.weather-item {
+  min-width: 80px;
+  background: var(--nu-white);
+  padding: 15px;
+  border-radius: var(--radius-md);
   text-align: center;
-  background: white;
-  padding: 10px;
-  border-radius: var(--radius);
-  box-shadow: var(--shadow);
-  font-size: 12px;
-}
-.weather-item .time, .weather-day .day {
-  font-weight: 600;
-  margin-bottom: 4px;
+  box-shadow: var(--shadow-soft);
+  flex-shrink: 0; /* Prevent items from shrinking */
 }
 
-/* Alert */
-.alert-card {
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  padding: 14px;
+.weather-item.day {
+  min-width: 100px; /* Slightly wider for daily forecast */
+  background: var(--nu-green);
+  color: var(--nu-white);
 }
-.alert-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+
+.weather-time { font-size: 10px; font-weight: 700; opacity: 0.6; margin-bottom: 5px; }
+.weather-item.day .weather-time { opacity: 0.8; } /* Slightly more visible on dark bg */
+.weather-icon { font-size: 22px; margin: 5px 0; }
+.weather-temp { font-weight: 800; font-size: 14px; }
+
+/* Alert Cards - Distinct Border Accent */
+.alert-box {
+  background: var(--nu-white);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  margin-bottom: 12px;
   display: flex;
+  gap: 15px;
   align-items: center;
-  justify-content: center;
-  font-size: 18px;
+  box-shadow: var(--shadow-soft);
+  border-left: 5px solid var(--nu-gold); /* Gold accent on the left */
+}
+
+.alert-icon {
+  font-size: 24px;
+  background: var(--nu-green-light);
+  width: 50px; height: 50px;
+  border-radius: 15px;
+  display: flex; align-items: center; justify-content: center;
   flex-shrink: 0;
 }
-.alert-icon.danger { background: var(--red-light); }
-.alert-icon.warning { background: var(--orange-light); }
-.alert-icon.info { background: var(--blue-light); }
-.alert-content h4 {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-.alert-content p {
-  font-size: 13px;
-  color: var(--gray-700);
-  line-height: 1.4;
-}
+.alert-content h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+.alert-content p { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
 
-/* Status Badge */
+/* Disaster Cards (Verified Events) - Detailed & Actionable */
+.event-card {
+  background: var(--nu-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 25px;
+  border: 1px solid #EEE; /* Subtle border for definition */
+}
+.event-map {
+  height: 150px;
+  background: #F0F4F0; /* Light background for map placeholder */
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+}
 .status-badge {
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 10px;
-  font-weight: 600;
+  position: absolute; top: 15px; right: 15px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-size: 10px; font-weight: 800;
+  background: var(--nu-green); /* Default for Verified */
+  color: var(--nu-white);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
-.status-badge.reported { background: var(--gray-200); color: var(--gray-700); }
-.status-badge.verified { background: var(--blue-light); color: var(--blue); }
-.status-badge.assess { background: var(--orange-light); color: var(--orange); }
-.status-badge.command { background: #E9D5FF; color: #7E22CE; }
-.status-badge.action { background: var(--green-light); color: var(--green); }
-.status-badge.complete { background: var(--gray-200); color: var(--gray-700); }
+.event-body { padding: 20px; }
+.event-title { font-family: 'Playfair Display', serif; font-size: 18px; margin-bottom: 8px; color: var(--text-dark); }
+.event-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 15px; }
+.btn-wa {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  background: #25D366; /* WhatsApp green */
+  color: var(--nu-white); text-decoration: none;
+  padding: 12px;
+  border-radius: 15px;
+  font-weight: 700; font-size: 13px;
+  transition: transform 0.2s ease;
+}
+.btn-wa:active { transform: scale(0.98); } /* Subtle click feedback */
 
-/* Disaster Card */
-.disaster-card { padding: 14px; }
-.status-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
+/* Trend Chart - Clean Bar Chart */
+.chart-container {
+  background: var(--nu-white);
+  padding: 25px 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
 }
-.disaster-card h4 { font-size: 14px; font-weight: 700; }
-.map-small {
-  height: 150px;
-  background: var(--gray-100);
-  border-radius: 10px;
-  margin: 8px 0;
-  position: relative;
-  overflow: hidden;
-}
-.map-placeholder {
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, #E0F2FE 0%, #DBEAFE 100%);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  position: relative;
-}
-.map-marker {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: 2px solid white;
-  box-shadow: 0 1px 4px rgba(0,0,0,0.3);
-  background: var(--red);
-}
-.map-icon { font-size: 24px; }
-.map-label { font-size: 11px; color: var(--gray-700); font-weight: 600; }
-.impact {
-  font-size: 13px;
-  color: var(--gray-700);
-  margin: 6px 0;
-}
-.summary {
-  font-size: 13px;
-  line-height: 1.4;
-  margin-bottom: 6px;
-}
-.reporter {
-  font-size: 12px;
-  color: var(--blue);
-  font-weight: 600;
-}
-
-/* Trend Chart */
-.trend-chart {
-  display: flex;
-  align-items: flex-end;
-  gap: 8px;
-  height: 150px;
-  padding: 0 4px;
-}
-.chart-bar {
+.trend-flex { display: flex; align-items: flex-end; gap: 10px; height: 120px; padding-top: 20px;}
+.bar {
   flex: 1;
-  background: var(--red);
-  border-radius: 4px 4px 0 0;
-  min-width: 20px;
+  background: var(--nu-green);
+  border-radius: 8px 8px 0 0;
   position: relative;
+  min-width: 30px; /* Ensure bars don't become too thin */
+  transition: height 0.5s ease-out; /* Smooth height transition */
 }
-.chart-value {
-  position: absolute;
-  top: -18px;
-  left: 0;
-  right: 0;
+.bar::after {
+  content: attr(data-val);
+  position: absolute; top: -20px; left: 0; right: 0;
+  text-align: center; font-size: 10px; font-weight: 700;
+  color: var(--text-dark);
+}
+.bar-label {
+  position: absolute; bottom: -22px; left: 0; right: 0;
+  text-align: center; font-size: 9px; font-weight: 600; color: var(--text-muted);
+}
+
+/* Probability & Gap Analysis Cards - Progress Bars */
+.risk-card {
+  background: var(--nu-white);
+  padding: 20px;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 10px;
+  border: 1px solid #EEE;
+}
+.risk-item { margin-bottom: 15px; }
+.risk-info { display: flex; justify-content: space-between; font-size: 13px; font-weight: 700; margin-bottom: 8px; }
+.progress-bg { height: 8px; background: #F0F0F0; border-radius: 10px; overflow: hidden; }
+.progress-fill {
+  height: 100%; border-radius: 10px;
+  background: linear-gradient(90deg, var(--nu-green-light), var(--nu-gold)); /* Gradient fill */
+}
+/* Specific fill colors for probability */
+.prob-level-tinggi { background: var(--nu-gold); }
+.prob-level-sedang { background: #F97316; } /* Orange */
+.prob-level-rendah { background: var(--nu-green); }
+
+/* Donation Card - Eye-catching & Action-oriented */
+.donation-card {
+  background: var(--nu-green);
+  color: var(--nu-white);
+  padding: 30px 20px;
+  border-radius: var(--radius-lg);
   text-align: center;
-  font-size: 10px;
-  font-weight: 600;
-}
-.chart-label {
-  position: absolute;
-  bottom: -20px;
-  left: 0;
-  right: 0;
-  text-align: center;
-  font-size: 10px;
-  color: var(--gray-700);
-}
-
-/* Probability Card */
-.prob-card { padding: 14px; margin-bottom: 10px; }
-.prob-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-.prob-title { font-size: 14px; font-weight: 700; }
-.prob-level {
-  padding: 3px 8px;
-  border-radius: 12px;
-  font-size: 10px;
-  font-weight: 600;
-}
-.prob-level.tinggi { background: var(--red-light); color: var(--red); }
-.prob-level.sedang { background: var(--orange-light); color: var(--orange); }
-.prob-level.rendah { background: var(--green-light); color: var(--green); }
-.prob-bar {
-  height: 8px;
-  background: var(--gray-200);
-  border-radius: 4px;
+  position: relative;
   overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 77, 41, 0.4);
 }
-.prob-fill { height: 100%; border-radius: 4px; }
-
-/* Gap Analysis */
-.gap-item { margin-bottom: 12px; }
-.gap-header {
-  display: flex;
-  justify-content: space-between;
-  font-size: 13px;
-  margin-bottom: 4px;
+.donation-card::before { /* Decorative NU star/moon vibe */
+  content: "✶";
+  position: absolute; top: -10px; right: -10px;
+  font-size: 80px; opacity: 0.1;
+  color: var(--nu-gold);
+  line-height: 1;
 }
-.gap-bar {
-  height: 10px;
-  background: var(--gray-200);
-  border-radius: 5px;
-  overflow: hidden;
+.donation-card h3 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 10px; }
+.donation-card p { font-size: 13px; opacity: 0.9; margin-bottom: 20px; }
+.qr-placeholder-box {
+  background: var(--nu-white); padding: 15px; display: inline-block; border-radius: 15px; margin-bottom: 15px;
 }
-.gap-fill {
-  height: 100%;
-  background: var(--blue);
-  border-radius: 5px;
+.qr-placeholder-inner {
+  width: 100px; height: 100px; border: 2px dashed #DDD;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--text-muted); font-weight: 900; font-size: 12px;
 }
-
-/* Donation */
-.donation-card { text-align: center; padding: 20px; }
-.donation-title {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-.donation-text {
-  font-size: 13px;
-  color: var(--gray-700);
-  margin-bottom: 12px;
-}
-.donate-btn {
-  background: var(--red);
-  color: white;
+.btn-donate {
+  background: var(--nu-gold);
+  color: var(--nu-green); /* Text color contrasts with gold */
   border: none;
-  padding: 10px 24px;
-  border-radius: 20px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
+  padding: 15px 30px;
+  border-radius: 50px;
+  font-weight: 800; font-size: 14px;
+  margin-top: 15px;
+  box-shadow: var(--shadow-gold-accent);
+  transition: transform 0.2s ease;
 }
-.qr-placeholder {
-  width: 120px;
-  height: 120px;
-  background: var(--gray-200);
-  border-radius: 8px;
-  margin: 12px auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 12px;
-  color: var(--gray-700);
-}
+.btn-donate:active { transform: scale(0.98); }
 
-/* Bottom Bar */
-.bottom-bar {
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 420px;
-  background: white;
-  border-top: 1px solid var(--gray-200);
-  display: flex;
-  justify-content: space-around;
-  padding: 10px 0;
-  padding-bottom: calc(10px + env(safe-area-inset-bottom));
+/* Bottom Navigation Bar - Floating & Central CTA */
+.bottom-nav {
+  position: fixed; bottom: 20px; left: 20px; right: 20px;
+  background: #004d29; /* Slightly darker green for nav */
+  padding: 12px; border-radius: 30px;
+  display: flex; justify-content: space-around;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  z-index: 1000;
 }
+.nav-item { text-align: center; color: rgba(255,255,255,0.5); font-size: 9px; font-weight: 700; text-transform: uppercase; }
+.nav-item.active { color: var(--nu-gold); }
+.nav-icon { font-size: 20px; display: block; margin-bottom: 2px; }
 
-.bottom-bar-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 2px;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--gray-700);
+/* Central 'Lapor' Button - Iconic & Actionable */
+.nav-item-lapor {
+  background: var(--nu-gold);
+  width: 55px; height: 55px;
+  border-radius: 18px; /* Slightly squarer than round for distinction */
+  margin-top: -35px; /* Overlap with parent */
+  border: 4px solid var(--nu-bg); /* Halo effect */
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; color: var(--nu-green);
+  font-weight: 900;
+  box-shadow: var(--shadow-gold-accent);
+  transition: transform 0.2s ease;
 }
+.nav-item-lapor:active { transform: scale(0.95); }
 
-.bottom-bar-icon { font-size: 20px; }
-.bottom-bar-item.active { color: var(--blue); }
 </style>
 </head>
 <body>
@@ -383,100 +321,55 @@ body {
 <!-- Header -->
 <div class="header">
   <div class="header-brand">
-    <div class="logo">🛡️</div>
+    <div class="logo-box">🛡️</div>
     <div>
-      <h1>NURisk</h1>
-      <div class="header-subtitle">Pusdatin NU Peduli Jateng</div>
-    </div>
-  </div>
-  <span class="header-status">Active</span>
-</div>
-
-<!-- KPI Cards -->
-<div class="section">
-  <div class="section-title">KPI Utama</div>
-  <div class="stats-row">
-    <div class="stat-card">
-      <div class="stat-number">12</div>
-      <div class="stat-label">Kejadian</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">5</div>
-      <div class="stat-label">Misi Aktif</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-number">8</div>
-      <div class="stat-label">Respon Aksi</div>
+      <p class="header-subtitle">Pusdatin NU Peduli</p>
+      <h1>NURisk Jateng</h1>
     </div>
   </div>
 </div>
 
-<!-- Ramalan Cuaca -->
+<!-- KPI Cards (4 Columns Balanced) -->
+<div class="section-kpi">
+  <div class="kpi-card"><span class="kpi-value">12</span><span class="kpi-label">Kejadian</span></div>
+  <div class="kpi-card"><span class="kpi-value">05</span><span class="kpi-label">Misi Aktif</span></div>
+  <div class="kpi-card"><span class="kpi-value">08</span><span class="kpi-label">Respon Aksi</span></div>
+  <div class="kpi-card"><span class="kpi-value">42</span><span class="kpi-label">Relawan Siap</span></div>
+</div>
+
+<!-- Ramalan Cuaca (Hourly & Daily Forecast) -->
 <div class="section">
   <div class="section-title">Ramalan Cuaca</div>
   <div class="weather-scroll">
-    <div class="weather-item">
-      <div class="time">08:00</div>
-      🌧️ 24°
-    </div>
-    <div class="weather-item">
-      <div class="time">09:00</div>
-      🌧️ 25°
-    </div>
-    <div class="weather-item">
-      <div class="time">10:00</div>
-      ⛅ 26°
-    </div>
-    <div class="weather-item">
-      <div class="time">11:00</div>
-      ☀️ 27°
-    </div>
-    <div class="weather-item">
-      <div class="time">12:00</div>
-      ☀️ 28°
-    </div>
-    <div class="weather-item">
-      <div class="time">13:00</div>
-      ⛅ 27°
-    </div>
-    <div class="weather-day">
-      <div class="day">Besok</div>
-      ⛅ 26°
-    </div>
-    <div class="weather-day">
-      <div class="day">Lusa</div>
-      ☀️ 28°
-    </div>
-    <div class="weather-day">
-      <div class="day">3 Hari Lagi</div>
-      🌧️ 25°
-    </div>
-    <div class="weather-day">
-      <div class="day">4 Hari Lagi</div>
-      ⛅ 27°
-    </div>
+    <div class="weather-item"><div class="weather-time">09:00</div><div class="weather-icon">🌧️</div><div class="weather-temp">24°</div></div>
+    <div class="weather-item"><div class="weather-time">12:00</div><div class="weather-icon">☀️</div><div class="weather-temp">29°</div></div>
+    <div class="weather-item"><div class="weather-time">15:00</div><div class="weather-icon">⛅</div><div class="weather-temp">27°</div></div>
+    <div class="weather-item"><div class="weather-time">18:00</div><div class="weather-icon">☁️</div><div class="weather-temp">26°</div></div>
+    <div class="weather-item day"><div class="weather-time">BESOK</div><div class="weather-icon">⛅</div><div class="weather-temp">26°</div></div>
+    <div class="weather-item day"><div class="weather-time">LUSA</div><div class="weather-icon">🌧️</div><div class="weather-temp">24°</div></div>
+    <div class="weather-item day"><div class="weather-time">3 HARI LAGI</div><div class="weather-icon">☀️</div><div class="weather-temp">28°</div></div>
   </div>
 </div>
 
-<!-- Peringatan -->
+<!-- Peringatan (Multiple Alerts) -->
 <div class="section">
   <div class="section-title">Peringatan</div>
-  <div class="card alert-card">
-    <div class="alert-icon danger">⛈️</div>
+  <div class="alert-box">
+    <div class="alert-icon">⛈️</div>
     <div class="alert-content">
       <h4>Peringatan Cuaca Ekstrem</h4>
       <p>Hujan lebat disertai angin kencang wilayah Semarang Raya hingga 2 hari ke depan.</p>
     </div>
   </div>
-  <div class="card alert-card">
-    <div class="alert-icon warning">🌍</div>
+  <div class="alert-box" style="border-left-color: #F97316;">
+    <div class="alert-icon" style="background: #FFEDD5;">🌍</div>
     <div class="alert-content">
       <h4>Peringatan Seismik</h4>
       <p>Aktivitas gempa mikro terdeteksi di wilayah Ungaran, waspada potensi gempa darat.</p>
     </div>
   </div>
-  <div class="card alert-card">
-    <div class="alert-icon info">🌋</div>
+  <div class="alert-box" style="border-left-color: #3B82F6;">
+    <div class="alert-icon" style="background: #DBEAFE;">🌋</div>
     <div class="alert-content">
       <h4>Peringatan Vulkanik</h4>
       <p>Status Gunung Merapi Level II (Waspada), hindari radius 3 km dari puncak.</p>
@@ -484,209 +377,132 @@ body {
   </div>
 </div>
 
-<!-- Bencana Terkini Terverifikasi -->
+<!-- Bencana Terverifikasi (3 Cards with Map, Description, WA Button) -->
 <div class="section">
-  <div class="section-title">Bencana Terkini Terverifikasi</div>
-  <div class="card disaster-card">
-    <div class="status-row">
-      <h4>Banjir Bandang Semarang</h4>
-      <span class="status-badge verified">Verified</span>
+  <div class="section-title">Bencana Terverifikasi</div>
+  
+  <div class="event-card">
+    <div class="event-map">
+      <span class="status-badge">Verified</span>
+      <span style="font-size: 40px; color: #DC2626;">📍</span>
     </div>
-    <div class="map-small">
-      <div class="map-placeholder">
-        <div class="map-marker" style="top:40%; left:45%;"></div>
-        <div class="map-icon">🗺️</div>
-        <div class="map-label">Lokasi Bencana</div>
-      </div>
+    <div class="event-body">
+      <h4 class="event-title">Banjir Bandang Semarang</h4>
+      <p class="event-desc">Dampak: 120 KK, 3 Rumah Rusak Berat. Hujan deras sejak pagi menyebabkan sungai meluap, membanjiri pemukiman warga di Kecamatan Semarang Utara.</p>
+      <a href="https://wa.me/6281234567890" class="btn-wa"><span>💬</span> Hubungi Tim TRC NU Peduli</a>
     </div>
-    <div class="impact">Dampak: 120 KK, 3 Rumah Rusak Berat, 2 Rumah Rusak Ringan</div>
-    <div class="summary">Ringkasan: Hujan deras sejak pagi menyebabkan sungai meluap, membanjiri pemukiman warga di Kecamatan Semarang Utara.</div>
-    <div class="reporter">Pelapor: Tim TRC NU Peduli Jateng (0812-3456-7890)</div>
   </div>
-  <div class="card disaster-card">
-    <div class="status-row">
-      <h4>Tanah Longsor Salatiga</h4>
-      <span class="status-badge assess">Assess</span>
-    </div>
-    <div class="map-small">
-      <div class="map-placeholder">
-        <div class="map-marker" style="top:30%; left:50%;"></div>
-        <div class="map-icon">🗺️</div>
-        <div class="map-label">Lokasi Bencana</div>
-      </div>
-    </div>
-    <div class="impact">Dampak: 5 KK, 1 Rumah Tertimbun Material</div>
-    <div class="summary">Ringkasan: Longsor terjadi akibat hujan deras merusak struktur tanah di perbukitan Salatiga.</div>
-    <div class="reporter">Tim Assess: Tim TRC NU Peduli Jateng (0812-3456-7890)</div>
-  </div>
-  <div class="card disaster-card">
-    <div class="status-row">
-      <h4>Kebakaran Pasar Demak</h4>
-      <span class="status-badge action">Action</span>
-    </div>
-    <div class="map-small">
-      <div class="map-placeholder">
-        <div class="map-marker" style="top:50%; left:40%;"></div>
-        <div class="map-icon">🗺️</div>
-        <div class="map-label">Lokasi Bencana</div>
-      </div>
-    </div>
-    <div class="impact">Dampak: 10 Kios Terbakar, Tidak Ada Korban Jiwa</div>
-    <div class="summary">Ringkasan: Kebakaran terjadi akibat korsleting listrik di Pasar Demak, pemadaman sedang dilakukan.</div>
-  </div>
-</div>
 
-<!-- Trend Bencana -->
-<div class="section">
-  <div class="section-title">Trend Bencana</div>
-  <div class="card">
-    <div class="trend-chart">
-      <div class="chart-bar" style="height: 60%;">
-        <div class="chart-value">8</div>
-        <div class="chart-label">Jan</div>
-      </div>
-      <div class="chart-bar" style="height: 40%;">
-        <div class="chart-value">5</div>
-        <div class="chart-label">Feb</div>
-      </div>
-      <div class="chart-bar" style="height: 70%;">
-        <div class="chart-value">10</div>
-        <div class="chart-label">Mar</div>
-      </div>
-      <div class="chart-bar" style="height: 50%;">
-        <div class="chart-value">7</div>
-        <div class="chart-label">Apr</div>
-      </div>
-      <div class="chart-bar" style="height: 80%;">
-        <div class="chart-value">12</div>
-        <div class="chart-label">Mei</div>
-      </div>
-      <div class="chart-bar" style="height: 60%;">
-        <div class="chart-value">9</div>
-        <div class="chart-label">Jun</div>
-      </div>
+  <div class="event-card">
+    <div class="event-map">
+      <span class="status-badge" style="background: #F97316;">Assess</span>
+      <span style="font-size: 40px; color: #F97316;">⛰️</span>
+    </div>
+    <div class="event-body">
+      <h4 class="event-title">Tanah Longsor Salatiga</h4>
+      <p class="event-desc">Dampak: 5 KK, 1 Rumah Tertimbun Material. Longsor terjadi akibat hujan deras merusak struktur tanah di perbukitan Salatiga.</p>
+      <a href="https://wa.me/6281234567890" class="btn-wa"><span>💬</span> Hubungi Tim Assess Lapangan</a>
+    </div>
+  </div>
+
+  <div class="event-card">
+    <div class="event-map">
+      <span class="status-badge" style="background: #3B82F6;">Action</span>
+      <span style="font-size: 40px; color: #3B82F6;">🔥</span>
+    </div>
+    <div class="event-body">
+      <h4 class="event-title">Kebakaran Pasar Demak</h4>
+      <p class="event-desc">Dampak: 10 Kios Terbakar, Tidak Ada Korban Jiwa. Kebakaran terjadi akibat korsleting listrik di Pasar Demak, pemadaman sedang dilakukan.</p>
+      <a href="https://wa.me/6281234567890" class="btn-wa"><span>💬</span> Koordinasi Posko Bantuan</a>
     </div>
   </div>
 </div>
 
-<!-- Probabilitas Bencana -->
+<!-- Trend Bencana (Bar Chart) -->
 <div class="section">
-  <div class="section-title">Probabilitas Bencana</div>
-  <div class="prob-card">
-    <div class="prob-header">
-      <div class="prob-title">Banjir</div>
-      <span class="prob-level tinggi">Tinggi</span>
-    </div>
-    <div class="prob-bar">
-      <div class="prob-fill" style="width: 80%; background: var(--red);"></div>
-    </div>
-  </div>
-  <div class="prob-card">
-    <div class="prob-header">
-      <div class="prob-title">Kekeringan</div>
-      <span class="prob-level sedang">Sedang</span>
-    </div>
-    <div class="prob-bar">
-      <div class="prob-fill" style="width: 50%; background: var(--orange);"></div>
-    </div>
-  </div>
-  <div class="prob-card">
-    <div class="prob-header">
-      <div class="prob-title">Tanah Longsor</div>
-      <span class="prob-level tinggi">Tinggi</span>
-    </div>
-    <div class="prob-bar">
-      <div class="prob-fill" style="width: 75%; background: var(--red);"></div>
-    </div>
-  </div>
-  <div class="prob-card">
-    <div class="prob-header">
-      <div class="prob-title">Kebakaran Hutan</div>
-      <span class="prob-level rendah">Rendah</span>
-    </div>
-    <div class="prob-bar">
-      <div class="prob-fill" style="width: 20%; background: var(--green);"></div>
+  <div class="section-title">Trend Bencana (2024)</div>
+  <div class="chart-container">
+    <div class="trend-flex">
+      <div class="bar" style="height: 60%" data-val="8"><span class="bar-label">JAN</span></div>
+      <div class="bar" style="height: 40%" data-val="5"><span class="bar-label">FEB</span></div>
+      <div class="bar" style="height: 70%" data-val="10"><span class="bar-label">MAR</span></div>
+      <div class="bar" style="height: 50%" data-val="7"><span class="bar-label">APR</span></div>
+      <div class="bar" style="height: 80%; background: var(--nu-gold);" data-val="12"><span class="bar-label">MEI</span></div>
+      <div class="bar" style="height: 60%" data-val="9"><span class="bar-label">JUN</span></div>
     </div>
   </div>
 </div>
 
-<!-- Gap Analisis Kebutuhan -->
+<!-- Probabilitas Bencana (Progress Bars) -->
 <div class="section">
-  <div class="section-title">Gap Analisis Kebutuhan</div>
-  <div class="card">
-    <div class="gap-item">
-      <div class="gap-header">
-        <span>Makanan Siap Saji</span>
-        <span>500/1200</span>
-      </div>
-      <div class="gap-bar">
-        <div class="gap-fill" style="width: 41.6%;"></div>
-      </div>
+  <div class="section-title">Probabilitas Risiko</div>
+  <div class="risk-card">
+    <div class="risk-item">
+      <div class="risk-info"><span>Banjir</span><span style="color: var(--nu-gold);">Tinggi (80%)</span></div>
+      <div class="progress-bg"><div class="progress-fill prob-level-tinggi" style="width: 80%;"></div></div>
     </div>
-    <div class="gap-item">
-      <div class="gap-header">
-        <span>Pakaian Layak Pakai</span>
-        <span>300/800</span>
-      </div>
-      <div class="gap-bar">
-        <div class="gap-fill" style="width: 37.5%;"></div>
-      </div>
+    <div class="risk-item">
+      <div class="risk-info"><span>Kekeringan</span><span style="color: #F97316;">Sedang (50%)</span></div>
+      <div class="progress-bg"><div class="progress-fill prob-level-sedang" style="width: 50%;"></div></div>
     </div>
-    <div class="gap-item">
-      <div class="gap-header">
-        <span>Obat-obatan</span>
-        <span>200/500</span>
-      </div>
-      <div class="gap-bar">
-        <div class="gap-fill" style="width: 40%;"></div>
-      </div>
+    <div class="risk-item">
+      <div class="risk-info"><span>Tanah Longsor</span><span style="color: var(--nu-gold);">Tinggi (75%)</span></div>
+      <div class="progress-bg"><div class="progress-fill prob-level-tinggi" style="width: 75%;"></div></div>
     </div>
-    <div class="gap-item">
-      <div class="gap-header">
-        <span>Tenda Darurat</span>
-        <span>150/300</span>
-      </div>
-      <div class="gap-bar">
-        <div class="gap-fill" style="width: 50%;"></div>
-      </div>
+    <div class="risk-item">
+      <div class="risk-info"><span>Kebakaran Hutan</span><span style="color: var(--nu-green);">Rendah (20%)</span></div>
+      <div class="progress-bg"><div class="progress-fill prob-level-rendah" style="width: 20%;"></div></div>
     </div>
   </div>
 </div>
 
-<!-- Donasi -->
+<!-- Gap Analisis Kebutuhan (Progress Bars) -->
 <div class="section">
-  <div class="section-title">Donasi</div>
-  <div class="card donation-card">
-    <div class="donation-title">Bantu Korban Bencana</div>
-    <div class="donation-text">Donasi Anda akan disalurkan langsung kepada korban bencana melalui NU Peduli Jateng.</div>
-    <div class="qr-placeholder">QR Code</div>
-    <button class="donate-btn">Donasi Sekarang</button>
-    <div style="font-size:12px; color:var(--gray-700); margin-top:8px;">Transfer: BNI 1234567890 a.n. NU Peduli Jateng</div>
+  <div class="section-title">Analisis Kebutuhan</div>
+  <div class="risk-card" style="background: var(--nu-green-light);">
+    <div class="risk-item">
+      <div class="risk-info"><span>Makanan Siap Saji</span><span>500/1200 (41.6%)</span></div>
+      <div class="progress-bg"><div class="progress-fill" style="width: 41.6%; background: var(--nu-green);"></div></div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-info"><span>Pakaian Layak Pakai</span><span>300/800 (37.5%)</span></div>
+      <div class="progress-bg"><div class="progress-fill" style="width: 37.5%; background: var(--nu-green);"></div></div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-info"><span>Obat-obatan</span><span>200/500 (40%)</span></div>
+      <div class="progress-bg"><div class="progress-fill" style="width: 40%; background: var(--nu-green);"></div></div>
+    </div>
+    <div class="risk-item">
+      <div class="risk-info"><span>Tenda Darurat</span><span>150/300 (50%)</span></div>
+      <div class="progress-bg"><div class="progress-fill" style="width: 50%; background: var(--nu-green);"></div></div>
+    </div>
   </div>
 </div>
 
-<!-- Bottom Navigation -->
-<div class="bottom-bar">
-  <div class="bottom-bar-item active">
-    <div class="bottom-bar-icon">🏠</div>
-    Home
+<!-- Donasi (Complete Container) -->
+<div class="section">
+  <div class="donation-card">
+    <h3>Mari Berkhidmat, Bantu Korban Bencana</h3>
+    <p>Donasi Anda akan disalurkan langsung kepada korban bencana melalui NU Peduli Jateng.</p>
+    <div class="qr-placeholder-box">
+      <div class="qr-placeholder-inner">QR Code</div>
+    </div>
+    <br>
+    <button class="btn-donate">INFAK SEKARANG</button>
+    <p style="font-size:11px; opacity:0.7; margin-top:10px;">Transfer: BNI 1234567890 a.n. NU Peduli Jateng</p>
   </div>
-  <div class="bottom-bar-item">
-    <div class="bottom-bar-icon">🗺️</div>
-    Map
-  </div>
-  <div class="bottom-bar-item">
-    <div class="bottom-bar-icon">📝</div>
+</div>
+
+<!-- Bottom Navigation Bar (Fixed & Central CTA) -->
+<div class="bottom-nav">
+  <div class="nav-item active"><span class="nav-icon">🏠</span>Home</div>
+  <div class="nav-item"><span class="nav-icon">🗺️</span>Peta</div>
+  <div class="nav-item">
+    <div class="nav-item-lapor">+</div>
     Lapor
   </div>
-  <div class="bottom-bar-item">
-    <div class="bottom-bar-icon">📦</div>
-    Resource
-  </div>
-  <div class="bottom-bar-item">
-    <div class="bottom-bar-icon">👤</div>
-    Akun
-  </div>
+  <div class="nav-item"><span class="nav-icon">📦</span>Gudang</div>
+  <div class="nav-item"><span class="nav-icon">👤</span>Profil</div>
 </div>
 
 </body>

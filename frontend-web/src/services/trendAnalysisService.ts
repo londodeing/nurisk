@@ -1,7 +1,7 @@
 // Trend Analysis Service - SDK wrapper for backward compatibility
 // Uses canonical types from @nurisk/shared-types and SDK from @nurisk/sdk
 
-import { TrendAnalysisApi } from '@nurisk/sdk/trend-analysis'
+import { TrendAnalysisApi } from '@nurisk/sdk'
 import type {
   TrendDataPoint,
   MovingAverageData,

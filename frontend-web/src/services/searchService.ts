@@ -6,7 +6,7 @@ import {
   type SearchOptions,
   type RecentSearch,
   type SearchCategory,
-} from '@nurisk/sdk/search'
+} from '@nurisk/sdk'
 import type { SearchResult, SearchResponse } from '@nurisk/shared-types/search'
 
 export type { SearchOptions, RecentSearch, SearchCategory }

@@ -1,7 +1,7 @@
 // Stream Analytics Service - SDK wrapper for backward compatibility
 // Uses canonical types from @nurisk/shared-types and SDK from @nurisk/sdk
 
-import { StreamAnalyticsApi } from '@nurisk/sdk/stream-analytics'
+import { StreamAnalyticsApi } from '@nurisk/sdk'
 import type {
   StreamDataPoint,
   WindowAggregate,

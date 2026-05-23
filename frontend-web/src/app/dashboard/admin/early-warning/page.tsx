@@ -10,8 +10,6 @@ import {
   useBroadcastWarning,
 } from '@/hooks/use-early-warning';
 import {
-  MOCK_WARNINGS,
-  MOCK_ACTIVE_WARNINGS,
   type Warning,
   type WarningCreateRequest,
 } from '@/services/earlyWarningService';
@@ -29,9 +27,8 @@ export default function EarlyWarningPage() {
   // Fetch all warning data
   const { data: warnings, active, isLoading, isError } = useAllWarningData();
 
-  // Use mock data in development
-  const allWarnings = warnings ?? MOCK_WARNINGS;
-  const activeWarnings = active ?? MOCK_ACTIVE_WARNINGS;
+  const allWarnings = warnings ?? [];
+  const activeWarnings = active ?? [];
 
   // Mutations
   const createMutation = useCreateWarning();

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { AlertTriangle, MapPin, Clock } from 'lucide-react';
@@ -40,7 +41,7 @@ const typeLabels: Record<DisasterType, string> = {
   WABAH_PENYAKIT: 'Wabah Penyakit',
 };
 
-export function IncidentFeed({ incidents, loading, error }: IncidentFeedProps) {
+export const IncidentFeed = memo(function IncidentFeed({ incidents, loading, error }: IncidentFeedProps) {
   if (loading) {
     return (
       <Card>
@@ -157,6 +158,6 @@ export function IncidentFeed({ incidents, loading, error }: IncidentFeedProps) {
       </CardContent>
     </Card>
   );
-}
+});
 
 export default IncidentFeed;

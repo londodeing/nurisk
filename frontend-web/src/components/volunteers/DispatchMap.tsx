@@ -50,6 +50,7 @@ export function DispatchMap({
   return (
     <div className={cn('relative rounded-lg overflow-hidden', className)}>
       <MapContainer
+        key="dispatch-map"
         center={[incident.location.lat, incident.location.lng]}
         zoom={12}
         className="h-full w-full"

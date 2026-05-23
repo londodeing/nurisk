@@ -9,21 +9,6 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { volunteerDispatchApi } from '@nurisk/sdk';
 import type { Incident, SkillMatch, Deployment } from '@nurisk/shared-types/volunteer-dispatch';
 
-// Mock data for development fallback
-const MOCK_INCIDENT: Incident = {
-  id: 'mock-incident-1',
-  title: 'Flood Relief - Jakarta',
-  status: 'active',
-  location: { lat: -6.2, lng: 106.8 },
-  severity: 'HIGH',
-  requiredSkills: ['first-aid', 'rescue'],
-  createdAt: new Date().toISOString(),
-};
-
-const MOCK_SKILL_MATCHES: SkillMatch[] = [];
-
-const MOCK_DEPLOYMENTS: Deployment[] = [];
-
 /**
  * Get nearby volunteers for an incident
  * SDK METHOD MISSING: getNearbyVolunteers - using getDeployments as fallback
@@ -164,15 +149,14 @@ export function useDispatchData(incidentId: string) {
   );
   const deployments = useDeployments(incidentId);
 
-  // Use mock data in development if API fails
   const data: {
-    incident: Incident;
+    incident: Incident | null;
     matches: SkillMatch[];
     deployments: Deployment[];
   } = {
-    incident: incident.data ?? MOCK_INCIDENT,
-    matches: nearby.data ?? MOCK_SKILL_MATCHES,
-    deployments: deployments.data ?? MOCK_DEPLOYMENTS,
+    incident: incident.data ?? null,
+    matches: nearby.data ?? [],
+    deployments: deployments.data ?? [],
   };
 
   const isLoading = incident.isLoading || nearby.isLoading || deployments.isLoading;

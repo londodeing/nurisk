@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { Bot, FileText, AlertTriangle } from 'lucide-react';
 import { useAgents, useToggleAgent } from '@/hooks/use-agents';
-import { MOCK_AGENTS, MOCK_BIAS_REPORT } from '@/services/agentService';
 import { AgentList } from '@/components/agents/AgentList';
 import { AgentLogs } from '@/components/agents/AgentLogs';
 import { BiasMonitor } from '@/components/agents/BiasMonitor';
@@ -13,15 +12,11 @@ type TabId = 'agents' | 'logs' | 'bias';
 export default function AgentsPage() {
   const [activeTab, setActiveTab] = useState<TabId>('agents');
 
-  // Use mock data for now - in production would use API
-  const agents = MOCK_AGENTS;
-  const biasReport = MOCK_BIAS_REPORT;
-
   const { data: agentsData, isLoading: agentsLoading } = useAgents();
   const toggleAgent = useToggleAgent();
 
   const tabs = [
-    { id: 'agents' as const, label: 'Agents', icon: Bot, count: agents.length },
+    { id: 'agents' as const, label: 'Agents', icon: Bot, count: agentsData?.length ?? 0 },
     { id: 'logs' as const, label: 'Logs', icon: FileText },
     { id: 'bias' as const, label: 'Bias Monitor', icon: AlertTriangle },
   ];
@@ -81,18 +76,18 @@ export default function AgentsPage() {
       <div className="min-h-[400px]">
         {activeTab === 'agents' && (
           <AgentList
-            agents={agentsData || agents}
+            agents={agentsData ?? []}
             isLoading={agentsLoading}
             onToggleAgent={handleToggleAgent}
           />
         )}
 
         {activeTab === 'logs' && (
-          <AgentLogs agents={agentsData || agents} />
+          <AgentLogs agents={agentsData ?? []} />
         )}
 
         {activeTab === 'bias' && (
-          <BiasMonitor initialReport={biasReport} />
+          <BiasMonitor initialReport={undefined} />
         )}
       </div>
     </div>

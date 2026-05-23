@@ -71,15 +71,7 @@ export class IncidentController {
 
     const include = includeDeleted === 'true';
 
-    const result = await this.incidentService.findAll(options, filters, include);
-
-    return {
-      success: true,
-      data: result.items,
-      items: result.items,
-      pagination: result.pagination,
-      total: result.pagination.total,
-    };
+    return this.incidentService.findAll(options, filters, include);
   }
 
   /**
@@ -128,6 +120,15 @@ export class IncidentController {
   ) {
     const include = includeDeleted === 'true';
     return this.incidentService.update(id, dto, include);
+  }
+
+  /**
+   * POST /incidents/panic - Create panic alert incident
+   */
+  @Post('panic')
+  @HttpCode(HttpStatus.CREATED)
+  async panic(@Body() body: { device_id?: string; latitude?: number; longitude?: number; timestamp?: string }) {
+    return this.incidentService.createPanicIncident(body);
   }
 
   /**

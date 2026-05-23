@@ -19,9 +19,9 @@ const queryKeys = {
   incidents: {
     all: ['incidents'] as const,
     lists: () => ['incidents', 'list'] as const,
-    list: (filters?: IncidentFilter) => ['incidents', 'list', filters] as const,
-    details: () => ['incidents', 'detail'] as const,
-    detail: (id: string) => ['incidents', 'detail', id] as const,
+    list: (filters?: IncidentFilter) => ['incidents', 'list-legacy', filters] as const,
+    details: () => ['incidents', 'detail-legacy'] as const,
+    detail: (id: string) => ['incidents', 'detail-legacy', id] as const,
     stats: () => ['incidents', 'stats'] as const,
     map: () => ['incidents', 'map'] as const,
   },
@@ -53,7 +53,7 @@ export type { ListResponse, PaginationMeta };
  * Fetch incidents - returns canonical ListResponse
  * NO FALLBACK MASKING - throws on invalid response
  */
-async function fetchIncidents(filters?: IncidentFilter): Promise<ListResponse<Incident>> {
+async function fetchIncidents(filters?: IncidentFilter & { limit?: number; page?: number }): Promise<ListResponse<Incident>> {
   const response: any = await sdkClient.get('/incidents', { params: filters });
   
   return {
@@ -141,7 +141,7 @@ async function fetchFullReport(incidentId: string): Promise<{ url: string }> {
  * const incidents = data?.items ?? [];
  * const pagination = data?.pagination;
  */
-export function useIncidents(filters?: IncidentFilter) {
+export function useIncidents(filters?: IncidentFilter & { limit?: number; page?: number }) {
   return useQuery({
     queryKey: queryKeys.incidents.list(filters),
     queryFn: () => fetchIncidents(filters),

@@ -109,7 +109,7 @@ export interface WarningSource {
   type: 'bmkg' | 'ina' | 'international'
 }
 
-import { EarlyWarningApi } from '@nurisk/sdk/early-warning'
+import { EarlyWarningApi } from '@nurisk/sdk'
 const earlyWarningApi = new EarlyWarningApi({ baseUrl: '/api' })
 
 export const getWarnings = (filters?: WarningFilter) => earlyWarningApi.getWarnings(filters as any)

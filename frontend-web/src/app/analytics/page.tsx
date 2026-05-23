@@ -34,72 +34,7 @@ const DEFAULT_FILTERS: AnalyticsFilters = {
   incidentType: '',
 };
 
-// ============================================
-// Mock Data (for development)
-// ============================================
 
-const MOCK_KPI = {
-  totalIncidents: 156,
-  activeIncidents: 23,
-  totalVolunteers: 342,
-  responseTimeAvg: 45,
-  assessmentCompletionRate: 87,
-  shelterCapacity: 78,
-};
-
-const MOCK_TREND = [
-  { month: 'Jan', count: 45, resolved: 42 },
-  { month: 'Feb', count: 52, resolved: 48 },
-  { month: 'Mar', count: 38, resolved: 35 },
-  { month: 'Apr', count: 61, resolved: 55 },
-  { month: 'May', count: 55, resolved: 50 },
-  { month: 'Jun', count: 48, resolved: 44 },
-];
-
-const MOCK_TYPE = [
-  { name: 'Banjir', value: 45, color: '#16a34a' },
-  { name: 'Tanah Longsor', value: 28, color: '#f59e0b' },
-  { name: 'Gempa Bumi', value: 15, color: '#ef4444' },
-  { name: 'Kebakaran', value: 8, color: '#ec4899' },
-  { name: 'Badai', value: 4, color: '#3b82f6' },
-];
-
-const MOCK_REGION = [
-  { region: 'Kota Surakarta', count: 42 },
-  { region: 'Kab. Klaten', count: 35 },
-  { region: 'Kab. Boyolali', count: 28 },
-  { region: 'Kab. Sukoharjo', count: 22 },
-  { region: 'Kab. Wonogiri', count: 18 },
-  { region: 'Kab. Karanganyar', count: 11 },
-];
-
-const MOCK_RESPONSE_TIME = [
-  { month: 'Jan', avgResponseTime: 52 },
-  { month: 'Feb', avgResponseTime: 48 },
-  { month: 'Mar', avgResponseTime: 45 },
-  { month: 'Apr', avgResponseTime: 42 },
-  { month: 'May', avgResponseTime: 38 },
-  { month: 'Jun', avgResponseTime: 35 },
-];
-
-const MOCK_VOLUNTEER = [
-  { date: '01', active: 120, missions: 45 },
-  { date: '02', active: 135, missions: 52 },
-  { date: '03', active: 128, missions: 48 },
-  { date: '04', active: 142, missions: 55 },
-  { date: '05', active: 155, missions: 62 },
-  { date: '06', active: 148, missions: 58 },
-  { date: '07', active: 162, missions: 65 },
-];
-
-const MOCK_RESOURCE = [
-  { resource: 'Personel', used: 85, available: 100 },
-  { resource: 'Kendaraan', used: 65, available: 80 },
-  { resource: 'Peralatan', used: 72, available: 90 },
-  { resource: 'Logistik', used: 58, available: 75 },
-  { resource: 'Medis', used: 45, available: 60 },
-  { resource: 'Komunikasi', used: 80, available: 100 },
-];
 
 // ============================================
 // Page Component
@@ -111,14 +46,14 @@ export default function AnalyticsPage() {
   // Try to fetch from API, fall back to mock data
   const { data, isLoading } = useAnalyticsSummary(filters);
 
-  // Use API data or mock data
-  const kpi = data?.kpi || MOCK_KPI;
-  const incidentTrend = data?.incidentTrend || MOCK_TREND;
-  const incidentByType = data?.incidentByType || MOCK_TYPE;
-  const incidentByRegion = data?.incidentByRegion || MOCK_REGION;
-  const responseTime = data?.responseTime || MOCK_RESPONSE_TIME;
-  const volunteerActivity = data?.volunteerActivity || MOCK_VOLUNTEER;
-  const resourceUtilization = data?.resourceUtilization || MOCK_RESOURCE;
+  // Use API data or empty fallbacks
+  const kpi = data?.kpi ?? { totalIncidents: 0, activeIncidents: 0, totalVolunteers: 0, responseTimeAvg: 0, assessmentCompletionRate: 0, shelterCapacity: 0 };
+  const incidentTrend = data?.incidentTrend ?? [];
+  const incidentByType = data?.incidentByType ?? [];
+  const incidentByRegion = data?.incidentByRegion ?? [];
+  const responseTime = data?.responseTime ?? [];
+  const volunteerActivity = data?.volunteerActivity ?? [];
+  const resourceUtilization = data?.resourceUtilization ?? [];
 
   const handleFiltersChange = (newFilters: AnalyticsFilters) => {
     setFilters(newFilters);

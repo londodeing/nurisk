@@ -76,6 +76,7 @@ export function ShelterMapView({ incidentId, onShelterClick }: ShelterMapViewPro
   return (
     <div className="relative h-96 rounded-lg overflow-hidden">
       <MapContainer
+        key="shelter-map-view"
         center={mapCenter}
         zoom={10}
         className="h-full w-full"

@@ -9,15 +9,6 @@ import { useQuery } from '@tanstack/react-query';
 import { briefingApi } from '@nurisk/sdk';
 import type { SituationSummary, KeyMetrics } from '@nurisk/shared-types/briefing';
 
-// Mock data for development fallback
-const MOCK_BRIEFING = {
-  situation: { activeIncidents: 0, criticalAlerts: 0, resourcesDeployed: 0 } as SituationSummary,
-  metrics: { totalIncidents: 0, resolvedIncidents: 0 } as KeyMetrics,
-  actions: [] as RecommendedAction[],
-};
-
-const MOCK_INCIDENT_BRIEFS: IncidentBrief[] = [];
-
 // Types
 interface RecommendedAction {
   id: string;
@@ -132,17 +123,16 @@ export function useBriefingData() {
   const actions = useRecommendedActions();
   const incidents = useIncidentBriefs();
 
-  // Use mock data in development if API fails
   const data: {
     situation: SituationSummary;
     metrics: KeyMetrics;
     actions: RecommendedAction[];
     incidents: IncidentBrief[];
   } = {
-    situation: situation.data ?? MOCK_BRIEFING.situation,
-    metrics: metrics.data ?? MOCK_BRIEFING.metrics,
-    actions: actions.data ?? MOCK_BRIEFING.actions,
-    incidents: incidents.data ?? MOCK_INCIDENT_BRIEFS,
+    situation: situation.data ?? {} as SituationSummary,
+    metrics: metrics.data ?? {} as KeyMetrics,
+    actions: actions.data ?? [],
+    incidents: incidents.data ?? [],
   };
 
   const isLoading =

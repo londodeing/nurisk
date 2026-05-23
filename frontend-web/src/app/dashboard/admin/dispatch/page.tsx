@@ -4,18 +4,16 @@ import { useState } from 'react';
 import { RefreshCw, MapIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useDispatchData } from '@/hooks/use-volunteer-dispatch';
-import { MOCK_INCIDENT, MOCK_SKILL_MATCHES } from '@/services/volunteerDispatchService';
 import { DispatchMap } from '@/components/volunteers/DispatchMap';
 import { DispatchPanel } from '@/components/volunteers/DispatchPanel';
 
 export default function DispatchPage() {
-  const [selectedIncidentId, setSelectedIncidentId] = useState<string>(MOCK_INCIDENT.id);
+  const [selectedIncidentId, setSelectedIncidentId] = useState<string>('');
   const [selectedIds, setSelectedIds] = useState<string[]>([]);
   const { data: incidentData, isLoading, isError } = useDispatchData(selectedIncidentId);
 
-  // Use mock data in development
-  const incident = incidentData.incident ?? MOCK_INCIDENT;
-  const matches = incidentData.matches ?? MOCK_SKILL_MATCHES;
+  const incident = incidentData.incident;
+  const matches = incidentData.matches ?? [];
 
   // Handle volunteer selection
   const handleSelectVolunteer = (id: string) => {
@@ -42,13 +40,15 @@ export default function DispatchPage() {
 
           <div className="flex items-center gap-2">
             {/* Incident Selector */}
-            <select
-              value={selectedIncidentId}
-              onChange={(e) => setSelectedIncidentId(e.target.value)}
-              className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm"
-            >
-              <option value={MOCK_INCIDENT.id}>{MOCK_INCIDENT.title}</option>
-            </select>
+            {incident && (
+              <select
+                value={selectedIncidentId}
+                onChange={(e) => setSelectedIncidentId(e.target.value)}
+                className="px-3 py-2 bg-white border border-slate-200 rounded-lg text-sm"
+              >
+                <option value={incident.id}>{incident.title}</option>
+              </select>
+            )}
 
             {/* Refresh */}
             <button className="p-2 bg-white border border-slate-200 rounded-lg hover:bg-slate-50">

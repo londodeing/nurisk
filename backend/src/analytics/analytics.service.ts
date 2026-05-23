@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { EventEmitter2 } from 'eventemitter2';
 
 import { AnalyticsRepository } from './analytics.repository';

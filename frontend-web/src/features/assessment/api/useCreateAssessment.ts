@@ -7,7 +7,7 @@ export default function useCreateAssessment() {
   return useMutation({
     mutationFn: (data: Record<string, unknown>) => sdkClient.post('/assessments', data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['assessment'] });
+      queryClient.invalidateQueries({ queryKey: ['assessments'] });
       queryClient.invalidateQueries({ queryKey: ['incidents'] });
     },
   });

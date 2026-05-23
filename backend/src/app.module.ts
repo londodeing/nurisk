@@ -26,6 +26,8 @@ import { HazardModule } from './hazard/hazard.module';
 import { AwarenessModule } from './awareness/awareness.module';
 import { DecisionModule } from './decision/decision.module';
 import { BriefingModule } from './briefing/briefing.module';
+import { WeatherModule } from './weather/weather.module';
+import { ResourcesModule } from './resources/resources.module';
 
 @Module({
   imports: [
@@ -61,6 +63,10 @@ import { BriefingModule } from './briefing/briefing.module';
     AwarenessModule,
     DecisionModule,
     BriefingModule,
+
+    // Weather & Resources (PHASE-08)
+    WeatherModule,
+    ResourcesModule,
     
     // Gateway (Socket.IO)
     GatewayModule,

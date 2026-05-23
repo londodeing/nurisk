@@ -1,160 +1,151 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
-import { AlertTriangle, Users, Home } from 'lucide-react';
-import { KpiCard } from '@/components/dashboard/KpiCard';
-import { DashboardSkeleton } from '@/components/dashboard/DashboardSkeleton';
-import { WeatherWidget } from '@/components/dashboard/WeatherWidget';
-import { DisasterAlertList } from '@/components/dashboard/DisasterAlertCard';
-import { IncidentTrendChart } from '@/components/dashboard/IncidentTrendChart';
-import { useIncidents } from '@/hooks/use-incidents';
-import api from '@/services/api';
+import { useMemo } from 'react';
+import { usePublicDashboardData } from '@/hooks/use-public-dashboard';
+import { KpiGrid } from '@/components/dashboard/KpiGrid';
+import { WeatherAlertStrip } from '@/components/dashboard/WeatherAlertStrip';
+import { ActiveIncidentsPanel } from '@/components/dashboard/ActiveIncidentsPanel';
+import { ResourceAvailabilityPanel } from '@/components/dashboard/ResourceAvailabilityPanel';
+import type { Incident } from '@nurisk/shared-types/incident';
 
 export default function PublicDashboard() {
-  
-  const { data: incidentsData, isLoading } = useIncidents({ status: 'active' });
-  const [stats, setStats] = useState({ activeIncidents: 0, volunteers: 0, shelters: 0 });
-  const [alerts, setAlerts] = useState([]);
-
-  // Fetch stats
-  useEffect(() => {
-    async function fetchStats() {
-      try {
-        const res = await api.get('/dashboard/stats');
-        setStats(res.data);
-      } catch (error) {
-        console.error('Stats fetch error:', error);
-      }
-    }
-    fetchStats();
-  }, []);
-
-  // Fetch alerts
-  useEffect(() => {
-    async function fetchAlerts() {
-      try {
-        const res = await api.get('/incidents?severity=critical,high&limit=5');
-        setAlerts(res.data.data || []);
-      } catch (error) {
-        console.error('Alerts fetch error:', error);
-      }
-    }
-    fetchAlerts();
-  }, []);
-
-  const handleDismissAlert = useCallback((id: string) => {
-    setAlerts(prev => prev.filter(a => a.id !== id));
-  }, []);
-
-  if (isLoading) {
-    return <DashboardSkeleton />;
-  }
+  const { incidents, stats, isLoading, error } = usePublicDashboardData();
 
   return (
-    <div className="min-h-screen bg-slate-50">
-      {/* Header */}
-      <header className="bg-nu-green text-white p-4 shadow-lg">
-        <div className="container mx-auto flex justify-between items-center">
-          <h1 className="text-xl font-bold">NU PEDULI Jawa Tengah</h1>
-          <nav className="flex gap-4">
-            <Link to="/map" className="hover:underline">Peta</Link>
-            <Link to="/lapor" className="hover:underline">Lapor</Link>
-            <Link to="/login" className="hover:underline">Masuk</Link>
-          </nav>
-        </div>
-      </header>
-
-      <main className="container mx-auto py-6 px-4 space-y-6">
-        {/* KPI Cards Row */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <KpiCard
-            title="Laporan Aktif"
-            value={stats.activeIncidents}
-            icon={<AlertTriangle className="w-6 h-6" />}
-            variant="danger"
-            to="/incidents?status=active"
-          />
-          <KpiCard
-            title="Relawan Aktif"
-            value={stats.volunteers}
-            icon={<Users className="w-6 h-6" />}
-            variant="success"
-            to="/volunteers"
-          />
-          <KpiCard
-            title="Posko Evakuasi"
-            value={stats.shelters}
-            icon={<Home className="w-6 h-6" />}
-            to="/shelters"
-          />
-          <KpiCard
-            title="Total Kejadian"
-            value={incidentsData?.pagination?.total || 0}
-            icon={<AlertTriangle className="w-6 h-6" />}
-          />
+    <div className="min-h-screen bg-[#F8FAF8] font-['Plus_Jakarta_Sans',sans-serif]">
+      <div className="max-w-[1280px] mx-auto px-4 md:px-8">
+        <div className="pt-6 md:pt-8 pb-8">
+          <KpiGrid stats={stats} isLoading={isLoading} />
         </div>
 
-        {/* Main Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          {/* Left Column - Alerts & Weather */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Recent Alerts */}
-            <Card>
-              <CardHeader className="pb-2">
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-lg">Peringatan Terbaru</CardTitle>
-                  <Badge variant="destructive">{alerts.length} aktif</Badge>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">
+          <div className="lg:col-span-2 space-y-6 md:space-y-8">
+            <WeatherAlertStrip lat={-7.2575} lon={112.7521} />
+
+            <ActiveIncidentsPanel
+              incidents={incidents}
+              isLoading={isLoading}
+              error={error}
+            />
+          </div>
+
+          <div className="space-y-6 md:space-y-8">
+            <ResourceAvailabilityPanel stats={stats} isLoading={isLoading} />
+
+            <TrendChart incidents={incidents} isLoading={isLoading} />
+
+            <DonationCard />
+
+            <FooterInfo />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function TrendChart({ incidents, isLoading }: { incidents: Incident[]; isLoading: boolean }) {
+  const chartData = useMemo(() => {
+    const monthCounts: Record<string, number> = {};
+    incidents.forEach((inc) => {
+      const d = new Date(inc.createdAt);
+      if (isNaN(d.getTime())) return;
+      const key = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
+      monthCounts[key] = (monthCounts[key] || 0) + 1;
+    });
+    return Object.entries(monthCounts).sort(([a], [b]) => a.localeCompare(b)).slice(-6);
+  }, [incidents]);
+
+  const maxVal = useMemo(() => Math.max(...chartData.map(([, c]) => c), 1), [chartData]);
+
+  if (isLoading) {
+    return (
+      <div className="px-4 pt-6">
+        <div className="flex items-center gap-2.5 mb-4">
+          <span className="font-['Playfair_Display',serif] text-xl text-[#006837]">Trend Bencana</span>
+          <div className="flex-1 h-px bg-gray-200" />
+        </div>
+        <div className="bg-white p-6 rounded-[32px] shadow-[0_15px_35px_rgba(0,104,55,0.08)] h-[160px] flex items-center justify-center">
+          <div className="flex items-end gap-2.5 h-[100px]">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div key={i} className="w-8 bg-gray-200 rounded-t-lg animate-pulse" style={{ height: `${30 + Math.random() * 70}px` }} />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (chartData.length === 0) {
+    return null;
+  }
+
+  const monthLabels: Record<string, string> = {
+    '01': 'JAN', '02': 'FEB', '03': 'MAR', '04': 'APR', '05': 'MEI', '06': 'JUN',
+    '07': 'JUL', '08': 'AGS', '09': 'SEP', '10': 'OKT', '11': 'NOV', '12': 'DES',
+  };
+
+  return (
+    <div className="px-4 pt-6">
+      <div className="flex items-center gap-2.5 mb-4">
+        <span className="font-['Playfair_Display',serif] text-xl text-[#006837]">Trend Bencana</span>
+        <div className="flex-1 h-px bg-gray-200" />
+      </div>
+      <div className="bg-white p-6 rounded-[32px] shadow-[0_15px_35px_rgba(0,104,55,0.08)]">
+        <div className="flex items-end gap-2.5 h-[120px] pt-5">
+          {chartData.map(([key, count]) => {
+            const pct = (count / maxVal) * 100;
+            const monthNum = key.split('-')[1] ?? '';
+            const label = monthLabels[monthNum] || monthNum;
+            return (
+              <div key={key} className="flex-1 min-w-[30px] relative" style={{ height: `${pct}%` }}>
+                <div
+                  className="absolute bottom-0 left-0 right-0 bg-[#006837] rounded-t-lg transition-all duration-500"
+                  style={{ height: `${pct}%` }}
+                >
+                  <span className="absolute -top-5 left-0 right-0 text-center text-[10px] font-bold text-gray-700">
+                    {count}
+                  </span>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <DisasterAlertList alerts={alerts} onDismiss={handleDismissAlert} />
-              </CardContent>
-            </Card>
+                <span className="absolute -bottom-[22px] left-0 right-0 text-center text-[9px] font-semibold text-[#6B7280]">
+                  {label}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  );
+}
 
-            {/* Trend Chart */}
-            <IncidentTrendChart />
-          </div>
-
-          {/* Right Column - Weather & Map Preview */}
-          <div className="space-y-6">
-            <WeatherWidget />
-
-            {/* Map Preview */}
-            <Card>
-              <CardHeader className="pb-2">
-                <CardTitle className="text-lg">Peta Wilayah</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Link to="/map">
-                  <div className="h-48 bg-slate-200 rounded-lg flex items-center justify-center hover:bg-slate-300 transition-colors">
-                    <span className="text-slate-500">Klik untuk melihat peta lengkap</span>
-                  </div>
-                </Link>
-              </CardContent>
-            </Card>
+function DonationCard() {
+  return (
+    <div className="px-4 pt-6">
+      <div className="bg-[#006837] text-white p-8 rounded-[32px] text-center relative overflow-hidden shadow-[0_10px_30px_rgba(0,77,41,0.4)]">
+        <span className="absolute -top-3 -right-3 text-[80px] opacity-10 text-[#D4AF37] leading-none">✶</span>
+        <h3 className="font-['Playfair_Display',serif] text-2xl mb-2.5">Mari Berkhidmat, Bantu Korban Bencana</h3>
+        <p className="text-xs opacity-90 mb-5">
+          Donasi Anda akan disalurkan langsung kepada korban bencana melalui NU Peduli Jateng.
+        </p>
+        <div className="bg-white inline-block p-4 rounded-[15px] mb-4">
+          <div className="w-[100px] h-[100px] border-2 border-dashed border-gray-300 flex items-center justify-center text-[#6B7280] font-black text-xs">
+            QR Code
           </div>
         </div>
+        <br />
+        <button className="bg-[#D4AF37] text-[#006837] border-none py-3.5 px-8 rounded-[50px] font-extrabold text-sm shadow-[0_8px_20px_rgba(212,175,55,0.2)] transition-transform active:scale-[0.98]">
+          INFAK SEKARANG
+        </button>
+        <p className="text-[11px] opacity-70 mt-2.5">Transfer: BNI 1234567890 a.n. NU Peduli Jateng</p>
+      </div>
+    </div>
+  );
+}
 
-        {/* Hero CTA */}
-        <section className="bg-nu-green text-white py-12 rounded-lg">
-          <div className="text-center">
-            <h2 className="text-3xl font-bold mb-4">Sistem Tanggap Bencana</h2>
-            <p className="text-lg mb-6">NU PEDULI Jawa Tengah</p>
-            <div className="flex justify-center gap-4">
-              <Link to="/lapor">
-                <Button variant="emergency" size="lg">LAPOR BENCANA</Button>
-              </Link>
-              <Link to="/map">
-                <Button variant="outline" size="lg" className="bg-white text-nu-green">
-                  LIHAT PETA
-                </Button>
-              </Link>
-            </div>
-          </div>
-        </section>
-      </main>
+function FooterInfo() {
+  return (
+    <div className="text-center py-6 text-[10px] text-[#6B7280]">
+      <p className="font-bold">NU Risk — Pusdatin NU Peduli Jawa Tengah</p>
+      <p className="mt-1">© {new Date().getFullYear()} NU Peduli Jateng. All rights reserved.</p>
     </div>
   );
 }

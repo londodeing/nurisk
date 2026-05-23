@@ -20,35 +20,31 @@ export class AnalyticsRepository {
       incidentWhere.region = region;
     }
 
-    // Incident stats using Prisma aggregation
-    const incidents = await this.prisma.incident.aggregate({
-      where: incidentWhere,
-      _count: true,
-      _avg: { priorityScore: true },
-    });
-
-    // Get counts by status using groupBy
-    const statusCounts = await this.prisma.incident.groupBy({
-      by: ['status'],
-      where: incidentWhere,
-      _count: true,
-    });
+    // Run all independent queries in parallel
+    const [incidents, statusCounts, volunteerCounts, assetStats] = await Promise.all([
+      this.prisma.incident.aggregate({
+        where: incidentWhere,
+        _count: true,
+        _avg: { priorityScore: true },
+      }),
+      this.prisma.incident.groupBy({
+        by: ['status'],
+        where: incidentWhere,
+        _count: true,
+      }),
+      this.prisma.volunteer.groupBy({
+        by: ['status'],
+        _count: true,
+      }),
+      this.prisma.asset.aggregate({
+        where: { status: 'available' },
+        _sum: { quantity: true },
+        _count: true,
+      }),
+    ]);
 
     const statusMap = Object.fromEntries(statusCounts.map((s) => [s.status, s._count]));
-
-    // Volunteer stats
-    const volunteerCounts = await this.prisma.volunteer.groupBy({
-      by: ['status'],
-      _count: true,
-    });
     const volunteerMap = Object.fromEntries(volunteerCounts.map((v) => [v.status, v._count]));
-
-    // Asset stats
-    const assetStats = await this.prisma.asset.aggregate({
-      where: { status: 'available' },
-      _sum: { quantity: true },
-      _count: true,
-    });
 
     return {
       incidents: {
@@ -107,6 +103,7 @@ export class AnalyticsRepository {
         disasterType: true,
       },
       orderBy: { createdAt: 'asc' },
+      take: 5000,
     });
 
     // Group by date

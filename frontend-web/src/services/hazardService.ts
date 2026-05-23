@@ -8,7 +8,7 @@ import {
   type VulnerabilityHeatmapData,
   type HazardStats,
   type VulnerabilityScore,
-} from '@nurisk/sdk/hazard'
+} from '@nurisk/sdk'
 
 export type {
   HazardType,

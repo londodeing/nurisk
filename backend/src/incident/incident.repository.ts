@@ -207,6 +207,7 @@ export class IncidentRepository {
         location: true,
       },
       orderBy: { createdAt: 'desc' },
+      take: 500,
     });
 
     const features = incidents
@@ -281,42 +282,30 @@ export class IncidentRepository {
     if (data.dampakVital) updateData.dampakVital = data.dampakVital;
     if (data.dampakLingkungan) updateData.dampakLingkungan = data.dampakLingkungan;
 
-    try {
-      return await this.prisma.incident.update({
-        where: { id },
-        data: updateData,
-      });
-    } catch {
-      return null;
-    }
+    return await this.prisma.incident.update({
+      where: { id },
+      data: updateData,
+    });
   }
 
   /**
    * Soft delete incident
    */
-  async softDelete(id: string): Promise<Incident | null> {
-    try {
-      return await this.prisma.incident.update({
-        where: { id },
-        data: { deletedAt: new Date() },
-      });
-    } catch {
-      return null;
-    }
+  async softDelete(id: string): Promise<Incident> {
+    return await this.prisma.incident.update({
+      where: { id },
+      data: { deletedAt: new Date() },
+    });
   }
 
   /**
    * Restore soft-deleted incident
    */
-  async restore(id: string): Promise<Incident | null> {
-    try {
-      return await this.prisma.incident.update({
-        where: { id },
-        data: { deletedAt: null },
-      });
-    } catch {
-      return null;
-    }
+  async restore(id: string): Promise<Incident> {
+    return await this.prisma.incident.update({
+      where: { id },
+      data: { deletedAt: null },
+    });
   }
 
   /**
@@ -373,15 +362,11 @@ export class IncidentRepository {
   /**
    * Archive dismissed incident
    */
-  async archiveIncident(incidentId: string): Promise<any> {
-    try {
-      return await this.prisma.incident.update({
-        where: { id: incidentId },
-        data: { isAiGenerated: false },
-      });
-    } catch {
-      return null;
-    }
+  async archiveIncident(incidentId: string): Promise<Incident> {
+    return await this.prisma.incident.update({
+      where: { id: incidentId },
+      data: { isAiGenerated: false },
+    });
   }
 }
 

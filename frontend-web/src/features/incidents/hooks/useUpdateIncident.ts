@@ -11,6 +11,8 @@ export function useUpdateIncident() {
     onSuccess: (_data, variables) => {
       queryClient.invalidateQueries({ queryKey: ['incidents', 'detail', variables.id] });
       queryClient.invalidateQueries({ queryKey: ['incidents', 'list'] });
+      queryClient.invalidateQueries({ queryKey: ['incidents', 'stats'] });
+      queryClient.invalidateQueries({ queryKey: ['incidents', 'map'] });
     },
   });
 }

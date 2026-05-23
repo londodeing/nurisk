@@ -1,5 +1,6 @@
 'use client';
 
+import { memo } from 'react';
 import {
   MapPin,
   Wind,
@@ -17,10 +18,6 @@ import {
   useCurrentWeather,
   useWeatherForecast,
   useWeatherAlerts,
-  MOCK_WEATHER,
-  MOCK_CURRENT_WEATHER,
-  MOCK_FORECAST,
-  MOCK_ALERTS,
 } from '@/hooks/use-weather';
 import {
   getUVIndexLevel,
@@ -38,11 +35,10 @@ interface WeatherWidgetProps {
   showForecast?: boolean;
 }
 
-// Default coordinates (Surabaya)
 const DEFAULT_LAT = -7.2575;
 const DEFAULT_LON = 112.7521;
 
-export function WeatherWidget({
+export const WeatherWidget = memo(function WeatherWidget({
   lat = DEFAULT_LAT,
   lon = DEFAULT_LON,
   locationName,
@@ -52,30 +48,27 @@ export function WeatherWidget({
   showForecast = true,
 }: WeatherWidgetProps) {
 
-  // Try to fetch from API, fall back to mock data
   const { isLoading, error } = useWeather(lat, lon);
   const { data: currentWeather } = useCurrentWeather(lat, lon);
   const { data: forecast } = useWeatherForecast(lat, lon, 3);
   const { data: alerts } = useWeatherAlerts(lat, lon);
 
-  // Use API data or mock data
-  const current = currentWeather || MOCK_CURRENT_WEATHER;
-  const forecastData = forecast || MOCK_FORECAST;
-  const alertData = alerts || MOCK_ALERTS;
-
   if (isLoading) {
     return <WeatherWidgetSkeleton compact={compact} />;
   }
 
-  if (error && !current) {
+  if (error || !currentWeather) {
     return <WeatherWidgetError />;
   }
+
+  const forecastData = forecast ?? [];
+  const alertData = alerts ?? [];
 
   if (compact) {
     return (
       <WeatherWidgetCompact
-        current={current}
-        locationName={locationName || MOCK_WEATHER.location.name}
+        current={currentWeather}
+        locationName={locationName || `${lat.toFixed(2)}, ${lon.toFixed(2)}`}
         className={className}
       />
     );
@@ -83,31 +76,29 @@ export function WeatherWidget({
 
   return (
     <div className={cn('bg-white rounded-xl border border-slate-200', className)}>
-      {/* Current Weather */}
       <div className="p-4">
         <div className="flex items-start justify-between">
           <div className="flex items-center gap-2">
             <MapPin className="w-4 h-4 text-slate-400" />
             <span className="text-sm font-medium text-slate-600">
-              {locationName || MOCK_WEATHER.location.name}
+              {locationName || `${lat.toFixed(2)}, ${lon.toFixed(2)}`}
             </span>
           </div>
         </div>
 
         <div className="flex items-center gap-4 mt-3">
-          <WeatherIcon condition={current.condition} size="xl" />
+          <WeatherIcon condition={currentWeather.condition as any} size="xl" />
           <div>
             <p className="text-4xl font-bold text-slate-900">
-              {current.temperature}°C
+              {currentWeather.temperature}°C
             </p>
-            <p className="text-sm text-slate-600">{current.conditionText}</p>
+            <p className="text-sm text-slate-600">{(currentWeather as any).conditionText || ''}</p>
             <p className="text-xs text-slate-500">
-              Terasa seperti {current.feelsLike}°C
+              Terasa seperti {currentWeather.feelsLike}°C
             </p>
           </div>
         </div>
 
-        {/* High/Low */}
         <div className="flex items-center gap-4 mt-3 text-sm">
           <div className="flex items-center gap-1">
             <Thermometer className="w-4 h-4 text-red-500" />
@@ -120,38 +111,34 @@ export function WeatherWidget({
         </div>
       </div>
 
-      {/* Divider */}
       <div className="border-t border-slate-100" />
 
-      {/* Weather Details */}
       <div className="p-4">
         <div className="grid grid-cols-3 gap-4">
           <div className="flex flex-col items-center text-center">
             <Droplets className="w-5 h-5 text-blue-500 mb-1" />
-            <p className="text-sm font-semibold text-slate-900">{current.humidity}%</p>
+            <p className="text-sm font-semibold text-slate-900">{currentWeather.humidity}%</p>
             <p className="text-xs text-slate-500">Kelembaban</p>
           </div>
           <div className="flex flex-col items-center text-center">
             <Wind className="w-5 h-5 text-slate-500 mb-1" />
             <p className="text-sm font-semibold text-slate-900">
-              {formatWindSpeed(current.windSpeed)}
+              {formatWindSpeed(currentWeather.windSpeed)}
             </p>
             <p className="text-xs text-slate-500">Angin</p>
           </div>
           <div className="flex flex-col items-center text-center">
             <Sun className="w-5 h-5 text-amber-500 mb-1" />
             <p className="text-sm font-semibold text-slate-900">
-              {current.uvIndex} ({getUVIndexLevel(current.uvIndex)})
+              {(currentWeather as any).uvIndex ?? 0} ({getUVIndexLevel((currentWeather as any).uvIndex ?? 0)})
             </p>
             <p className="text-xs text-slate-500">UV Index</p>
           </div>
         </div>
       </div>
 
-      {/* Divider */}
       <div className="border-t border-slate-100" />
 
-      {/* Forecast */}
       {showForecast && (
         <div className="p-4">
           <p className="text-sm font-semibold text-slate-700 mb-3">Prakiraan 3 Hari</p>
@@ -159,7 +146,7 @@ export function WeatherWidget({
             {forecastData.map((day, index) => (
               <ForecastCard
                 key={day.date}
-                forecast={day}
+                forecast={day as any}
                 isToday={index === 0}
               />
             ))}
@@ -167,20 +154,18 @@ export function WeatherWidget({
         </div>
       )}
 
-      {/* Alerts */}
       {showAlerts && alertData.length > 0 && (
         <>
           <div className="border-t border-slate-100" />
           <div className="p-4">
-            <WeatherAlertBanner alerts={alertData} />
+            <WeatherAlertBanner alerts={alertData as any} />
           </div>
         </>
       )}
     </div>
   );
-}
+});
 
-// Compact version
 function WeatherWidgetCompact({
   current,
   locationName,
@@ -197,10 +182,10 @@ function WeatherWidgetCompact({
         className
       )}
     >
-      <WeatherIcon condition={current.condition} size="lg" />
+      <WeatherIcon condition={current.condition as any} size="lg" />
       <div className="flex-1 min-w-0">
         <p className="text-lg font-bold text-slate-900">{current.temperature}°C</p>
-        <p className="text-xs text-slate-500 truncate">{current.conditionText}</p>
+        <p className="text-xs text-slate-500 truncate">{(current as any).conditionText || ''}</p>
       </div>
       <div className="text-right">
         <p className="text-xs font-medium text-slate-600 truncate">{locationName}</p>
@@ -210,7 +195,6 @@ function WeatherWidgetCompact({
   );
 }
 
-// Loading skeleton
 function WeatherWidgetSkeleton({ compact = false }: { compact?: boolean }) {
   if (compact) {
     return (
@@ -245,7 +229,6 @@ function WeatherWidgetSkeleton({ compact = false }: { compact?: boolean }) {
   );
 }
 
-// Error state
 function WeatherWidgetError({ className }: { className?: string }) {
   return (
     <div

@@ -1,7 +1,6 @@
-// Weather Service - SDK wrapper for backward compatibility
-// Uses canonical types from @nurisk/shared-types and SDK from @nurisk/sdk
+// Weather Service - pure utility functions and type re-exports
+// SDK calls should use hooks from @/hooks/use-weather or sdk from @/services/api
 
-import { WeatherApi } from '@nurisk/sdk/weather'
 import type {
   WeatherCondition,
   CurrentWeather,
@@ -16,7 +15,6 @@ export type {
   WeatherAlert,
 }
 
-// Helper functions for UI components
 export const getUVIndexLevel = (index: number): string => {
   if (index <= 2) return 'Low'
   if (index <= 5) return 'Moderate'
@@ -30,11 +28,3 @@ export const formatWindSpeed = (speed: number, unit: 'kmh' | 'ms' | 'mph' = 'kmh
   if (unit === 'mph') return `${(speed * 0.621371).toFixed(1)} mph`
   return `${speed.toFixed(1)} km/h`
 }
-
-// Create SDK instance
-const weatherApi = new WeatherApi({ baseUrl: '/api' })
-
-// Re-export SDK methods for service compatibility
-export const getCurrentWeather = (lat: number, lng: number) => weatherApi.getCurrentWeather(lat, lng)
-export const getForecast = (lat: number, lng: number, days?: number) => weatherApi.getForecast(lat, lng, days)
-export const getWeatherAlerts = (lat?: number, lng?: number) => weatherApi.getWeatherAlerts(lat, lng)

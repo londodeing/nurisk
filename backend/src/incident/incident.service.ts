@@ -119,6 +119,29 @@ export class IncidentService {
   }
 
   /**
+   * Create panic alert incident
+   */
+  async createPanicIncident(body: { device_id?: string; latitude?: number; longitude?: number; timestamp?: string }): Promise<any> {
+    const incident = await this.incidentRepository.create({
+      location: { lat: body.latitude || -7.2575, lng: body.longitude || 112.7521 },
+      disasterType: 'other',
+      priorityLevel: 'HIGH',
+      description: `Panic alert from device ${body.device_id || 'unknown'} at ${body.timestamp || new Date().toISOString()}`,
+      source: 'panic_button',
+      reportedBy: body.device_id || 'panic_device',
+    });
+
+    this.eventEmitter.emit('incident.created', incident);
+
+    return {
+      success: true,
+      message: 'Panic alert received',
+      data: incident,
+      incidentId: incident.id,
+    };
+  }
+
+  /**
    * Get incident by ID
    */
   async findById(id: string, includeDeleted = false): Promise<any> {

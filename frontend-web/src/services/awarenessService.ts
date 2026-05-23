@@ -12,7 +12,7 @@ import {
   type GeoLocation,
   type BroadcastMessage,
   type CommunicationChannel,
-} from '@nurisk/sdk/awareness'
+} from '@nurisk/sdk'
 
 export type {
   Asset,

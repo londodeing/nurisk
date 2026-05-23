@@ -18,6 +18,7 @@ interface TransportLog {
 }
 
 const transportLogs: TransportLog[] = [];
+const MAX_TRANSPORT_LOGS = 200;
 
 /**
  * Log API request
@@ -32,6 +33,9 @@ export function logRequest(method: string, url: string): void {
     url,
   };
   
+  if (transportLogs.length >= MAX_TRANSPORT_LOGS) {
+    transportLogs.splice(0, Math.floor(MAX_TRANSPORT_LOGS / 4));
+  }
   transportLogs.push(log);
   console.log(`[API REQUEST] ${method} ${url}`);
 }
@@ -56,6 +60,9 @@ export function logResponse(
     duration,
   };
   
+  if (transportLogs.length >= MAX_TRANSPORT_LOGS) {
+    transportLogs.splice(0, Math.floor(MAX_TRANSPORT_LOGS / 4));
+  }
   transportLogs.push(log);
   
   if (status >= 400) {
@@ -85,6 +92,9 @@ export function logApiError(
     duration,
   };
   
+  if (transportLogs.length >= MAX_TRANSPORT_LOGS) {
+    transportLogs.splice(0, Math.floor(MAX_TRANSPORT_LOGS / 4));
+  }
   transportLogs.push(log);
   console.error(`[API ERROR] ${method} ${url} - ${error}${duration ? ` (${duration}ms)` : ''}`);
 }

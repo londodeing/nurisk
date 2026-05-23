@@ -10,7 +10,6 @@ import {
   useAuditLogs,
   type AuditFilters as AuditFilterParams,
   type AuditLogEntry,
-  MOCK_AUDIT_LOGS,
 } from '@/hooks/use-audit-log';
 
 export default function AuditLogPage() {
@@ -21,20 +20,18 @@ export default function AuditLogPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const limit = 50;
 
-  // Check admin role (mock - in real app, check from auth context)
+  // TODO: Check admin role from auth context
   const isAdmin = true;
 
   // Fetch audit logs
   const { data, isLoading, error: _error } = useAuditLogs(filters, page, limit);
 
-  // Use mock data if API fails or no data
   const auditData = useMemo(() => {
-    if (data?.data && data.data.length > 0) return data.data;
-    return MOCK_AUDIT_LOGS;
+    return data?.data ?? [];
   }, [data]);
 
-  const totalPages = data?.totalPages || Math.ceil(MOCK_AUDIT_LOGS.length / limit);
-  const total = data?.total || MOCK_AUDIT_LOGS.length;
+  const totalPages = data?.totalPages || Math.ceil((data?.total || 0) / limit) || 1;
+  const total = data?.total || auditData.length;
 
   // Redirect if not admin
   useEffect(() => {

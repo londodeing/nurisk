@@ -17,7 +17,6 @@ import {
   useCommunicationChannels,
   useBroadcasts,
   useTimeline,
-  MOCK_TACTICAL_DATA,
 } from '@/hooks/use-awareness';
 import type { Asset, Incident, Volunteer } from '@/services/awarenessService';
 import { sendBroadcast } from '@/services/awarenessService';
@@ -50,15 +49,14 @@ export function TacticalView({
   const { data: broadcasts, isLoading: broadcastsLoading } = useBroadcasts();
   const { data: timeline, isLoading: timelineLoading } = useTimeline(24);
 
-  // Use mock data in development if API fails
-  const assetList = assets ?? MOCK_TACTICAL_DATA.assets;
-  const incidentList = incidents ?? MOCK_TACTICAL_DATA.incidents;
-  const volunteerList = volunteers ?? MOCK_TACTICAL_DATA.volunteers;
-  const routeList = routes ?? MOCK_TACTICAL_DATA.evacuationRoutes;
-  const zoneList = zones ?? MOCK_TACTICAL_DATA.exclusionZones;
-  const channelList = channels ?? MOCK_TACTICAL_DATA.channels;
-  const broadcastList = broadcasts ?? MOCK_TACTICAL_DATA.broadcasts;
-  const timelineList = timeline ?? MOCK_TACTICAL_DATA.timeline;
+  const assetList = assets ?? [];
+  const incidentList = incidents ?? [];
+  const volunteerList = volunteers ?? [];
+  const routeList = routes ?? [];
+  const zoneList = zones ?? [];
+  const channelList = channels ?? [];
+  const broadcastList = broadcasts ?? [];
+  const timelineList = timeline ?? [];
 
   const isLoading =
     tacticalLoading ||

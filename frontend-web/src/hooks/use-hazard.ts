@@ -11,11 +11,6 @@ import type { DisasterType } from '@nurisk/shared-types/enums';
 // Re-export for convenience
 export type { HazardZone };
 
-// Mock data for development fallback
-const MOCK_HAZARD_ZONES: HazardZone[] = [];
-const MOCK_VULNERABILITY_DATA: VulnerabilityAssessment[] = [];
-const MOCK_VULNERABILITY_HEATMAP: { regionId: string; hazards: { hazardType: string; vulnerabilityIndex: number }[] }[] = [];
-
 /**
  * Query keys
  */
@@ -51,13 +46,7 @@ export function useHazardZones(filters?: {
 }) {
   return useQuery({
     queryKey: hazardKeys.zones(filters),
-    queryFn: async () => {
-      try {
-        return await hazardApi.getZones(filters);
-      } catch {
-        return MOCK_HAZARD_ZONES;
-      }
-    },
+    queryFn: () => hazardApi.getZones(filters),
   });
 }
 
@@ -67,13 +56,7 @@ export function useHazardZones(filters?: {
 export function useHazardZone(id: number) {
   return useQuery({
     queryKey: hazardKeys.zone(id),
-    queryFn: async () => {
-      try {
-        return await hazardApi.getZoneById(String(id));
-      } catch {
-        return MOCK_HAZARD_ZONES.find((z) => z.id === id);
-      }
-    },
+    queryFn: () => hazardApi.getZoneById(String(id)),
     enabled: !!id,
   });
 }
@@ -132,13 +115,7 @@ export function useVulnerabilityAssessments(filters?: {
 }) {
   return useQuery({
     queryKey: hazardKeys.vulnerability(filters),
-    queryFn: async () => {
-      try {
-        return await hazardApi.getVulnerability(filters);
-      } catch {
-        return MOCK_VULNERABILITY_DATA;
-      }
-    },
+    queryFn: () => hazardApi.getVulnerability(filters),
   });
 }
 
@@ -148,15 +125,7 @@ export function useVulnerabilityAssessments(filters?: {
 export function useVulnerabilityByRegion(regionId: string, hazardType: string) {
   return useQuery({
     queryKey: hazardKeys.vulnerabilityRegion(regionId, hazardType),
-    queryFn: async () => {
-      try {
-        return await hazardApi.getVulnerabilityByRegion(regionId, hazardType);
-      } catch {
-        return (MOCK_VULNERABILITY_DATA as any[]).find(
-          (v: any) => v.regionId === regionId,
-        );
-      }
-    },
+    queryFn: () => hazardApi.getVulnerabilityByRegion(regionId, hazardType),
     enabled: !!regionId && !!hazardType,
   });
 }
@@ -167,13 +136,7 @@ export function useVulnerabilityByRegion(regionId: string, hazardType: string) {
 export function useVulnerabilityHeatmap() {
   return useQuery({
     queryKey: hazardKeys.heatmap(),
-    queryFn: async () => {
-      try {
-        return await hazardApi.getHeatmap();
-      } catch {
-        return MOCK_VULNERABILITY_HEATMAP;
-      }
-    },
+    queryFn: () => hazardApi.getHeatmap(),
   });
 }
 
@@ -184,13 +147,7 @@ export function useVulnerabilityHeatmap() {
 export function useVulnerabilitySummary() {
   return useQuery({
     queryKey: hazardKeys.summary(),
-    queryFn: async () => {
-      try {
-        return await hazardApi.getVulnerability();
-      } catch {
-        return MOCK_VULNERABILITY_DATA;
-      }
-    },
+    queryFn: () => hazardApi.getVulnerability(),
   });
 }
 
@@ -239,9 +196,9 @@ export function useHazardVulnerabilityData() {
   const { data: heatmap, isLoading: heatmapLoading, isError: heatmapError } = useVulnerabilityHeatmap();
 
   return {
-    hazardZones: hazardZones ?? MOCK_HAZARD_ZONES,
-    vulnerability: vulnerability ?? MOCK_VULNERABILITY_DATA,
-    heatmap: heatmap ?? MOCK_VULNERABILITY_HEATMAP,
+    hazardZones: hazardZones ?? [],
+    vulnerability: vulnerability ?? [],
+    heatmap: heatmap ?? [],
     isLoading: hazardLoading || vulnLoading || heatmapLoading,
     isError: hazardError || vulnError || heatmapError,
   };

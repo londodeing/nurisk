@@ -4,7 +4,6 @@ import { useState } from 'react';
 import { RefreshCw } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useBriefingData, useBriefing } from '@/hooks/use-briefing';
-import { MOCK_BRIEFING, MOCK_INCIDENT_BRIEFS } from '@/services/briefingService';
 import { SituationSummaryComponent } from './SituationSummary';
 import { KPIDashboard } from './KPIDashboard';
 import { IncidentBriefCards } from './IncidentBriefCards';
@@ -20,9 +19,8 @@ export function ExecutiveBriefing({ className }: ExecutiveBriefingProps) {
   const { data, isLoading, isError } = useBriefingData();
   const { data: briefing, refetch, isRefetching } = useBriefing(period);
 
-  // Use mock data in development if API fails
-  const briefingData = briefing ?? MOCK_BRIEFING;
-  const incidentData = data?.incidents ?? MOCK_INCIDENT_BRIEFS;
+  const briefingData = briefing ?? ({} as any);
+  const incidentData = data?.incidents ?? [];
 
   return (
     <div className={cn('space-y-6', className)}>

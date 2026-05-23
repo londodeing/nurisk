@@ -94,8 +94,8 @@ export class TrendAnalysisService {
         value: parseInt(row.count),
       }));
     } catch (error) {
-      this.logger.warn(`Failed to get time series data: ${error}`);
-      return this.generateMockData(days);
+      this.logger.error(`Failed to get time series data: ${error}`);
+      throw error;
     }
   }
 
@@ -303,24 +303,5 @@ export class TrendAnalysisService {
     return overallVariance > 0 ? weeklyVariance / overallVariance : 0;
   }
 
-  /**
-   * Generate mock data
-   */
-  private generateMockData(days: number): { date: Date; value: number }[] {
-    const data: { date: Date; value: number }[] = [];
-    const baseValue = 10;
 
-    for (let i = days; i >= 0; i--) {
-      const date = new Date();
-      date.setDate(date.getDate() - i);
-
-      const dayOfWeek = date.getDay();
-      const weekendBoost = dayOfWeek === 0 || dayOfWeek === 6 ? 1.3 : 1;
-      const value = Math.round(baseValue * weekendBoost * (0.8 + Math.random() * 0.4));
-
-      data.push({ date, value });
-    }
-
-    return data;
-  }
 }

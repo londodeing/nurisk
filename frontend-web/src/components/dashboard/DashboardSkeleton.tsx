@@ -4,55 +4,41 @@ interface DashboardSkeletonProps {
   variant?: 'full' | 'compact';
 }
 
-export function DashboardSkeleton({ variant = 'full' }: DashboardSkeletonProps) {
+export function DashboardSkeleton(_props: DashboardSkeletonProps) {
   return (
     <div className="space-y-4">
-      {/* KPI Cards Row */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map(i => (
           <Card key={i}>
             <CardContent className="p-4">
-              <div className="h-4 bg-slate-200 rounded w-20 mb-2"></div>
-              <div className="h-8 bg-slate-200 rounded w-16"></div>
+              <div className="h-4 bg-slate-200 rounded w-20 mb-2 animate-pulse"></div>
+              <div className="h-8 bg-slate-200 rounded w-16 animate-pulse"></div>
             </CardContent>
           </Card>
         ))}
       </div>
 
-      {/* Map Preview */}
-      {variant === 'full' && (
-        <Card>
-          <CardContent className="p-4">
-            <div className="h-64 bg-slate-200 rounded"></div>
-          </CardContent>
-        </Card>
-      )}
+      <Card>
+        <CardContent className="p-4">
+          <div className="h-6 bg-slate-200 rounded w-24 mb-4 animate-pulse"></div>
+          <div className="flex gap-3 overflow-hidden">
+            {[1, 2, 3].map(i => (
+              <div key={i} className="flex-shrink-0 w-32 h-32 bg-slate-200 rounded-lg animate-pulse"></div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
-      {/* Recent Alerts */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {[1, 2].map(i => (
-          <Card key={i}>
-            <CardContent className="p-4">
-              <div className="h-4 bg-slate-200 rounded w-24 mb-2"></div>
-              <div className="h-3 bg-slate-200 rounded w-full mb-1"></div>
-              <div className="h-3 bg-slate-200 rounded w-2/3"></div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
+      <Card>
+        <CardContent className="p-4">
+          <div className="h-5 bg-slate-200 rounded w-32 mb-3 animate-pulse"></div>
+          {[1, 2, 3].map(i => (
+            <div key={i} className="h-14 bg-slate-200 rounded mb-2 animate-pulse"></div>
+          ))}
+        </CardContent>
+      </Card>
     </div>
   );
 }
-
-// Shimmer animation CSS (add to index.css if needed)
-// .animate-shimmer {
-//   background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-//   background-size: 200% 100%;
-//   animation: shimmer 1.5s infinite;
-// }
-// @keyframes shimmer {
-//   0% { background-position: 200% 0; }
-//   100% { background-position: -200% 0; }
-// }
 
 export default DashboardSkeleton;

@@ -1,7 +1,7 @@
 // Risk Registry Service - SDK wrapper for backward compatibility
 // Uses canonical types from @nurisk/shared-types and SDK from @nurisk/sdk
 
-import { RiskRegistryApi } from '@nurisk/sdk/risk-registry'
+import { RiskRegistryApi } from '@nurisk/sdk'
 import type {
   Risk,
   RiskMatrixCell,

@@ -1,17 +1,16 @@
-import { useState, useCallback, useEffect, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import * as L from 'leaflet';
-import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-
+import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
-import { Layers, Home, Cloud, Flame, AlertTriangle, MapPin, Search, Crosshair, X } from 'lucide-react';
+import { Layers, Search, Crosshair, X, ChevronDown, ChevronUp, AlertTriangle, MapPin } from 'lucide-react';
+import { wmsLayersConfig, WmsLayerItem } from '@/components/map/WmsOverlay';
 import { useIncidents } from '@/hooks/use-incidents';
+import { useBmkgEarthquakes } from '@/hooks/use-bmkg';
 import api from '@/services/api';
-import type { Incident, PriorityLevel } from '@nurisk/shared-types/incident';
+import type { PriorityLevel } from '@nurisk/shared-types/incident';
 import 'leaflet/dist/leaflet.css';
 
-// Canonical severity colors
 const severityColors: Record<PriorityLevel, string> = {
   CRITICAL: '#ef4444',
   HIGH: '#f97316',
@@ -23,59 +22,79 @@ const INDONESIA_CENTER: [number, number] = [-7.5755, 110.8243];
 const DEFAULT_ZOOM = 10;
 
 export default function PublicMap() {
-  const [, setSelectedIncident] = useState<Incident | null>(null);
-  const [isFullscreen, setIsFullscreen] = useState(false);
-  const [layers, setLayers] = useState({
-    incidents: true,
-    shelters: false,
-    weather: false,
-    heatmap: false,
-  });
+  const [layerPanelOpen, setLayerPanelOpen] = useState(false);
+  const [legendOpen, setLegendOpen] = useState(false);
+  const [layers, setLayers] = useState(wmsLayersConfig.map(l => ({ ...l })));
+  const [showIncidents, setShowIncidents] = useState(true);
+  const [showEarthquakes, setShowEarthquakes] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<{lat: number; lng: number; name: string}[]>([]);
+  const [searchResults, setSearchResults] = useState<{ lat: number; lng: number; name: string }[]>([]);
   const [showSearch, setShowSearch] = useState(false);
+  const mapRef = useRef<L.Map | null>(null);
   const mapDivRef = useRef<HTMLDivElement>(null);
-  const mapInstanceRef = useRef<L.Map | null>(null);
   const markerLayerRef = useRef<L.LayerGroup | null>(null);
+  const earthquakeLayerRef = useRef<L.LayerGroup | null>(null);
+  const wmsLayersRef = useRef<L.TileLayer[]>([]);
 
   const { data: incidentsData, isLoading } = useIncidents({ status: 'REPORTED' });
+  const { earthquakes } = useBmkgEarthquakes();
 
-  // Initialize Leaflet map (only once, guarded by ref)
+  // Initialize map once (imperative, guarded by ref — safe in Strict Mode)
   useEffect(() => {
-    if (!mapDivRef.current || mapInstanceRef.current) return;
+    if (!mapDivRef.current || mapRef.current) return;
 
     const map = L.map(mapDivRef.current, {
       center: INDONESIA_CENTER,
       zoom: DEFAULT_ZOOM,
       scrollWheelZoom: true,
+      zoomControl: true,
     });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
-    mapInstanceRef.current = map;
+    mapRef.current = map;
+    markerLayerRef.current = L.layerGroup().addTo(map);
+    earthquakeLayerRef.current = L.layerGroup().addTo(map);
 
-    // Cleanup: destroy map on unmount to prevent memory leaks
+    // Add WMS layers
+    layers.forEach(layer => {
+      if (layer.visible) {
+        const wms = L.tileLayer.wms('https://inarisk1.bnpb.go.id:8443/geoserver/raster/wms', {
+          layers: layer.layerName,
+          format: layer.format,
+          transparent: layer.transparent,
+          opacity: layer.opacity,
+          version: '1.1.1',
+          styles: layer.styles,
+        }).addTo(map);
+        wmsLayersRef.current.push(wms);
+      }
+    });
+
     return () => {
       map.remove();
-      mapInstanceRef.current = null;
+      mapRef.current = null;
+      markerLayerRef.current = null;
+      earthquakeLayerRef.current = null;
+      wmsLayersRef.current = [];
     };
+    // Only run once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Update markers when incident data changes
+  // Update incident markers when data changes
   useEffect(() => {
-    const map = mapInstanceRef.current;
-    if (!map || !layers.incidents) return;
+    const markerLayer = markerLayerRef.current;
+    if (!markerLayer || !mapRef.current) return;
 
-    if (markerLayerRef.current) {
-      markerLayerRef.current.clearLayers();
-    } else {
-      markerLayerRef.current = L.layerGroup().addTo(map);
-    }
+    markerLayer.clearLayers();
+
+    if (!showIncidents) return;
 
     const incidents = incidentsData?.items || [];
-    incidents.forEach(incident => {
+    incidents.forEach((incident) => {
       const color = severityColors[incident.severity] || '#6b7280';
       const marker = L.circleMarker([incident.location.lat, incident.location.lng], {
         radius: 8,
@@ -93,24 +112,89 @@ export default function PublicMap() {
             <span style="background:${color};color:white;padding:2px 8px;border-radius:4px;font-size:12px">${incident.severity}</span>
             <span style="font-size:12px">${incident.type}</span>
           </div>
-          <a href="/incidents/${incident.id}" style="color:#006432;font-size:13px;margin-top:8px;display:block">Lihat Detail →</a>
         </div>
       `);
 
-      marker.on('click', () => setSelectedIncident(incident));
-      markerLayerRef.current?.addLayer(marker);
+      markerLayer.addLayer(marker);
     });
-  }, [incidentsData, layers.incidents]);
+  }, [incidentsData, showIncidents]);
 
-  const toggleFullscreen = useCallback(() => {
-    setIsFullscreen(prev => !prev);
+  // Update BMKG earthquake markers
+  useEffect(() => {
+    const eqLayer = earthquakeLayerRef.current;
+    if (!eqLayer || !mapRef.current) return;
+
+    eqLayer.clearLayers();
+
+    if (!showEarthquakes) return;
+
+    earthquakes.forEach((quake) => {
+      const magColor = quake.magnitude < 3 ? '#22c55e' :
+        quake.magnitude < 5 ? '#eab308' :
+        quake.magnitude < 7 ? '#f97316' : '#dc2626';
+      const radius = quake.magnitude < 3 ? 8 :
+        quake.magnitude < 5 ? 12 :
+        quake.magnitude < 7 ? 16 : 24;
+
+      const marker = L.circleMarker([quake.lat, quake.lon], {
+        radius,
+        fillColor: magColor,
+        color: '#ffffff',
+        weight: 2,
+        fillOpacity: 0.9,
+      });
+
+      marker.bindPopup(`
+        <div style="min-width:200px">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:36px;height:36px;border-radius:50%;background:${magColor};display:flex;align-items:center;justify-content:center;color:white;font-weight:bold;font-size:13px">${quake.magnitude.toFixed(1)}</div>
+            <div>
+              <p style="font-weight:600;font-size:13px;margin:0">Gempa Bumi</p>
+              <p style="font-size:11px;color:#64748b;margin:0">${new Date(quake.dateTime).toLocaleDateString('id-ID', { day:'numeric', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' })}</p>
+            </div>
+          </div>
+          <p style="font-size:12px;margin:2px 0"><strong>Lokasi:</strong> ${quake.location}</p>
+          <p style="font-size:12px;margin:2px 0"><strong>Kedalaman:</strong> ${quake.depth} km</p>
+          <p style="font-size:12px;margin:2px 0"><strong>Magnitudo:</strong> ${quake.magnitude.toFixed(1)} SR</p>
+          ${quake.potentialTsunami === 'tsunami' ? '<div style="display:flex;align-items:center;gap:4px;margin-top:6px;color:#dc2626;font-weight:600;font-size:12px">⚠️ POTENSI TSUNAMI</div>' : ''}
+        </div>
+      `);
+
+      eqLayer.addLayer(marker);
+    });
+  }, [earthquakes, showEarthquakes]);
+
+  // Update WMS layers when toggled/opacity changes
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+
+    // Remove existing WMS layers
+    wmsLayersRef.current.forEach(wms => map.removeLayer(wms));
+    wmsLayersRef.current = [];
+
+    // Add active WMS layers
+    layers.filter(l => l.visible).forEach(layer => {
+      const wms = L.tileLayer.wms('https://inarisk1.bnpb.go.id:8443/geoserver/raster/wms', {
+        layers: layer.layerName,
+        format: layer.format,
+        transparent: layer.transparent,
+        opacity: layer.opacity,
+        version: '1.1.1',
+        styles: layer.styles,
+      }).addTo(map);
+      wmsLayersRef.current.push(wms);
+    });
+  }, [layers]);
+
+  const handleLayerToggle = useCallback((id: string) => {
+    setLayers(prev => prev.map(l => l.id === id ? { ...l, visible: !l.visible } : l));
   }, []);
 
-  const toggleLayer = useCallback((layer: string) => {
-    setLayers(prev => ({ ...prev, [layer]: !prev[layer as keyof typeof prev] }));
+  const handleOpacityChange = useCallback((id: string, opacity: number) => {
+    setLayers(prev => prev.map(l => l.id === id ? { ...l, opacity } : l));
   }, []);
 
-  // Search location
   const handleSearch = useCallback(async (query: string) => {
     if (query.length < 3) {
       setSearchResults([]);
@@ -119,27 +203,23 @@ export default function PublicMap() {
     try {
       const res = await api.get('/locations/search', { params: { q: query } });
       setSearchResults(res.data.results || []);
-    } catch (error) {
-      console.error('Search error:', error);
+    } catch {
+      setSearchResults([]);
     }
   }, []);
 
-  // Current location
   const handleCurrentLocation = useCallback(() => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position) => {
           const { latitude, longitude } = position.coords;
-          mapInstanceRef.current?.flyTo([latitude, longitude], 14);
+          mapRef.current?.flyTo([latitude, longitude], 14);
         },
-        (error) => {
-          console.error('Geolocation error:', error);
-        }
+        () => {}
       );
     }
   }, []);
 
-  // Apply search query with debounce
   useEffect(() => {
     const timer = setTimeout(() => {
       if (searchQuery) handleSearch(searchQuery);
@@ -147,168 +227,191 @@ export default function PublicMap() {
     return () => clearTimeout(timer);
   }, [searchQuery, handleSearch]);
 
+  const visibleWmsLayers = layers.filter(l => l.visible);
+
   return (
-    <div className={`${isFullscreen ? 'fixed inset-0 z-50' : 'min-h-screen'} bg-slate-50`}>
-      {/* Header */}
-      <header className="bg-nu-green text-white p-4 shadow-lg">
-        <div className="container mx-auto flex justify-between items-center">
-          <div className="flex items-center gap-4">
-            <Link to="/" className="hover:underline">← Kembali</Link>
-            <h1 className="text-xl font-bold">Peta Wilayah Jawa Tengah</h1>
-          </div>
-          <nav className="flex gap-4">
-            <Link to="/lapor" className="hover:underline">Lapor</Link>
-            <Link to="/login" className="hover:underline">Masuk</Link>
-          </nav>
+    <div className="relative h-[calc(100vh-3.5rem-5rem)] md:h-[calc(100vh-3.5rem)] w-full">
+      {/* Map container */}
+      <div ref={mapDivRef} className="h-full w-full" />
+
+      {isLoading && (
+        <div className="absolute inset-0 z-[1000] bg-white/50 flex items-center justify-center pointer-events-none">
+          <span className="text-sm text-slate-500 bg-white px-4 py-2 rounded-lg shadow">Memuat data...</span>
         </div>
-      </header>
+      )}
 
-      {/* Map Container */}
-      <div className="relative h-[calc(100vh-64px)]">
-        <div ref={mapDivRef} className="h-full w-full" />
+      {/* Search Box */}
+      <div className="absolute top-3 left-3 z-[1000] w-56 md:w-72">
+        <div className="relative">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Input
+            type="text"
+            placeholder="Cari lokasi..."
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            onFocus={() => setShowSearch(true)}
+            className="pl-9 pr-9 h-9 text-sm bg-white/95 shadow-sm border-slate-300"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => { setSearchQuery(''); setSearchResults([]); }}
+              className="absolute right-3 top-1/2 -translate-y-1/2"
+            >
+              <X className="w-3.5 h-3.5 text-slate-400" />
+            </button>
+          )}
+          {showSearch && searchResults.length > 0 && (
+            <Card className="absolute top-full mt-1 w-full max-h-48 overflow-auto shadow-lg">
+              <CardContent className="p-1">
+                {searchResults.map((result, i) => (
+                  <button
+                    key={i}
+                    onClick={() => {
+                      mapRef.current?.flyTo([result.lat, result.lng], 14);
+                      setShowSearch(false);
+                      setSearchQuery(result.name);
+                      setSearchResults([]);
+                    }}
+                    className="w-full text-left px-3 py-2 hover:bg-slate-100 rounded text-sm flex items-center gap-2"
+                  >
+                    <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                    {result.name}
+                  </button>
+                ))}
+              </CardContent>
+            </Card>
+          )}
+        </div>
+      </div>
 
-        {/* Layer Controls */}
-        <Card className="absolute top-4 right-4 z-[1000] w-36">
-          <CardContent className="p-2">
-            <div className="flex items-center gap-2 mb-2 text-sm font-semibold">
-              <Layers className="w-4 h-4" />
-              Layers
-            </div>
+      {/* Geolocation Button */}
+      <button
+        onClick={handleCurrentLocation}
+        className="absolute top-3 left-60 md:left-80 z-[1000] p-2 bg-white/95 rounded-lg shadow-sm hover:bg-white border border-slate-200"
+        title="Lokasi saya"
+      >
+        <Crosshair className="w-4 h-4 text-slate-600" />
+      </button>
+
+      {/* Layer Control - FAB toggle */}
+      <div className="absolute top-3 right-3 z-[1000] flex flex-col gap-2">
+        <button
+          onClick={() => setLayerPanelOpen(!layerPanelOpen)}
+          className={`p-2.5 rounded-full shadow-md transition-all duration-200 ${
+            layerPanelOpen ? 'bg-nu-green text-white' : 'bg-white text-slate-700 hover:bg-slate-100'
+          } border border-slate-200`}
+          title="Layer Control"
+        >
+          {layerPanelOpen ? <ChevronDown className="w-5 h-5" /> : <Layers className="w-5 h-5" />}
+        </button>
+      </div>
+
+      {/* Layer Panel */}
+      {layerPanelOpen && (
+        <div className="absolute top-14 right-3 z-[1000] w-64 max-h-[70vh] overflow-y-auto bg-white rounded-xl shadow-xl border border-slate-200 p-3 space-y-3">
+          <div>
+            <p className="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wider flex items-center gap-2">
+              <Layers className="w-3.5 h-3.5" />
+              InaRISK BNPB
+            </p>
             <div className="space-y-1">
-              <button
-                onClick={() => toggleLayer('incidents')}
-                className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-sm ${
-                  layers.incidents ? 'bg-nu-green text-white' : 'bg-slate-100'
-                }`}
-              >
-                <MapPin className="w-4 h-4" />
-                Kejadian
-              </button>
-              <button
-                onClick={() => toggleLayer('shelters')}
-                className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-sm ${
-                  layers.shelters ? 'bg-nu-green text-white' : 'bg-slate-100'
-                }`}
-              >
-                <Home className="w-4 h-4" />
-                Posko
-              </button>
-              <button
-                onClick={() => toggleLayer('weather')}
-                className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-sm ${
-                  layers.weather ? 'bg-nu-green text-white' : 'bg-slate-100'
-                }`}
-              >
-                <Cloud className="w-4 h-4" />
-                Cuaca
-              </button>
-              <button
-                onClick={() => toggleLayer('heatmap')}
-                className={`w-full flex items-center gap-2 px-2 py-1.5 rounded text-sm ${
-                  layers.heatmap ? 'bg-nu-green text-white' : 'bg-slate-100'
-                }`}
-              >
-                <Flame className="w-4 h-4" />
-                Heatmap
-              </button>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Legend */}
-        <Card className="absolute bottom-4 left-4 z-[1000] w-36">
-          <CardContent className="p-3">
-            <p className="font-semibold mb-2 text-sm">Severity</p>
-            <div className="space-y-1">
-              {Object.entries(severityColors).map(([severity, color]) => (
-                <div key={severity} className="flex items-center gap-2">
-                  <div
-                    className="w-3 h-3 rounded-full"
-                    style={{ backgroundColor: color }}
-                  />
-                  <span className="text-sm">{severity}</span>
-                </div>
+              {layers.map(layer => (
+                <WmsLayerItem
+                  key={layer.id}
+                  layer={layer}
+                  onToggle={handleLayerToggle}
+                  onOpacityChange={handleOpacityChange}
+                />
               ))}
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Search Box */}
-        <div className="absolute top-4 left-4 z-[1000] w-64">
-          <div className="relative">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-            <Input
-              type="text"
-              placeholder="Cari lokasi..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onFocus={() => setShowSearch(true)}
-              className="pl-10 pr-10"
-            />
-            {searchQuery && (
-              <button
-                onClick={() => { setSearchQuery(''); setSearchResults([]); }}
-                className="absolute right-3 top-1/2 -translate-y-1/2"
-              >
-                <X className="w-4 h-4 text-slate-400" />
-              </button>
-            )}
-            {/* Search Results */}
-            {showSearch && searchResults.length > 0 && (
-              <Card className="absolute top-full mt-1 w-full max-h-48 overflow-auto">
-                <CardContent className="p-1">
-                  {searchResults.map((result, i) => (
-                    <button
-                      key={i}
-                      onClick={() => {
-                        mapInstanceRef.current?.flyTo([result.lat, result.lng], 14);
-                        setShowSearch(false);
-                        setSearchQuery(result.name);
-                        setSearchResults([]);
-                      }}
-                      className="w-full text-left px-3 py-2 hover:bg-slate-100 rounded text-sm"
-                    >
-                      {result.name}
-                    </button>
-                  ))}
-                </CardContent>
-              </Card>
-            )}
+          </div>
+          <div className="border-t border-slate-100 pt-3">
+            <p className="text-xs font-semibold text-slate-500 mb-2 uppercase tracking-wider">LAYER LAIN</p>
+            <button
+              onClick={() => setShowIncidents(!showIncidents)}
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                showIncidents ? 'bg-nu-green/10 text-nu-green font-medium' : 'text-slate-600 hover:bg-slate-50'
+              }`}
+            >
+              <MapPin className="w-4 h-4" />
+              Kejadian Bencana
+            </button>
+            <button
+              onClick={() => setShowEarthquakes(!showEarthquakes)}
+              className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-colors ${
+                showEarthquakes ? 'bg-orange-100 text-orange-700 font-medium' : 'text-slate-600 hover:bg-slate-50'
+              }`}
+            >
+              <AlertTriangle className="w-4 h-4" />
+              Gempa Bumi (BMKG)
+              {showEarthquakes && earthquakes.length > 0 && (
+                <span className="ml-auto text-xs bg-orange-200 text-orange-800 px-1.5 py-0.5 rounded-full">{earthquakes.length}</span>
+              )}
+            </button>
           </div>
         </div>
+      )}
 
-        {/* Current Location Button */}
+      {/* Legend */}
+      <div className="absolute bottom-4 left-3 z-[1000]">
         <button
-          onClick={handleCurrentLocation}
-          className="absolute top-4 left-72 z-[1000] p-2 bg-white rounded-lg shadow-md hover:bg-slate-100"
-          title="Lokasi saya"
+          onClick={() => setLegendOpen(!legendOpen)}
+          className="flex items-center gap-1.5 px-3 py-2 bg-white/95 rounded-lg shadow-sm border border-slate-200 text-xs font-medium text-slate-700 hover:bg-white"
         >
-          <Crosshair className="w-5 h-5 text-slate-600" />
+          {legendOpen ? <ChevronDown className="w-3.5 h-3.5" /> : <ChevronUp className="w-3.5 h-3.5" />}
+          Legenda
         </button>
-
-        {/* Fullscreen Toggle */}
-        <button
-          onClick={toggleFullscreen}
-          className="absolute top-4 left-[340px] z-[1000] p-2 bg-white rounded-lg shadow-md hover:bg-slate-100"
-        >
-          {isFullscreen ? 'Exit' : 'Fullscreen'}
-        </button>
-
-        {isLoading && (
-          <div className="absolute inset-0 z-[1000] bg-white/50 flex items-center justify-center text-sm text-slate-500">
-            Memuat data...
-          </div>
+        {legendOpen && (
+          <Card className="mt-1 w-48 shadow-lg">
+            <CardContent className="p-3">
+              <p className="text-xs font-semibold text-slate-500 mb-2 uppercase">Tingkat Keparahan</p>
+              <div className="space-y-1.5">
+                {Object.entries(severityColors).map(([severity, color]) => (
+                  <div key={severity} className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
+                    <span className="text-xs text-slate-700">{severity}</span>
+                  </div>
+                ))}
+              </div>
+              {showEarthquakes && earthquakes.length > 0 && (
+                <>
+                  <div className="border-t border-slate-100 my-2" />
+                  <p className="text-xs font-semibold text-slate-500 mb-2 uppercase">Magnitudo Gempa</p>
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full" style={{backgroundColor:'#22c55e'}} /><span className="text-xs text-slate-700">&lt; 3.0</span></div>
+                    <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full" style={{backgroundColor:'#eab308'}} /><span className="text-xs text-slate-700">3.0 - 5.0</span></div>
+                    <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full" style={{backgroundColor:'#f97316'}} /><span className="text-xs text-slate-700">5.0 - 7.0</span></div>
+                    <div className="flex items-center gap-2"><div className="w-3 h-3 rounded-full" style={{backgroundColor:'#dc2626'}} /><span className="text-xs text-slate-700">&gt; 7.0</span></div>
+                  </div>
+                </>
+              )}
+              {visibleWmsLayers.length > 0 && (
+                <>
+                  <div className="border-t border-slate-100 my-2" />
+                  <p className="text-xs font-semibold text-slate-500 mb-2 uppercase">InaRISK</p>
+                  <div className="space-y-1.5">
+                    {visibleWmsLayers.map(l => (
+                      <div key={l.id} className="flex items-center gap-2">
+                        <div className="w-3 h-3 rounded" style={{ backgroundColor: l.color, opacity: l.opacity }} />
+                        <span className="text-xs text-slate-700">{l.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
         )}
       </div>
 
       {/* Report CTA */}
-      <div className="fixed bottom-6 right-6 z-[1000]">
-        <Link to="/lapor">
-          <Button size="lg" className="bg-nu-green hover:bg-nu-green/90">
+      <div className="fixed bottom-20 md:bottom-6 right-4 z-[1000]">
+        <a href="/lapor">
+          <Button size="lg" className="bg-nu-green hover:bg-nu-green/90 shadow-lg shadow-nu-green/30 rounded-full">
             <AlertTriangle className="w-5 h-5 mr-2" />
-            LAPOR BENCANA
+            LAPOR
           </Button>
-        </Link>
+        </a>
       </div>
     </div>
   );

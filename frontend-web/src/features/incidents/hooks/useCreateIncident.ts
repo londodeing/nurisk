@@ -9,6 +9,8 @@ export function useCreateIncident() {
     mutationFn: (data: CreateIncidentRequest) => sdk.incidents.create(data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['incidents', 'list'] });
+      queryClient.invalidateQueries({ queryKey: ['incidents', 'stats'] });
+      queryClient.invalidateQueries({ queryKey: ['incidents', 'map'] });
     },
   });
 }

@@ -12,15 +12,16 @@ if ('serviceWorker' in navigator) {
   })
 }
 
-// Create QueryClient with default options (moved from lib/query.ts)
+// Create QueryClient with canonical defaults
+// PHASE-07Y: disabled aggressive refetch to prevent query storm
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 5 * 60 * 1000,
-      gcTime: 30 * 60 * 1000,
-      retry: 3,
-      refetchOnWindowFocus: true,
-      refetchOnReconnect: true,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: 1,
+      staleTime: 60000,
+      gcTime: 300000,
     },
     mutations: {
       retry: 1,

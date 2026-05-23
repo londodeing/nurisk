@@ -1,6 +1,6 @@
 // Safe Validator - WARN-FIRST, FAIL-LATER
 // Uses safeParse (no crash) in stabilization phase
-import { ZodType, ZodError, ZodIssue } from 'zod'
+import { ZodType } from 'zod'
 import { ApiContractError, ValidationResult, ContractMetadata } from './errors'
 
 // Environment check
@@ -39,14 +39,12 @@ export function safeParseApiResponse<T>(
     data,
   )
 
-  // Log to console (observable)
-  console.error(`[SDK CONTRACT ERROR] Endpoint: ${options.endpoint}`)
-  issues.forEach((issue) => {
-    console.error(`  - ${issue.path.join('.')}: ${issue.message}`)
-  })
-
-  // DEV mode: always return error, don't crash
   if (isDev) {
+    console.error(`[SDK CONTRACT ERROR] Endpoint: ${options.endpoint}`)
+    issues.forEach((issue) => {
+      console.error(`  - ${issue.path.join('.')}: ${issue.message}`)
+    })
+
     return {
       success: false,
       error,
@@ -54,12 +52,10 @@ export function safeParseApiResponse<T>(
     }
   }
 
-  // Production: only hard-fail on canonical endpoints
   if (options.isCanonical) {
     throw error
   }
 
-  // Non-critical: log + fail gracefully
   return {
     success: false,
     error,

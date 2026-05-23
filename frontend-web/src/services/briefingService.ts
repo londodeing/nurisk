@@ -3,7 +3,7 @@
 
 import {
   BriefingApi,
-} from '@nurisk/sdk/briefing'
+} from '@nurisk/sdk'
 
 import type {
   ExecutiveBriefing,

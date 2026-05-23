@@ -1,0 +1,18 @@
+
+> pusdatin_nu@1.0.0 start:dev
+> ts-node src/main.ts
+
+C:\nurisk\backend\src\auth\auth.module.ts:17
+    throw new Error('JWT_PUBLIC_KEY environment variable is required for RS256 authentication');
+          ^
+Error: JWT_PUBLIC_KEY environment variable is required for RS256 authentication
+    at getJwtSecret (C:\nurisk\backend\src\auth\auth.module.ts:17:11)
+    at Object.<anonymous> (C:\nurisk\backend\src\auth\auth.module.ts:26:15)
+    at Module._compile (node:internal/modules/cjs/loader:1829:14)
+    at node:internal/modules/cjs/loader:1969:10
+    at Object.require.extensions.<computed> [as .js] (C:\nurisk\node_modules\.pnpm\ts-node@10.9.2_@types+node@25.8.0_typescript@6.0.3\node_modules\ts-node\src\index.ts:1608:43)
+    at Module.load (node:internal/modules/cjs/loader:1552:32)
+    at Module._load (node:internal/modules/cjs/loader:1354:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.require (node:internal/modules/cjs/loader:1575:12)
+    at require (node:internal/modules/helpers:191:16)

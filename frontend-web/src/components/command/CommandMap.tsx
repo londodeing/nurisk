@@ -1,9 +1,4 @@
-/**
- * CommandMap Component
- * Tactical real-time map for command center
- */
-
-import { useState } from 'react';
+import { useState, useCallback, memo } from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { Icon } from 'leaflet';
 import { useIncidents } from '@/hooks/use-incidents';
@@ -12,7 +7,6 @@ import { useVolunteers } from '@/hooks/use-volunteers';
 import { cn } from '@/lib/utils';
 import type { Incident, Shelter, Volunteer } from '@nurisk/shared-types';
 
-// Custom marker icons
 const INCIDENT_ICONS: Record<string, Icon> = {
   REPORTED: new Icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png',
@@ -43,9 +37,11 @@ const VOLUNTEER_ICON = new Icon({
   iconAnchor: [12, 41],
 });
 
-// Map bounds for Java (Central Java)
 const DEFAULT_CENTER: [number, number] = [-7.5755, 110.3645];
 const DEFAULT_ZOOM = 9;
+
+const TILE_URL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+const TILE_ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>';
 
 interface MapControlsProps {
   showIncidents: boolean;
@@ -56,7 +52,7 @@ interface MapControlsProps {
   onToggleVolunteers: () => void;
 }
 
-function MapControls({
+const MapControls = memo(function MapControls({
   showIncidents,
   showShelters,
   showVolunteers,
@@ -104,10 +100,9 @@ function MapControls({
       </button>
     </div>
   );
-}
+});
 
-export function CommandMap() {
-  // MUST expose isError for observability
+function CommandMapInner() {
   const { data: incidents, isLoading: incidentsLoading, isError: incidentsError } = useIncidents();
   const { data: shelters, isLoading: sheltersLoading, isError: sheltersError } = useShelters();
   const { data: volunteers, isLoading: volunteersLoading, isError: volunteersError } = useVolunteers();
@@ -117,19 +112,40 @@ export function CommandMap() {
   const [showVolunteers, setShowVolunteers] = useState(true);
   const [_selectedItem, setSelectedItem] = useState<Incident | Shelter | Volunteer | null>(null);
 
-  // Filter incidents by status
   const items = Array.isArray(incidents) ? incidents : incidents?.data ?? [];
   const activeIncidents = items.filter((i) => i.status !== 'COMPLETED' && i.status !== 'REJECTED' && i.status !== 'DISMISSED');
   const pendingIncidents = items.filter((i) => i.status === 'REPORTED' || i.status === 'ASSIGNED' || i.status === 'IN_PROGRESS');
   const resolvedIncidents = items.filter((i) => i.status === 'COMPLETED');
 
-  // Map loading state
   const isMapLoading = incidentsLoading || sheltersLoading || volunteersLoading;
   const isMapError = incidentsError || sheltersError || volunteersError;
 
+  const handleToggleIncidents = useCallback(() => {
+    setShowIncidents((prev) => !prev);
+  }, []);
+
+  const handleToggleShelters = useCallback(() => {
+    setShowShelters((prev) => !prev);
+  }, []);
+
+  const handleToggleVolunteers = useCallback(() => {
+    setShowVolunteers((prev) => !prev);
+  }, []);
+
+  const handleIncidentClick = useCallback((incident: Incident) => {
+    setSelectedItem(incident);
+  }, []);
+
+  const handleShelterClick = useCallback((shelter: Shelter) => {
+    setSelectedItem(shelter);
+  }, []);
+
+  const handleVolunteerClick = useCallback((volunteer: Volunteer) => {
+    setSelectedItem(volunteer);
+  }, []);
+
   return (
     <div className="flex-1 relative bg-slate-900">
-      {/* Map Loading State */}
       {isMapLoading && (
         <div className="absolute inset-0 z-[2000] flex items-center justify-center bg-slate-900/80">
           <div className="text-center">
@@ -139,7 +155,6 @@ export function CommandMap() {
         </div>
       )}
 
-      {/* Map Error State */}
       {isMapError && (
         <div className="absolute top-4 right-4 z-[2000] bg-red-900/90 rounded-lg p-4 max-w-sm">
           <p className="text-white font-medium">Gagal memuat data peta</p>
@@ -148,17 +163,17 @@ export function CommandMap() {
       )}
 
       <MapContainer
+        key="command-map"
         center={DEFAULT_CENTER}
         zoom={DEFAULT_ZOOM}
         className="h-full w-full"
         zoomControl={false}
       >
         <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution={TILE_ATTR}
+          url={TILE_URL}
         />
 
-        {/* Incident Markers */}
         {showIncidents && items.map((incident) => {
           if (!incident.location?.lat || !incident.location?.lng) return null;
           return (
@@ -167,7 +182,7 @@ export function CommandMap() {
               position={[incident.location.lat, incident.location.lng]}
               icon={INCIDENT_ICONS[incident.status] || INCIDENT_ICONS.REPORTED}
               eventHandlers={{
-                click: () => setSelectedItem(incident),
+                click: () => handleIncidentClick(incident),
               }}
             >
               <Popup>
@@ -181,7 +196,6 @@ export function CommandMap() {
           );
         })}
 
-        {/* Shelter Markers */}
         {showShelters && shelters?.map((shelter: any) => {
           if (!shelter.latitude || !shelter.longitude) return null;
           return (
@@ -190,7 +204,7 @@ export function CommandMap() {
               position={[shelter.latitude, shelter.longitude]}
               icon={SHELTER_ICON}
               eventHandlers={{
-                click: () => setSelectedItem(shelter),
+                click: () => handleShelterClick(shelter),
               }}
             >
               <Popup>
@@ -204,7 +218,6 @@ export function CommandMap() {
           );
         })}
 
-        {/* Volunteer Markers */}
         {showVolunteers && (volunteers as unknown as Array<Record<string, unknown>>)
           .filter((v) => v.latitude && v.longitude)
           .map((volunteer) => (
@@ -213,7 +226,7 @@ export function CommandMap() {
               position={[volunteer.latitude as number, volunteer.longitude as number]}
               icon={VOLUNTEER_ICON}
               eventHandlers={{
-                click: () => setSelectedItem(volunteer as unknown as Volunteer),
+                click: () => handleVolunteerClick(volunteer as unknown as Volunteer),
               }}
             >
               <Popup>
@@ -227,17 +240,15 @@ export function CommandMap() {
           ))}
       </MapContainer>
 
-      {/* Map Controls */}
       <MapControls
         showIncidents={showIncidents}
         showShelters={showShelters}
         showVolunteers={showVolunteers}
-        onToggleIncidents={() => setShowIncidents(!showIncidents)}
-        onToggleShelters={() => setShowShelters(!showShelters)}
-        onToggleVolunteers={() => setShowVolunteers(!showVolunteers)}
+        onToggleIncidents={handleToggleIncidents}
+        onToggleShelters={handleToggleShelters}
+        onToggleVolunteers={handleToggleVolunteers}
       />
 
-      {/* Legend */}
       <div className="absolute bottom-4 left-4 z-[1000] bg-slate-800/90 rounded-lg p-3 text-xs">
         <h4 className="font-medium mb-2">Legenda</h4>
         <div className="space-y-1">
@@ -264,7 +275,6 @@ export function CommandMap() {
         </div>
       </div>
 
-      {/* Stats Overlay */}
       <div className="absolute top-4 left-4 z-[1000] bg-slate-800/90 rounded-lg p-3">
         <div className="text-sm space-y-2">
           <div className="flex items-center justify-between gap-4">
@@ -284,5 +294,7 @@ export function CommandMap() {
     </div>
   );
 }
+
+export const CommandMap = memo(CommandMapInner);
 
 export default CommandMap;

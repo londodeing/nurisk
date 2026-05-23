@@ -8,9 +8,41 @@ import { AuditLogInterceptor } from './common/interceptors/audit-log.interceptor
 import { AuditService } from './common/services/audit.service';
 import { RateLimiterMiddleware } from './common/middleware/rate-limiter.middleware';
 import pool from './config/database';
+import { env } from './config/env';
 import { Request, Response, NextFunction } from 'express';
 
 async function bootstrap() {
+  // =============================================================
+  //  ENVIRONMENT VALIDATION (FAIL-FAST)
+  // =============================================================
+  // DATABASE_URL is constructed from DB_* variables in env.ts
+  // JWT_SECRET is validated by zod schema
+  const requiredEnvVars = ['JWT_SECRET'];
+  const missingEnvVars = requiredEnvVars.filter(
+    (v) => !process.env[v] || process.env[v] === ''
+  );
+
+  if (missingEnvVars.length > 0) {
+    console.error(
+      `❌ ENVIRONMENT: Missing required variables: ${missingEnvVars.join(', ')}`
+    );
+    process.exit(1);
+  }
+
+  // Warn about default JWT secret in production
+  if (
+    process.env.NODE_ENV === 'production' &&
+    process.env.JWT_SECRET === 'nurisk-secret-key'
+  ) {
+    console.error('❌ SECURITY: JWT_SECRET must be changed in production');
+    process.exit(1);
+  }
+
+  console.log('✅ ENVIRONMENT: All required variables validated');
+
+  // =============================================================
+  //  APPLICATION BOOTSTRAP
+  // =============================================================
   const app = await NestFactory.create(AppModule, {
     cors: true,
   });
@@ -99,15 +131,36 @@ async function bootstrap() {
   =====================================================
       `);
 
-      // Log registered routes
+      // Log registered routes with methods
       const httpAdapter = app.getHttpAdapter();
       const instance = httpAdapter.getInstance();
       if (instance && instance._router) {
         const routes = instance._router.stack
           .filter((layer: any) => layer.route)
-          .map((layer: any) => layer.route.path);
-        console.log(`[ROUTES] Registered ${routes.length} routes`);
-        routes.forEach((path: string) => console.log(`  - ${path}`));
+          .map((layer: any) => ({ path: layer.route.path, methods: Object.keys(layer.route.methods).map((m: string) => m.toUpperCase()) }));
+        console.log(`[ROUTES] Registered ${routes.length} route handlers`);
+        routes.forEach((r: { path: string; methods: string[] }) => {
+          r.methods.forEach((method: string) => {
+            console.log(`  [${method}] /api${r.path}`);
+          });
+        });
+
+        // Validate canonical routes
+        const canonicalRoutes = [
+          '/incidents',
+          '/resources',
+          '/resources/stats',
+          '/weather',
+          '/weather/forecast',
+          '/weather/alerts',
+          '/analytics/summary',
+        ];
+        const allPaths = routes.map((r: { path: string }) => r.path);
+        console.log(`\n[ROUTES] Canonical route validation:`);
+        canonicalRoutes.forEach((route) => {
+          const exists = allPaths.some((p: string) => p === route);
+          console.log(`  ${exists ? '✅' : '❌'} /api${route}`);
+        });
       }
 
       console.log('[STATUS] Active runtime: NestJS ONLY');

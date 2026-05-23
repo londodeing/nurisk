@@ -6,13 +6,11 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select } from '@/components/ui/select';
-import { MapContainer, TileLayer, Marker, useMapEvents } from 'react-leaflet';
-import { divIcon } from 'leaflet';
 import { ChevronRight, ChevronLeft, Upload, X } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useCreateIncident } from '@/hooks/use-incidents';
+import { ReportLocationMap } from './ReportLocationMap';
 import api from '@/services/api';
-import 'leaflet/dist/leaflet.css';
 
 type Step = 'type' | 'location' | 'description' | 'review';
 
@@ -50,16 +48,6 @@ const severityLevels = [
   { value: 'medium', label: 'Menengah - Perlu perhatian' },
   { value: 'low', label: 'Ringan - Informasi saja' },
 ];
-
-// Map click handler component
-function LocationPicker({ onLocationSelect }: { onLocationSelect: (lat: number, lng: number) => void }) {
-  useMapEvents({
-    click: (e) => {
-      onLocationSelect(e.latlng.lat, e.latlng.lng);
-    },
-  });
-  return null;
-}
 
 export default function ReportForm() {
   const navigate = useNavigate();
@@ -201,26 +189,6 @@ export default function ReportForm() {
               value={formData.location}
               onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
             />
-            <div className="h-64 rounded-lg overflow-hidden border">
-              <MapContainer
-                center={[formData.latitude || -7.5755, formData.longitude || 110.8243]}
-                zoom={13}
-                className="h-full w-full"
-              >
-                <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                <LocationPicker onLocationSelect={handleLocationSelect} />
-                {formData.latitude && formData.longitude && (
-                  <Marker
-                    position={[formData.latitude, formData.longitude]}
-                    icon={divIcon({
-                      className: 'custom-marker',
-                      html: '<div style="width:20px;height:20px;background:#ef4444;border:3px solid white;border-radius:50%"></div>',
-                      iconSize: [20, 20],
-                    })}
-                  />
-                )}
-              </MapContainer>
-            </div>
             <p className="text-sm text-slate-500">Klik pada peta untuk memilih lokasi</p>
           </div>
         );
@@ -355,6 +323,15 @@ export default function ReportForm() {
           </div>
         ))}
       </div>
+
+      {/* Map - only render when on location step */}
+      {step === 'location' && (
+        <ReportLocationMap
+          latitude={formData.latitude}
+          longitude={formData.longitude}
+          onLocationSelect={handleLocationSelect}
+        />
+      )}
 
       <Card>
         <CardHeader>

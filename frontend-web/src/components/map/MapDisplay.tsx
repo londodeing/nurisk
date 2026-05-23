@@ -129,6 +129,7 @@ export function MapDisplay({
   return (
     <div id="map-container" className={`relative ${className}`}>
       <MapContainer
+        key="map-display"
         center={center}
         zoom={zoom}
         className="h-full w-full rounded-lg"

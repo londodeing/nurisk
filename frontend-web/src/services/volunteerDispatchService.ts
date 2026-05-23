@@ -3,7 +3,7 @@
 
 import {
   VolunteerDispatchApi,
-} from '@nurisk/sdk/volunteer-dispatch'
+} from '@nurisk/sdk'
 
 import type {
   Volunteer,

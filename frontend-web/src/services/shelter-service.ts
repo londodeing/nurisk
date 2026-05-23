@@ -1,15 +1,15 @@
 /**
  * @deprecated
  * Transitional compatibility wrapper.
- * Use @nurisk/sdk/shelter instead.
+ * Use @nurisk/sdk instead.
  *
  * This module delegates all requests to ShelterApi from @nurisk/sdk.
  * Direct HTTP logic has been moved to the SDK for centralized transport management.
  */
-import { ShelterApi } from '@nurisk/sdk/shelter'
+import { ShelterApi } from '@nurisk/sdk'
 import type { Shelter } from '@nurisk/shared-types/shelter'
 
-export type { Warehouse, VolunteerMission, Equipment } from '@nurisk/sdk/shelter'
+export type { Warehouse, VolunteerMission, Equipment } from '@nurisk/sdk'
 
 // Create singleton instance
 const shelterApi = new ShelterApi({
@@ -24,7 +24,7 @@ const shelterApi = new ShelterApi({
 
 /**
  * Get all shelters
- * @deprecated Use shelterApi.getAll() from @nurisk/sdk/shelter instead
+ * @deprecated Use shelterApi.getAll() from @nurisk/sdk instead
  */
 export const shelterService = {
   async getAll(params?: { status?: string; district?: string }): Promise<Shelter[]> {
@@ -66,7 +66,7 @@ export const shelterService = {
 
 /**
  * Get all warehouses
- * @deprecated Use shelterApi.getWarehouses() from @nurisk/sdk/shelter instead
+ * @deprecated Use shelterApi.getWarehouses() from @nurisk/sdk instead
  */
 export const warehouseService = {
   async getAll(params?: { status?: string; type?: string; district?: string }): Promise<{
@@ -185,7 +185,7 @@ export const warehouseService = {
 
 /**
  * Get volunteers for a mission
- * @deprecated Use shelterApi.getVolunteersByMission() from @nurisk/sdk/shelter instead
+ * @deprecated Use shelterApi.getVolunteersByMission() from @nurisk/sdk instead
  */
 export const volunteerMissionService = {
   async getByMission(missionId: string): Promise<{
@@ -246,7 +246,7 @@ export const volunteerMissionService = {
 
 /**
  * Get all equipment
- * @deprecated Use shelterApi.getEquipment() from @nurisk/sdk/shelter instead
+ * @deprecated Use shelterApi.getEquipment() from @nurisk/sdk instead
  */
 export const equipmentService = {
   async getAll(params?: { category?: string; condition?: string; warehouseId?: string }): Promise<{

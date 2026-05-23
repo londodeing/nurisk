@@ -4,10 +4,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Checkbox } from '@/components/ui/checkbox';
+import { cn } from '@/lib/utils';
 import {
   Layers, Eye, EyeOff, Loader2, AlertTriangle,
   Waves, Mountain, CloudLightning,
-  Flame, CloudDrizzle, Trees
+  CloudDrizzle,
 } from 'lucide-react';
 
 export interface WmsLayerConfig {
@@ -20,87 +21,85 @@ export interface WmsLayerConfig {
   transparent: boolean;
   icon: React.ElementType;
   color: string;
+  styles?: string;
 }
 
-const WMS_BASE_URL = 'https://inarisk.bnpb.go.id/geoserver/ina-risk/wms';
+const WMS_BASE_URL = 'https://inarisk1.bnpb.go.id:8443/geoserver/raster/wms';
 
+// Layer names sourced from InaRISK BNPB GetCapabilities / KML NetworkLink
+// Canonical workspace:raster with INDEKS_BAHAYA_{TYPE}1 naming
 export const wmsLayersConfig: WmsLayerConfig[] = [
   {
     id: 'flood',
     name: 'Banjir',
-    layerName: 'ina-risk:kat_banjir',
+    layerName: 'raster:INDEKS_BAHAYA_BANJIR1',
     visible: false,
     opacity: 0.7,
     format: 'image/png',
     transparent: true,
     icon: Waves,
     color: '#3b82f6',
+    styles: 'index_bahaya',
+  },
+  {
+    id: 'flash_flood',
+    name: 'Banjir Bandang',
+    layerName: 'raster:INDEKS_BAHAYA_BANJIRBANDANG1',
+    visible: false,
+    opacity: 0.7,
+    format: 'image/png',
+    transparent: true,
+    icon: Waves,
+    color: '#2563eb',
+    styles: 'index_bahaya',
   },
   {
     id: 'landslide',
     name: 'Tanah Longsor',
-    layerName: 'ina-risk:kat_longsor',
+    layerName: 'raster:INDEKS_BAHAYA_TANAHLONGSOR1',
     visible: false,
     opacity: 0.7,
     format: 'image/png',
     transparent: true,
     icon: Mountain,
     color: '#8b5cf6',
+    styles: 'index_bahaya',
   },
   {
-    id: 'earthquake',
-    name: 'Gempa Bumi',
-    layerName: 'ina-risk:kat_gempa',
+    id: 'extreme_weather',
+    name: 'Cuaca Ekstrim',
+    layerName: 'raster:INDEKS_BAHAYA_CUACAEKSTRIM1',
     visible: false,
     opacity: 0.7,
     format: 'image/png',
     transparent: true,
     icon: CloudLightning,
-    color: '#ef4444',
+    color: '#f97316',
+    styles: 'index_bahaya',
   },
   {
-    id: 'tsunami',
-    name: 'Tsunami',
-    layerName: 'ina-risk:kat_tsunami',
-    visible: false,
-    opacity: 0.7,
-    format: 'image/png',
-    transparent: true,
-    icon: Waves,
-    color: '#06b6d4',
-  },
-  {
-    id: 'volcano',
-    name: 'Gunung Meletus',
-    layerName: 'ina-risk:kat_gunungapi',
+    id: 'drought',
+    name: 'Kekeringan',
+    layerName: 'raster:INDEKS_BAHAYA_KEKERINGAN1',
     visible: false,
     opacity: 0.7,
     format: 'image/png',
     transparent: true,
     icon: CloudDrizzle,
     color: '#f97316',
+    styles: 'index_bahaya',
   },
   {
-    id: 'forest_fire',
-    name: 'Kebakaran Hutan',
-    layerName: 'ina-risk:kat_kebakaran',
+    id: 'volcano',
+    name: 'Gunung Api',
+    layerName: 'raster:INDEKS_BAHAYA_GUNUNGAPI1',
     visible: false,
     opacity: 0.7,
     format: 'image/png',
     transparent: true,
-    icon: Flame,
+    icon: Mountain,
     color: '#dc2626',
-  },
-  {
-    id: 'extreme_weather',
-    name: 'Cuaca Ekstrem',
-    layerName: 'ina-risk:kat_cuaca',
-    visible: false,
-    opacity: 0.7,
-    format: 'image/png',
-    transparent: true,
-    icon: Trees,
-    color: '#84cc16',
+    styles: 'index_bahaya',
   },
 ];
 
@@ -162,12 +161,14 @@ interface WmsOverlayProps {
   layers?: WmsLayerConfig[];
   onLayerToggle?: (id: string) => void;
   onOpacityChange?: (id: string, opacity: number) => void;
+  className?: string;
 }
 
 export function WmsOverlay({ 
   layers = wmsLayersConfig,
   onLayerToggle,
   onOpacityChange,
+  className,
 }: WmsOverlayProps) {
   const [expanded, setExpanded] = useState(true);
   
@@ -182,7 +183,7 @@ export function WmsOverlay({
   const visibleCount = layers.filter(l => l.visible).length;
   
   return (
-    <Card className="absolute top-4 right-4 z-[1000] w-56">
+    <Card className={cn('w-56', className)}>
       <CardHeader className="p-3 pb-2">
         <button
           onClick={() => setExpanded(!expanded)}
@@ -223,7 +224,7 @@ interface WmsLayerProps {
 
 export function WmsLayer({ layer }: WmsLayerProps) {
   if (!layer.visible) return null;
-  
+
   return (
     <WMSTileLayer
       url={WMS_BASE_URL}
@@ -232,6 +233,7 @@ export function WmsLayer({ layer }: WmsLayerProps) {
       transparent={layer.transparent}
       opacity={layer.opacity}
       version="1.1.1"
+      styles={layer.styles}
     />
   );
 }

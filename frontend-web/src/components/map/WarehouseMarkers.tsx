@@ -44,7 +44,7 @@ async function fetchWarehouses(): Promise<Warehouse[]> {
 
 export function WarehouseMarkers({ enabled = true }: WarehouseMarkersProps) {
   const { data: warehouses, isLoading } = useQuery({
-    queryKey: ['warehouses'],
+    queryKey: ['warehouses', 'list', undefined],
     queryFn: fetchWarehouses,
     enabled: enabled,
   });

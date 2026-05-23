@@ -41,7 +41,7 @@ async function fetchShelters(): Promise<Shelter[]> {
 
 export function ShelterMarkers({ enabled = true }: ShelterMarkersProps) {
   const { data: shelters, isLoading } = useQuery({
-    queryKey: ['shelters'],
+    queryKey: ['shelters', 'list', undefined],
     queryFn: fetchShelters,
     enabled: enabled,
   });
